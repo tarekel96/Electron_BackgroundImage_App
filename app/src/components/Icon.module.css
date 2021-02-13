@@ -1,0 +1,7 @@
+.navIcon {
+	display: flex;
+	align-items: center;
+}
+.navIcon > svg {
+	padding: 0 1rem 0 0;
+}
