@@ -1,0 +1,13 @@
+:root {
+	--color-navbar-blue: '#18A0FB';
+	--color-black: rgb(0, 0, 0);
+	--font-Montserrat: 'Montserrat', sans-serif;
+	--font-Comfortaa: 'Comfortaa', cursive;
+}
+
+.font-mont {
+	font-family: var(--font-Montserrat);
+}
+.font-comf {
+	font-family: var(--font-Comfortaa);
+}

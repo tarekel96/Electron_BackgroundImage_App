@@ -2,15 +2,12 @@ import React from 'react';
 import Home from './pages/Home.js';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
-import './App.css';
+import './styles/main.css';
 
 const App = () => {
 	return (
 		<Router>
 			<Layout>
-				{/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
-
 				<Route path="/" component={Home} exact />
 				<Route path="/download" component={Download} exact />
 				<Route path="/pricing" component={Pricing} exact />

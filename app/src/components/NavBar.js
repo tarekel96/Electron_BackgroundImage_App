@@ -11,9 +11,10 @@ export const NavBar = () => {
 					<Link
 						to={link}
 						key={index}
-						className={styles['navLink']}
+						className={`${styles['navLink']} font-mont`}
 						style={{
-							textDecoration: isLink !== true ? 'none' : 'inherit'
+							textDecoration: isLink !== true ? 'none' : 'inherit',
+							color: '#18A0FB'
 						}}
 					>
 						<NavItem content={content} />

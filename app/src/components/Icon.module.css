@@ -1,7 +1,15 @@
+@import "../styles/main.css";
+
 .navIcon {
 	display: flex;
 	align-items: center;
+	color: var(--color-black);
+}
+.navIconTitle {
+	font-family: var(--font-Comfortaa);
+	line-height: 31.72px;
+	font-size: 28.44px;
 }
 .navIcon > svg {
-	padding: 0 1rem 0 0;
+	margin: 0 1rem 0 0;
 }
