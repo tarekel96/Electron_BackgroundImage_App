@@ -1,0 +1,10 @@
+@import "../styles/main.css";
+
+.btn {
+	margin: 34px auto;
+	background-color: var(--color-blue);
+	border-radius: 4px;
+	width: 362px;
+	height: 98px;
+	border-color: transparent;
+}

@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Home from './pages/Home.js';
+import Download from './pages/Download.js';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import { Layout } from './components/Layout.js';
+import './styles/main.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
+const App = () => {
+	return (
+		<Router>
+			<Layout>
+				<Route path="/" component={Home} exact />
+				<Route path="/download" component={Download} exact />
+				<Route path="/pricing" component={Pricing} exact />
+				<Route path="/support" component={Support} exact />
+			</Layout>
+		</Router>
+	);
+};
+const Pricing = () => {
+	return <h2>Pricing</h2>;
+};
+const Support = () => {
+	return <h2>Support</h2>;
+};
 export default App;

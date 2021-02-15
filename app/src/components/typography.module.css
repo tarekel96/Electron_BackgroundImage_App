@@ -1,0 +1,33 @@
+@import "../styles/main.css";
+
+.paragraph {
+	font-family: var(--font-Montserrat);
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 30px;
+}
+.btn {
+	font-family: var(--font-Montserrat);
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 30px;
+	text-align: center;
+	color: var(--color-white);
+	overflow: hidden;
+	white-space: nowrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.h1 {
+	font-family: var(--font-Montserrat);
+	font-weight: 400;
+	font-size: 48px;
+	line-height: 72px;
+}
+.h4 {
+	font-family: var(--font-Montserrat);
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 36px;
+}

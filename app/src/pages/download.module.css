@@ -1,0 +1,21 @@
+.downloadPageContainer {
+	padding-top: 2.5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+.downloadSubContainers,
+.downloadSubContainer1 {
+	width: 90%;
+	display: flex;
+	justify-content: space-around;
+	margin: 0 auto;
+}
+.downloadSubContainer1 > h1 {
+	width: 50%;
+}
+.downloadSubSection {
+	width: 50%;
+}
