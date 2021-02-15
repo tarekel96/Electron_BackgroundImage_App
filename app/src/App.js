@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from './pages/Home.js';
+import Download from './pages/Download.js';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
 import './styles/main.css';
@@ -15,9 +16,6 @@ const App = () => {
 			</Layout>
 		</Router>
 	);
-};
-const Download = () => {
-	return <h2>Download</h2>;
 };
 const Pricing = () => {
 	return <h2>Pricing</h2>;

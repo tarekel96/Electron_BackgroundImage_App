@@ -1,6 +1,7 @@
 :root {
-	--color-navbar-blue: '#18A0FB';
+	--color-blue: #18a0fb;
 	--color-black: rgb(0, 0, 0);
+	--color-white: #fff;
 	--font-Montserrat: 'Montserrat', sans-serif;
 	--font-Comfortaa: 'Comfortaa', cursive;
 }

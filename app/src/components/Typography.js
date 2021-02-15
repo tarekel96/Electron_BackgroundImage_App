@@ -1,10 +1,10 @@
 import React from 'react';
-import Variants from '../styles/Variants.js';
 import styles from './typography.module.css';
+import Variants from '../styles/Variants.js';
 const { PARAGRAPH, SPAN, ANCHOR, BTN, H_1, H_2, H_3, H_4, H_5, H_6 } = Variants;
 
 export const Typography = ({ children, variant, href = undefined }) => {
-	let content;
+	let content = {};
 	switch (variant) {
 		case PARAGRAPH:
 			content = <p className={styles['paragraph']}>{children}</p>;
@@ -43,5 +43,5 @@ export const Typography = ({ children, variant, href = undefined }) => {
 		default:
 			content = { children };
 	}
-	return { content };
+	return <React.Fragment>{content}</React.Fragment>;
 };
