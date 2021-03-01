@@ -5,7 +5,6 @@ import { Typography } from "../components/Typography.js";
 import styles from "./download.module.css";
 import Variants from "../styles/Variants.js";
 import ky from "ky";
-import { DownloadItem } from "electron";
 const { PARAGRAPH, SPAN, ANCHOR, BTN, H_1, H_2, H_3, H_4, H_5, H_6 } = Variants;
 
 const Auth = () => {
