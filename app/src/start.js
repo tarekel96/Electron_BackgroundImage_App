@@ -36,6 +36,9 @@ app.on('window-all-closed', () => {
 	}
 });
 
+// Required for Instagram Basic uncertified https://localhost:3000 authentication
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
+
 app.on('activate', () => {
 	if (mainWindow === null) {
 		createWindow();

@@ -44,5 +44,9 @@ const navItemsArray = [
 	{
 		content: 'Support',
 		link: '/support'
+	},
+	{
+		content: 'Image Pull',
+		link: '/image_pull'
 	}
 ];

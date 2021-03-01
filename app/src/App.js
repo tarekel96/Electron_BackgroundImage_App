@@ -1,7 +1,10 @@
 import React from 'react';
 import Home from './pages/Home.js';
 import Download from './pages/Download.js';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import ImagePull from './pages/ImagePull.js';
+import Auth from './pages/Auth.js';
+// BrowserRouter is used over HashRouter to avoid having # in URLs, since that seems to cause problems with Instagram authentication
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
 import './styles/main.css';
 
@@ -13,6 +16,8 @@ const App = () => {
 				<Route path="/download" component={Download} exact />
 				<Route path="/pricing" component={Pricing} exact />
 				<Route path="/support" component={Support} exact />
+				<Route path="/image_pull" component={ImagePull} exact />
+				<Route path="/auth" component={Auth} />
 			</Layout>
 		</Router>
 	);
