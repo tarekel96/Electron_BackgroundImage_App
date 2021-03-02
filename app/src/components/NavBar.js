@@ -25,7 +25,7 @@ export const NavBar = () => {
 	);
 };
 const NavItem = ({ content, hasLinkStyles = true }) => {
-	return <div onClick={() => console.log('clicked')}>{content}</div>;
+	return <div>{content}</div>;
 };
 const navItemsArray = [
 	{
@@ -44,5 +44,9 @@ const navItemsArray = [
 	{
 		content: 'Support',
 		link: '/support'
+	},
+	{
+		content: 'Test',
+		link: '/test'
 	}
 ];
