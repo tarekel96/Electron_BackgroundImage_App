@@ -1,6 +1,7 @@
 :root {
 	--color-blue: #18a0fb;
 	--color-black: rgb(0, 0, 0);
+	--color-grey-light: #eeeded;
 	--color-white: #fff;
 	--font-Montserrat: 'Montserrat', sans-serif;
 	--font-Comfortaa: 'Comfortaa', cursive;
@@ -11,4 +12,7 @@
 }
 .font-comf {
 	font-family: var(--font-Comfortaa);
+}
+.whiteBG {
+	background-color: #fffefe;
 }
