@@ -4,9 +4,9 @@ import styles from './button.module.css';
 import Variants from '../styles/Variants.js';
 const { BTN } = Variants;
 
-export const Button = ({ children }) => {
+export const Button = ({ children, variant = 'primary' }) => {
 	return (
-		<button className={styles['btn']}>
+		<button className={styles['btn-' + variant]}>
 			<Typography variant={BTN}>{children}</Typography>
 		</button>
 	);

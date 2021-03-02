@@ -48,5 +48,9 @@ const navItemsArray = [
 	{
 		content: 'Test',
 		link: '/test'
+	},
+	{
+		content: 'UserHome',
+		link: '/userhome'
 	}
 ];
