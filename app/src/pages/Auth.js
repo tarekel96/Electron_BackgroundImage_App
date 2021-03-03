@@ -5,6 +5,8 @@ import { Typography } from "../components/Typography.js";
 import styles from "./download.module.css";
 import Variants from "../styles/Variants.js";
 import ky from "ky";
+import fs from "fs";
+import http from "http";
 const { PARAGRAPH, SPAN, ANCHOR, BTN, H_1, H_2, H_3, H_4, H_5, H_6 } = Variants;
 
 const Auth = () => {
@@ -60,8 +62,14 @@ const Auth = () => {
         }).then((json) => {
           const latestPost = json.data[0];
           console.log(latestPost.media_url);
-          // TODO: Implement "invisible" downloading
-          download("data:image/jpeg," + latestPost.media_url, "image.jpg");
+          // TODO(Chris): Implement "invisible" downloading
+          // download("data:image/jpeg," + latestPost.media_url, "image.jpg");
+          window.location.href = latestPost.media_url;
+
+          // const file = fs.createWriteStream("image.jpg");
+          // const request = http.get(latestPost.media_url, (dlResponse) => {
+          //   dlResponse.pipe(file);
+          // });
         });
       });
   });
