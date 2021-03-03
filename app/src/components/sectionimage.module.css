@@ -1,21 +1,18 @@
+.sectionImageLeft {
+	background-color: transparent;
+    width: 500px;
+    height: 350px;
+    border-radius: 50%;
+}
+.sectionImageRight {
+	background-color: transparent;
+    float: right;
+    width: 500px;
+    height: 350px;
+    border-radius: 50%;
+}
 .sectionImageBack {
 	background-color: var(--color-grey-light);
-	width: 200px;
-	height: 100vh;
-}
-.sectionImageContainer {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	box-sizing: border-box;
-	margin: 0;
-	padding-top: 30px;
-	padding-bottom: 10px;
-}
-.sectionImage {
-	background-color: transparent;
-	margin: 0 auto;
-	border-radius: 4px;
+	width: 100vw;
+	height: 350px;
 }

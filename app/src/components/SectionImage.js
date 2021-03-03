@@ -1,13 +1,18 @@
 import React from 'react';
-import DEFAULT_IMAGE from '../styles/ExampleImage.jpg';
+import DEFAULT_IMAGE from '../styles/ExampleImage2.jpg';
 import styles from './sectionimage.module.css';
 
-export const SectionImage = () => {
+export const SectionImageLeft = () => {
 	return (
-			<div className={styles['sectionImageBack']}>
-				<section className={styles['sectionImageContainer']}>
-					<img className={styles['sectionImage']} src={DEFAULT_IMAGE} alt="Profile" />
-				</section>
-			</div>
+            <div className={styles['sectionImageBack']}>
+			<img className={styles['sectionImageLeft']} src={DEFAULT_IMAGE} alt="SectionImage" />
+            </div>
+	);
+};
+export const SectionImageRight = () => {
+	return (
+            <div className={styles['sectionImageBack']}>
+			<img className={styles['sectionImageRight']} src={DEFAULT_IMAGE} alt="SectionImage" />
+            </div>
 	);
 };
