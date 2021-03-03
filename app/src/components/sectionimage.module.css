@@ -1,0 +1,21 @@
+.sectionImageBack {
+	background-color: var(--color-grey-light);
+	width: 200px;
+	height: 100vh;
+}
+.sectionImageContainer {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+.sectionImage {
+	background-color: transparent;
+	margin: 0 auto;
+	border-radius: 4px;
+}
