@@ -1,8 +1,7 @@
 import React from 'react';
 import Home from './pages/Home.js';
-import Test from './pages/Test.js';
 import Download from './pages/Download.js';
-import UserHome from './pages/UserHome.js';
+import NotFound from './pages/NotFound.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
 import './styles/main.css';
@@ -15,8 +14,6 @@ const App = () => {
 				<Route path="/download" component={Download} exact />
 				<Route path="/pricing" component={Pricing} exact />
 				<Route path="/support" component={Support} exact />
-				<Route path="/test" component={Test} exact />
-				<Route path="/userhome" component={UserHome} />
 			</Layout>
 		</Router>
 	);
