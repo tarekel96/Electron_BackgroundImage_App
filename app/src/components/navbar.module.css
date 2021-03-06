@@ -9,7 +9,7 @@
 	padding: 14px 0;
 }
 .navItemsContainer {
-	max-width: 60vw;
+	max-width: 80vw;
 	display: flex;
 	justify-content: space-between;
 	margin-left: 42px;
@@ -18,7 +18,7 @@
 	display: flex;
 	align-items: center;
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1600px) {
 	.navItemsContainer {
 		max-width: 45vw;
 	}
