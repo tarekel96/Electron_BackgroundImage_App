@@ -4,15 +4,15 @@ import styles from './sectionimage.module.css';
 
 export const SectionImageLeft = () => {
 	return (
-            <div className={styles['sectionImageBack']}>
+            //<div className={styles['sectionImageBack']}>
 			<img className={styles['sectionImageLeft']} src={DEFAULT_IMAGE} alt="SectionImage" />
-            </div>
+            //</div>
 	);
 };
 export const SectionImageRight = () => {
 	return (
-            <div className={styles['sectionImageBack']}>
+            //<div className={styles['sectionImageBack']}>
 			<img className={styles['sectionImageRight']} src={DEFAULT_IMAGE} alt="SectionImage" />
-            </div>
+            //</div>
 	);
 };
