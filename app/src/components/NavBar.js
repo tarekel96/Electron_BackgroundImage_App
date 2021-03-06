@@ -52,5 +52,9 @@ const navItemsArray = [
 	{
 		content: 'UserHome',
 		link: '/userhome'
+	},
+	{
+		content: 'UserSettings',
+		link: '/usersettings'
 	}
 ];
