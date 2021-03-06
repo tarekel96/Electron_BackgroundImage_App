@@ -32,5 +32,17 @@ const navItemsArray = [
 		content: <Icon />,
 		link: '/',
 		hasLinkStyles: false
+	},
+	{
+		content: 'Download',
+		link: '/download'
+	},
+	{
+		content: 'Pricing',
+		link: '/pricing'
+	},
+	{
+		content: 'Support',
+		link: '/support'
 	}
 ];
