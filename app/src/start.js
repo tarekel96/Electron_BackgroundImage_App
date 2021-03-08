@@ -1,4 +1,7 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+
+const fs = require("fs");
+const https = require("https");
 
 const path = require('path');
 const url = require('url');
@@ -44,3 +47,20 @@ app.on('activate', () => {
 		createWindow();
 	}
 });
+
+ipcMain.on("asynchronous-message", (event, arg) => {
+  switch (arg.type) {
+    case "DOWNLOAD":
+			const { url } = arg;
+
+      console.log("Downloading an image!");
+
+      const file = fs.createWriteStream("image.jpg");
+      const request = https.get(url, (dlResponse) => {
+        dlResponse.pipe(file);
+      });
+      break;
+  }
+});
+
+console.log("Hello, world!");

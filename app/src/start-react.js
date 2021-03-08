@@ -21,8 +21,9 @@ const tryConnection = () => {
 		if (!startedElectron) {
 			console.log('starting electron');
 			startedElectron = true;
-			const exec = childProcess.exec;
-			exec('npm run electron');
+			// const exec = childProcess.exec;
+			// exec('npm run electron');
+      childProcess.spawn("npm", ["run", "electron"]);
 		}
 	});
 };
