@@ -21,6 +21,7 @@ const Home = ({ imageSrc = DEFAULT_IMAGE, imgAlt = 'Screensaver' }) => {
 					stopOnHover={false}
 					showThumbs={false}
 					className={styles['homePageImage']}
+					showIndicators={false}
 				>
 					<img src={DEFAULT_IMAGE} alt="example 3" />
 					<img src={EXAMPLE_IMG_3} alt="example 4" />
