@@ -12,6 +12,7 @@
 	display: flex;
 	justify-content: space-around;
 	margin: 0 auto;
+	align-items: center;
 }
 .downloadSubContainer1 > h1 {
 	width: 50%;
@@ -19,3 +20,11 @@
 .downloadSubSection {
 	width: 50%;
 }
+.downloadPageContainer > section > button,
+section,
+h1 {
+	margin: 0 1.5rem;
+}
+/* .downloadPageContainer > section {
+	display: flex;
+} */
