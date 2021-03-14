@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './pages/Home.js';
 import Download from './pages/Download.js';
+import Pricing from './pages/Pricing.js';
 import NotFound from './pages/NotFound.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
@@ -17,9 +18,6 @@ const App = () => {
 			</Layout>
 		</Router>
 	);
-};
-const Pricing = () => {
-	return <h2>Pricing</h2>;
 };
 const Support = () => {
 	return <h2>Support</h2>;

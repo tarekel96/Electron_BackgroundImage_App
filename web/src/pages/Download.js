@@ -10,7 +10,11 @@ const Download = () => {
 		<div className={styles['downloadPageContainer']}>
 			<section className={styles['downloadSubContainer1']}>
 				<Typography variant={H_1}>Download Our Cross Platform Desktop Application</Typography>
-				<Button>Download Now</Button>
+				<Button>
+					<a href="/assets/downloads/electron-hello-world.zip" download>
+						Download Now
+					</a>
+				</Button>
 			</section>
 			<section className={styles['downloadSubContainers']}>
 				<DownloadSubSection
