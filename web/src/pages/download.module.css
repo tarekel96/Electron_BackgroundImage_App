@@ -1,0 +1,30 @@
+.downloadPageContainer {
+	padding-top: 2.5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+.downloadSubContainers,
+.downloadSubContainer1 {
+	width: 90%;
+	display: flex;
+	justify-content: space-around;
+	margin: 0 auto;
+	align-items: center;
+}
+.downloadSubContainer1 > h1 {
+	width: 50%;
+}
+.downloadSubSection {
+	width: 50%;
+}
+.downloadPageContainer > section > button,
+section,
+h1 {
+	margin: 0 1.5rem;
+}
+/* .downloadPageContainer > section {
+	display: flex;
+} */

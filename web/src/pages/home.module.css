@@ -1,0 +1,14 @@
+.homePageImageContainer {
+	position: relative;
+}
+
+img#obselect select {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	overflow-x: hidden;
+}

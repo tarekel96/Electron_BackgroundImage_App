@@ -1,0 +1,15 @@
+.pricingLayoutContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	height: 60vh;
+}
+.pricingContainer {
+	display: flex;
+	justify-content: space-around;
+}
+.pricingContainer > div {
+	margin: 0 1.75rem;
+	max-width: 550px;
+}
