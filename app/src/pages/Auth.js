@@ -36,51 +36,49 @@ const Auth = () => {
   // TODO(Chris): Don't hardcode the proxy server port.
   // Exchange authorization code for short-lived authentication token
   useEffect(() => {
-    // TODO(Chris): Clean up this code with async/await?
-    const slTokenProxy = fetch("http://localhost:3001/instagram_auth", {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*", // TODO(Chris): Unsafe, should change later
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        authorization_code: authorizationCode,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("data.shortLivedToken: " + data.shortLivedToken);
-        return data.shortLivedToken;
-      })
-      .then((slToken) => {
-        ky.get("https://graph.instagram.com/me/media", {
-          searchParams: {
-            fields: "id,caption,media_url,permalink",
-            access_token: slToken,
+    const fetchSlToken = async () => {
+      const slTokenResponse = await fetch(
+        "http://localhost:3001/instagram_auth",
+        {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*", // TODO(Chris): Unsafe, should change later
+            "Content-Type": "application/json",
           },
-        }).then((response) => {
-          return response.json();
-        }).then((json) => {
-          const latestPost = json.data[0];
-          console.log(latestPost.media_url);
-          // TODO(Chris): Implement "invisible" downloading
-          // download("data:image/jpeg," + latestPost.media_url, "image.jpg");
+          body: JSON.stringify({
+            authorization_code: authorizationCode,
+          }),
+        }
+      );
 
-          // window.location.href = latestPost.media_url;
+      const jsonResponse = await slTokenResponse.json();
+      const slToken = jsonResponse.shortLivedToken;
 
-          // const file = fs.createWriteStream("image.jpg");
-          // const request = http.get(latestPost.media_url, (dlResponse) => {
-          //   dlResponse.pipe(file);
-          // });
-
-          ipcRenderer.send("asynchronous-message", {
-            type: "DOWNLOAD",
-            url: latestPost.media_url,
-          });
-        });
+      const userInfo = await ky.get("https://graph.instagram.com/me/media", {
+        searchParams: {
+          fields: "id,caption,media_url,permalink",
+          access_token: slToken,
+        },
       });
+      if (!userInfo.ok) {
+        console.log(
+          "There's been a fetch error. Status code: " + userInfo.status
+        );
+        console.log("Status text: " + userInfo.statusText);
+        const responseText = await userInfo.text();
+        console.log("Response text: " + responseText);
+      }
+      const userInfoJson = await userInfo.json();
+
+      const latestPost = userInfoJson.data[0];
+      console.log(latestPost.media_url);
+      ipcRenderer.send("asynchronous-message", {
+        type: "DOWNLOAD",
+        url: latestPost.media_url,
+      });
+    };
+
+    fetchSlToken();
   });
 
   return (
@@ -99,6 +97,5 @@ function download(dataurl, filename) {
   a.setAttribute("download", filename);
   a.click();
 }
-
 
 export default Auth;
