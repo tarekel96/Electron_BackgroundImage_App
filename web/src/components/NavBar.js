@@ -42,7 +42,7 @@ const navItemsArray = [
 		link: '/pricing'
 	},
 	{
-		content: 'Support',
-		link: '/support'
+		content: 'Contact',
+		link: '/contact'
 	}
 ];

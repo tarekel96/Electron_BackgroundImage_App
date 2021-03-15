@@ -1,0 +1,31 @@
+.contactUsPageContainer {
+	padding-left: 3%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	text-align: justify;
+	padding-top: 5%;
+	margin: 0 auto;
+}
+.contactUsSubContainers,
+.contactUsSubContainer1 {
+	width: 100%;
+	display: flex;
+	margin: 0 auto;
+}
+.contactUsSubContainer1 > h1 {
+	text-align: center;
+	width: 100%;
+}
+.contactUsSubSection {
+	width: 50%;
+	padding: 1%;
+}
+.contactUsSubContainers,
+.contactUsSubSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
