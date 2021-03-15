@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography } from '../components/Typography.js';
 import styles from './contactus.module.css';
 import Variants from '../styles/Variants.js';
-import { Copyright, Footer } from '../components/Footer.js';
 const { PARAGRAPH, H_1, H_4 } = Variants;
 
 const ContactUs = () => {
@@ -24,8 +23,6 @@ const ContactUs = () => {
 					link="Email Us: ScreenSaverSupport@gmail.com"
 				/>
 			</section>
-			<Footer />
-			<Copyright />
 		</div>
 	);
 };
