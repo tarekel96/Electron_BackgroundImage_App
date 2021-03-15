@@ -10,7 +10,7 @@ import './styles/main.css';
 
 const App = () => {
 	return (
-		<Router>
+		<Router basename="/Electron_BackgroundImage_App">
 			<Layout>
 				<Switch>
 					<Route path="/" component={Home} exact />
