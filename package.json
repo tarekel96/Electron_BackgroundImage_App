@@ -7,7 +7,8 @@
 		"web-build": "react-scripts build",
 		"web-test": "react-scripts test",
 		"web-eject": "react-scripts eject",
-		"web-predeploy": "npm run build",
-		"web-deploy": "gh-pages -d build -e web"
-	}
+		"web-predeploy": "cd web && yarn build",
+		"web-deploy": "gh-pages -d web/build -e web"
+	},
+	"homepage": "https://tarekel96.github.io/Electron_BackgroundImage_App/"
 }
