@@ -9,5 +9,6 @@
 		"web-eject": "react-scripts eject",
 		"web-predeploy": "cd web && yarn build",
 		"web-deploy": "gh-pages -d web/build"
-	}
+	},
+	"homepage": "https://tarekel96.github.io/Electron_BackgroundImage_App/"
 }
