@@ -34,19 +34,11 @@ const navItemsArray = [
 		hasLinkStyles: false
 	},
 	{
-		content: 'Download',
-		link: '/download'
-	},
-	{
-		content: 'Pricing',
-		link: '/pricing'
-	},
-	{
-		content: 'Support',
-		link: '/support'
-	},
-	{
 		content: 'Image Pull',
 		link: '/image_pull'
+	},
+	{
+		content: 'Private API',
+		link: '/private_api'
 	}
 ];

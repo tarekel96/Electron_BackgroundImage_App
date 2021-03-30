@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React from 'react';
 import { Button } from '../components/Button.js';
 import { Typography } from '../components/Typography.js';
