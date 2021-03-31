@@ -8,7 +8,10 @@
 		"web-install": "cd web && yarn",
 		"web-dev": "cd web && yarn start",
 		"web-predeploy": "cd web && yarn build",
-		"web-deploy": "git subtree push --prefix web heroku master"
+		"web-deploy": "git subtree push --prefix web heroku master",
+		"settings-install": "cd settings-app && yarn",
+		"settings-start": "cd settings-app && yarn start",
+		"settings-predeploy": "cd settings-app && yarn build"
 	},
 	"homepage": "/"
 }
