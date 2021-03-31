@@ -11,7 +11,8 @@ const url = require('url');
 const FormData = require("form-data");
 const fetch = require("node-fetch").default;
 
-const AUTH_PATH = "https://localhost:3000/auth/";
+const API_AUTH_PATH = "https://localhost:3000/auth/";
+const PAGE_AUTH_PATH = "http://localhost:3000/auth/";
 
 let mainWindow;
 
@@ -24,21 +25,29 @@ function createWindow() {
 		}
 	});
 
-	mainWindow.loadURL(
-		process.env.ELECTRON_START_URL ||
-			url.format({
-				pathname: path.join(__dirname, '/../public/index.html'),
-				protocol: 'file:',
-				slashes: true
-			})
-	);
+  let startUrl;
+  if (process.env.ELECTRON_START_URL !== undefined) {
+    startUrl = process.env.ELECTRON_START_URL;
+  } else if (!app.isPackaged) {
+    startUrl = "http://localhost:3000";
+  } else {
+    // startUrl = url.format({
+		// 		pathname: path.join(__dirname, '/../public/index.html'),
+		// 		protocol: 'file:',
+		// 		slashes: true
+		// 	})
+    startUrl = url.pathToFileURL("../public/index.html").search;
+  }
+
+  console.log("startUrl: " + startUrl);
+	mainWindow.loadURL(startUrl);
 
 	mainWindow.on('closed', () => {
 		mainWindow = null;
 	});
 
 	mainWindow.webContents.on("will-navigate", (event, newUrl) => {
-		if (newUrl.startsWith(AUTH_PATH)) {
+		if (newUrl.startsWith(API_AUTH_PATH)) {
 			mainWindow.loadURL("https://en.wikipedia.org/wiki/Main_Page"); // Load this while we asynchronously exchange for the short-lived user token
 
       const fetchSlToken = async () => {
@@ -51,7 +60,7 @@ function createWindow() {
         formData.append("client_id", "765093417767855");
         formData.append("client_secret", "a7a0947d0367a41024f825989bf65049");
         formData.append("grant_type", "authorization_code");
-        formData.append("redirect_uri", AUTH_PATH);
+        formData.append("redirect_uri", API_AUTH_PATH);
         formData.append("code", authorizationCode);
 
         const response = await fetch(
@@ -83,7 +92,7 @@ function createWindow() {
         console.log(JSON.stringify(data));
         console.log(`Short-lived token from Electron: ${data.access_token}`);
 
-        console.log(`Tried to navigate to ${AUTH_PATH}, so redirecting...`);
+        console.log(`Tried to navigate to ${API_AUTH_PATH}, so redirecting...`);
 
 				const redirectUrl = app.isPackaged
           ? new URL(
@@ -94,11 +103,11 @@ function createWindow() {
                 slashes: true,
               })
             )
-          : new URL(AUTH_PATH);
+          : new URL(PAGE_AUTH_PATH);
         redirectUrl.searchParams.append("code", authorizationCode);
         redirectUrl.searchParams.append("sl_token", data.access_token);
         // console.log(`code: ${authorizationCode}`);
-        // console.log(redirectUrl);
+        console.log("redirectUrl: " + redirectUrl);
 
         mainWindow.loadURL(redirectUrl.href);
       };
