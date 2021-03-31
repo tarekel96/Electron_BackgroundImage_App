@@ -25,7 +25,7 @@ export const NavBar = () => {
 	);
 };
 const NavItem = ({ content, hasLinkStyles = true }) => {
-	return <div>{content}</div>;
+	return <div onClick={() => console.log('clicked')}>{content}</div>;
 };
 const navItemsArray = [
 	{
@@ -34,27 +34,11 @@ const navItemsArray = [
 		hasLinkStyles: false
 	},
 	{
-		content: 'Download',
-		link: '/download'
+		content: 'Image Pull',
+		link: '/image_pull'
 	},
 	{
-		content: 'Pricing',
-		link: '/pricing'
-	},
-	{
-		content: 'Contact Us',
-		link: '/contactus'
-	},
-	{
-		content: 'Test',
-		link: '/test'
-	},
-	{
-		content: 'UserHome',
-		link: '/userhome'
-	},
-	{
-		content: 'UserSettings',
-		link: '/usersettings'
+		content: 'Private API',
+		link: '/private_api'
 	}
 ];
