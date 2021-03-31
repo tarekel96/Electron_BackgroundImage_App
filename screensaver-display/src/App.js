@@ -1,24 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import TempSettings from "./pages/TempSettings";
+ // Use HashRouter (as opposed to BrowserRouter) because it works better with file-based Electron
+import { HashRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {/* <Route path="/" component={TempSettings} exact /> */}
+      <Route path="/temp_settings" component={TempSettings} exact />
+    </Router>
   );
 }
 
