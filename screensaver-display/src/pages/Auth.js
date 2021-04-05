@@ -46,7 +46,9 @@ const Auth = () => {
     const timer = setTimeout(() => {
       setRedirect(true);
     }, 2000);
-  }, [redirect]);
+
+    return () => clearTimeout(timer);
+  }, [redirect, llToken]);
 
   if (redirect) {
     return <Redirect exact to="/temp_settings" />;

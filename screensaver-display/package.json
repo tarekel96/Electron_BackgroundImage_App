@@ -1,6 +1,6 @@
 {
   "name": "screensaver-display",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Screensaver display application",
   "author": "Chapman SE320 Screensaver Team",
   "main": "public/electron.js",
