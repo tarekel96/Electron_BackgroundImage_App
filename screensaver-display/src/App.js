@@ -3,6 +3,7 @@ import Auth from "./pages/Auth";
  // Use HashRouter (as opposed to BrowserRouter) because it works better with file-based Electron
 import { HashRouter as Router, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./styles/main.css";
 
 const { ipcRenderer } = window.require("electron");
 
@@ -47,16 +48,12 @@ function TempIndex() {
   console.log(postsInfo);
 
   const currentImage = postsInfo.length > 0 ? (
-    <img src={postsInfo[postIndex].media_url} alt=""></img>
+      <img src={postsInfo[postIndex].media_url} className="center" alt=""></img>
   ) : (
     <h1>Oops! You don't have any images available. Try logging in with the settings app.</h1>
   );
 
-  return (
-    <div>
-      {currentImage}
-    </div>
-  )
+  return currentImage;
 }
 
 export default App;
