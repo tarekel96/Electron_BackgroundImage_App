@@ -3,6 +3,8 @@ import DEFAULT_IMAGE from '../styles/ExampleImage.jpg';
 import EXAMPLE_IMG_3 from '../styles/ExampleImage3.jpg';
 import EXAMPLE_IMG_4 from '../styles/ExampleImage4.jpg';
 import EXAMPLE_IMG_5 from '../styles/ExampleImage5.jpg';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import styles from './home.module.css';
@@ -23,7 +25,11 @@ const Home = ({ imageSrc = DEFAULT_IMAGE, imgAlt = 'Screensaver' }) => {
 					className={styles['homePageImage']}
 					showIndicators={false}
 				>
-					<img src={DEFAULT_IMAGE} alt="example 3" />
+				<LazyLoadImage
+					src={DEFAULT_IMAGE}
+    				alt={'example 3'}
+   			 		effect="blur"/>
+					{/*<img src={DEFAULT_IMAGE} alt="example 3" />*/}
 					<img src={EXAMPLE_IMG_3} alt="example 4" />
 					<img src={EXAMPLE_IMG_4} alt="example 4" />
 					<img src={EXAMPLE_IMG_5} alt="example 4" />

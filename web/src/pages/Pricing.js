@@ -9,9 +9,7 @@ const Pricing = () => {
 	return (
 		<section className={styles['pricingLayoutContainer']}>
 			<section className={styles['pricingContainer']}>
-				<div>
-					<SectionImageLeft />
-				</div>
+			<SectionImageLeft />
 				<div>
 					<Typography variant={H_4}>Pricing</Typography>
 					<Typography variant={PARAGRAPH}>
