@@ -20,6 +20,7 @@ function App() {
 function TempIndex() {
   const [postsInfo, setPostsInfo] = useState([]);
   const [postIndex, setPostIndex] = useState(0);
+  const [cycleTime, setCycleTime] = useState(2000);
 
   useEffect(() => {
     const existingInfo = ipcRenderer.sendSync("read-posts-info");
@@ -40,10 +41,10 @@ function TempIndex() {
       }
 
       // console.log("postIndex was most recently: " + postIndex);
-    }, 2000);
+    }, cycleTime);
 
     return () => clearInterval(interval);
-  }, [postIndex, postsInfo.length]);
+  }, [postIndex, postsInfo.length, cycleTime]);
 
   console.log(postsInfo);
 
