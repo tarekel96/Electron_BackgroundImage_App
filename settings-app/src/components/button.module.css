@@ -2,6 +2,7 @@
 
 .btn-primary {
 	margin: 34px auto;
+	color: var(--color-white);
 	background-color: var(--color-blue);
 	border-radius: 4px;
 	width: 362px;
