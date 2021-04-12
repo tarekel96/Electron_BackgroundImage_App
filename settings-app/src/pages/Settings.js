@@ -53,6 +53,7 @@ const Settings = () => {
 		transitionType,
 		imageType,
 		showDescription,
+		showUserProfile,
 		localImageFile
 	};
 	return (
@@ -173,7 +174,7 @@ const Settings = () => {
 						name="input-user-profile"
 						value={showUserProfileValue}
 						onChange={(e) => {
-							if (e.target.value === showUserProfile) {
+							if (e.target.value === showUserProfileValue) {
 								setShowUserProfile(true);
 							}
 							else {
