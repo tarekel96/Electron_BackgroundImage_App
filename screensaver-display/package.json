@@ -1,28 +1,38 @@
 {
   "name": "screensaver-display",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.3.0",
+  "description": "Screensaver display application",
+  "author": "Chapman SE320 Screensaver Team",
+  "main": "public/electron.js",
+  "build": {
+    "appId": "screensaver,display"
+  },
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "concurrently": "^6.0.0",
-    "electron": "^12.0.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "cross-env": "^7.0.3",
+    "electron-is-dev": "^2.0.0",
+    "form-data": "^4.0.0",
+    "ky": "^0.27.0",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
-  "main": "src/start.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build-windows": "electron-packager . screensaver-display-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Screensaver\"",
-    "build-mac" : "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
-    "build-linux" : "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds",
-    "electron-react": "concurrently \"SET BROWSER=none npm start\" \"wait-on http://localhost:3000 & electron .\""
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "electron-build-win": "electron-builder --win",
+    "build": "npm run react-build && npm run electron-build",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "temp-settings": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . --temp-settings\""
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +53,9 @@
     ]
   },
   "devDependencies": {
-    "electron-packager": "^15.2.0"
+    "concurrently": "^6.0.0",
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5",
+    "wait-on": "^5.3.0"
   }
 }
