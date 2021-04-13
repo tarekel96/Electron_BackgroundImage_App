@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain} = require('electron')
-const path = require("path")
-const isDev = require("electron-is-dev")
+const { app, BrowserWindow, ipcMain } = require("electron");
+const path = require("path");
+const isDev = require("electron-is-dev");
 const FormData = require("form-data");
 const fetch = require("node-fetch").default;
 const fs = require("fs");
@@ -11,7 +11,13 @@ const urlBasis = isDev
   ? "http://localhost:3000/"
   : `file://${path.join(__dirname, "../build/index.html")}`;
 
+const storagePath = app.getPath("appData") + "/shared-screensaver";
+
 const APP_SECRET = "a7a0947d0367a41024f825989bf65049";
+
+if (!fs.existsSync(storagePath)) {
+  fs.mkdirSync(storagePath);
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -64,9 +70,8 @@ ipcMain.on("download", (event, arg) => {
 });
 
 ipcMain.on("ig-bd-read-token", (event, arg) => {
-  const tokenFilePath =
-    app.getPath("userData") + "/IGBasicDisplayLongLivedToken";
-  
+  const tokenFilePath = storagePath + "/IGBasicDisplayLongLivedToken";
+
   try {
     event.returnValue = fs.readFileSync(tokenFilePath, "utf8");
   } catch (err) {
@@ -76,14 +81,14 @@ ipcMain.on("ig-bd-read-token", (event, arg) => {
 
 ipcMain.on("save-posts-info", (event, arg) => {
   const latestPosts = arg;
-  const postsInfoPath = app.getPath("userData") + "/IGBasicPostsInfo.json";
+  const postsInfoPath = storagePath + "/IGBasicPostsInfo.json";
 
   fs.writeFileSync(postsInfoPath, JSON.stringify(latestPosts));
-})
+});
 
 ipcMain.on("read-posts-info", (event, arg) => {
   try {
-    const postsInfoPath = app.getPath("userData") + "/IGBasicPostsInfo.json";
+    const postsInfoPath = storagePath + "/IGBasicPostsInfo.json";
 
     event.returnValue = require(postsInfoPath);
   } catch (err) {
@@ -167,8 +172,7 @@ function redirectAuthenticate(win, event, newUrl) {
       // console.log(`Long-lived token from Electron: ${llData.access_token}`);
 
       /// Store long-lived token in the file system
-      const tokenFilePath =
-        app.getPath("userData") + "/IGBasicDisplayLongLivedToken";
+      const tokenFilePath = storagePath + "/IGBasicDisplayLongLivedToken";
       fs.writeFileSync(tokenFilePath, llData.access_token);
 
       /// Redirect to React auth page, sending the long-lived token along
