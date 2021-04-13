@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./slideshow.module.css";
 
 const { ipcRenderer } = window.require("electron");
 
@@ -34,7 +35,7 @@ function Slideshow() {
   console.log(postsInfo);
 
   const currentImage = postsInfo.length > 0 ? (
-      <img src={postsInfo[postIndex].media_url} className="center" alt=""></img>
+      <img src={postsInfo[postIndex].media_url} className={styles.center} alt=""></img>
   ) : (
     <h1>Oops! You don't have any images available. Try logging in with the settings app.</h1>
   );
