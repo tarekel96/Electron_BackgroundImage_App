@@ -1,0 +1,14 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+body, html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
