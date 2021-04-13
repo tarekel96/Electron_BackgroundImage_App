@@ -1,0 +1,70 @@
+@import "../styles/main.css";
+
+.sidenavbar {
+	/* background-color: var(--color-grey-light); */
+	width: 200px;
+	height: 100vh;
+}
+.sidenavbar > div > nav > ul > li > div.pro-inner-item > span.pro-icon-wrapper {
+	background-color: transparent;
+}
+.sidenavbar > div.pro-sidebar-inner > div > nav > ul > li > div.pro-inner-item > span.pro-icon-wrapper {
+	background-color: transparent;
+}
+.sidenavbarMenu {
+	height: 80%;
+}
+.sidenavbarSubmenu {
+	min-height: 80%;
+}
+/* Arrow Icon Div Container */
+.sidenavbarSubmenu > div {
+	margin-top: 1rem;
+}
+/* Arrow Icon */
+.sidenavbarSubmenu > div > span > span {
+	height: 18px;
+	width: 18px;
+}
+/* Sidebar Items Container */
+.sidenavbarMenu > ul > li > div > div {
+	margin-top: 1.5rem;
+}
+#root > main > div > div.pro-sidebar-inner > div > nav > .sidenbarContainer {
+	display: flex;
+	flex-direction: column;
+}
+.sidenavbarImageContainer {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+.sidenavbarImage {
+	background-color: transparent;
+	margin: 0 auto;
+	border-radius: 4px;
+}
+.sidenavitem {
+	height: 96px;
+	width: 100%;
+}
+.sidenavitem:hover {
+	cursor: pointer;
+	background-color: #fffefe;
+}
+.sidenavitemContent {
+	margin: 0;
+	padding-left: 12px;
+}
+.sidenavBullet {
+	height: 21px;
+	width: 21px;
+	margin: 0;
+	padding-left: 13px;
+}

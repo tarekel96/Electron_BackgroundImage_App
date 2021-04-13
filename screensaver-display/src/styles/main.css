@@ -1,14 +1,18 @@
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 100%;
+:root {
+	--color-blue: #18a0fb;
+	--color-black: rgb(0, 0, 0);
+	--color-grey-light: #eeeded;
+	--color-white: #fff;
+	--font-Montserrat: 'Montserrat', sans-serif;
+	--font-Comfortaa: 'Comfortaa', cursive;
 }
 
-body, html {
-  height: 100%;
+.font-mont {
+	font-family: var(--font-Montserrat);
 }
-
-#root {
-  height: 100%;
+.font-comf {
+	font-family: var(--font-Comfortaa);
+}
+.whiteBG {
+	background-color: #fffefe;
 }

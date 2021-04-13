@@ -3,7 +3,7 @@ import ky from "ky";
 
 const { ipcRenderer } = window.require("electron");
 
-const TempSettings = () => {
+const InstagramSettings = () => {
   const [authToken, setAuthToken] = useState(null);
   const [postsInfo, setPostsInfo] = useState(null);
 
@@ -72,4 +72,4 @@ function LogInToInstagram() {
   window.location = authURL;
 }
 
-export default TempSettings;
+export default InstagramSettings;

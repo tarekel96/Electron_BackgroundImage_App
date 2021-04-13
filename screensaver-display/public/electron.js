@@ -6,7 +6,7 @@ const fetch = require("node-fetch").default;
 const fs = require("fs");
 const https = require("https");
 
-const shouldShowTempSettings = process.argv.includes("--temp-settings");
+const shouldShowTempSettings = process.argv.includes("--settings");
 const urlBasis = isDev
   ? "http://localhost:3000/"
   : `file://${path.join(__dirname, "../build/index.html")}`;
@@ -39,7 +39,7 @@ function createWindow() {
 
   // For Development: Run from localhost (background react server)
   // For Builds: Run from index.html file in build/
-  win.loadURL(shouldShowTempSettings ? urlBasis + "#/temp_settings" : urlBasis);
+  win.loadURL(shouldShowTempSettings ? urlBasis + "#/settings_home" : urlBasis);
 }
 
 app.whenReady().then(() => {
@@ -94,6 +94,10 @@ ipcMain.on("read-posts-info", (event, arg) => {
   } catch (err) {
     event.returnValue = null;
   }
+});
+
+ipcMain.on('save-settings', (event, args) => {
+	fs.writeFileSync(storagePath + '/settings.json', args);
 });
 
 function redirectAuthenticate(win, event, newUrl) {
