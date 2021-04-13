@@ -9,7 +9,7 @@ const { SPAN, H_4 } = Variants;
 const Settings = () => {
 	// form data - stored in React state
 	/* Cycle Speed */
-	const [ cycleSpeed, setCycleSpeed ] = React.useState(0);
+	const [ cycleTime, setCycleTime ] = React.useState(0);
 	const [ cycleErrMsg, toggleCycleErr ] = React.useState(false);
 	/* Source Selection - Instagram or Reddit */
 	const [ source, setSource ] = React.useState('');
@@ -49,7 +49,7 @@ const Settings = () => {
 
 	/* Form data that is submitted upon user submission via Submit btn */
 	const formValues = {
-		cycleSpeed,
+		cycleTime,
 		source,
 		transitionType,
 		imageType,
@@ -69,10 +69,10 @@ const Settings = () => {
 			>
 				<div>
 					<label>
-						<Typography variant={SPAN}>Cycle Speed</Typography>
+						<Typography variant={SPAN}>Cycle Time</Typography>
 					</label>
 					<input
-						name="input-cycle-speed"
+						name="input-cycle-time"
 						type="text"
 						placeholder={0}
 						onChange={(e) => {
@@ -82,7 +82,7 @@ const Settings = () => {
 							}
 							else {
 								toggleCycleErr(() => false);
-								setCycleSpeed(e.target.value);
+								setCycleTime(e.target.value);
 							}
 						}}
 					/>
