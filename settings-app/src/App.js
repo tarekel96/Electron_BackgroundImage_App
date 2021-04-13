@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
+import Settings from './pages/Settings.js';
 import './styles/main.css';
 
 const App = () => {
@@ -23,8 +24,5 @@ const Posts = () => {
 };
 const Search = () => {
 	return <h2>Search</h2>;
-};
-const Settings = () => {
-	return <h2>Settings</h2>;
 };
 export default App;
