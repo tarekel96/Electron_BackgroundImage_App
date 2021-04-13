@@ -3,6 +3,7 @@ import { Button } from '../components/Button.js';
 import styles from './settings.module.css';
 import Variants from '../styles/Variants.js';
 import { Typography } from '../components/Typography.js';
+const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
 const Settings = () => {
@@ -62,7 +63,8 @@ const Settings = () => {
 				className={styles['settingsForm']}
 				onSubmit={(e) => {
 					e.preventDefault();
-					console.log(formValues);
+					const JSON_Data = JSON.stringify(formValues);
+					ipcRenderer.send('save-settings', JSON_Data);
 				}}
 			>
 				<div>

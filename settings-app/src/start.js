@@ -1,7 +1,19 @@
 const installExtension = require('electron-devtools-installer');
 const { REACT_DEVELOPER_TOOLS } = installExtension;
+const fs = require('fs');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const storagePath = app.getPath('appData') + '/shared-screensaver';
+
+if (!fs.existsSync(storagePath)) {
+	fs.mkdirSync(storagePath);
+}
+
+console.log('STORAGE PATH');
+console.log(storagePath);
+ipcMain.on('save-settings', (event, args) => {
+	fs.writeFileSync(storagePath + '/settings.json', args);
+});
 
 const path = require('path');
 const url = require('url');
