@@ -16,7 +16,7 @@ export const SideNavBar = () => {
 	console.log(location);
 	// TODO(Chris): Find a less-hacky way to avoid showing the side navbar when
 	// we want to actually display the slideshow up
-	if (location.pathname === "/") {
+	if (location.pathname === '/') {
 		return null;
 	}
 
@@ -59,8 +59,8 @@ const sideNavItemsArray = [
 		link: '/settings'
 	},
 	{
-		content: "Instagram-Specific Settings",
-		link: "/settings_instagram"
+		content: 'Instagram-Specific Settings',
+		link: '/settings_instagram'
 	}
 ];
 

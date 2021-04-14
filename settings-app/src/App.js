@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
 import Settings from './pages/Settings.js';
+import UserSearch from './pages/UserSearch';
 import './styles/main.css';
 
 const App = () => {
@@ -10,7 +11,7 @@ const App = () => {
 			<Layout>
 				<Route path="/" component={Home} exact />
 				<Route path="/posts" component={Posts} exact />
-				<Route path="/search" component={Search} exact />
+				<Route path="/search" component={UserSearch} exact />
 				<Route path="/settings" component={Settings} exact />
 			</Layout>
 		</Router>
@@ -21,8 +22,5 @@ const Home = () => {
 };
 const Posts = () => {
 	return <h2>Posts</h2>;
-};
-const Search = () => {
-	return <h2>Search</h2>;
 };
 export default App;
