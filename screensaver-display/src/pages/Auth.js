@@ -51,7 +51,7 @@ const Auth = () => {
   }, [redirect, llToken]);
 
   if (redirect) {
-    return <Redirect exact to="/temp_settings" />;
+    return <Redirect exact to="/settings_instagram" />;
   } else {
     return (
       <div>
