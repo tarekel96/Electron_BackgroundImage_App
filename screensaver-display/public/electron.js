@@ -108,79 +108,101 @@ function redirectAuthenticate(win, event, newUrl) {
 		win.loadURL('https://en.wikipedia.org/wiki/Main_Page'); // Load this while we asynchronously exchange for the short-lived user token
 
 		const fetchTokens = async () => {
-			// console.log(`newUrl: ${newUrl}`);
-			const urlParams = new URLSearchParams(new URL(newUrl).search);
-			// console.log(`urlParams: ${urlParams.entries()}`);
-			const authorizationCode = urlParams.get('code');
+      // console.log(`newUrl: ${newUrl}`);
+      const urlParams = new URLSearchParams(new URL(newUrl).search);
+      // console.log(`urlParams: ${urlParams.entries()}`);
+      const authorizationCode = urlParams.get('code');
 
-			/// Obtain short-lived token
-			const formData = new FormData();
-			formData.append('client_id', '765093417767855');
-			formData.append('client_secret', APP_SECRET);
-			formData.append('grant_type', 'authorization_code');
-			formData.append('redirect_uri', API_AUTH_PATH);
-			formData.append('code', authorizationCode);
+      /// Obtain short-lived token
 
-			const response = await fetch('https://api.instagram.com/oauth/access_token', {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					'Access-Control-Allow-Origin': '*', // TODO(Chris): Unsafe, should change later
-					Origin: 'https://localhost:3000'
-				},
-				body: formData
-			});
+      // The Instagram API expects the POST request for a short-lived token to
+      // have its body be form data (rather than json). So we use FormData here
+      // to populate the request body.
+      // See https://developers.facebook.com/docs/instagram-basic-display-api/guides/getting-access-tokens-and-permissions#step-2--exchange-the-code-for-a-token
+      const formData = new FormData();
+      formData.append('client_id', '765093417767855');
+      formData.append('client_secret', APP_SECRET);
+      formData.append('grant_type', 'authorization_code');
+      formData.append('redirect_uri', API_AUTH_PATH);
+      formData.append('code', authorizationCode);
 
-			if (!response.ok) {
-				console.log("There's been a fetch error. Status code: " + response.status);
-				console.log('Status text: ' + response.statusText);
-				const responseText = await response.text();
-				console.log('Response text: ' + responseText);
+      // I tried to use Axios to make this http request, but I couldn't get it to work correctly.
+      // As a result, I used node-fetch here. We can probably refactor this to use Axios in the future.
+      // Normally fetch would return a Promise, which allows us to start an asychronous
+      // operation and do something with its result.
+      // We use the async/await keywords to avoid the ugly (and constantly-nesting)
+      // syntax of promise.then().then().then()
+			// Using async/await also means that we don't directly interact with a Promise,
+			// instead storing a Resopnse in the response variable.
+      // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+      // and https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
+      const response = await fetch(
+        'https://api.instagram.com/oauth/access_token',
+        {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Access-Control-Allow-Origin': '*', // TODO(Chris): Unsafe, should change later
+            Origin: 'https://localhost:3000',
+          },
+          body: formData,
+        }
+      );
 
-				// response.status(500);
-				return;
-			}
+      if (!response.ok) {
+        console.log(
+          "There's been a fetch error. Status code: " + response.status
+        );
+        console.log('Status text: ' + response.statusText);
+        const responseText = await response.text();
+        console.log('Response text: ' + responseText);
 
-			const slData = await response.json();
-			console.log(JSON.stringify(slData));
-			// console.log(`Short-lived token from Electron: ${slData.access_token}`);
+        // response.status(500);
+        return;
+      }
 
-			/// Exchange short-lived token for long-lived token
-			const llResponse = await fetch(
-				`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${APP_SECRET}&access_token=${slData.access_token}`,
-				{
-					method: 'GET'
-				}
-			);
+      const slData = await response.json();
+      console.log(JSON.stringify(slData));
+      // console.log(`Short-lived token from Electron: ${slData.access_token}`);
 
-			if (!llResponse.ok) {
-				console.log("There's been a fetch error. Status code: " + llResponse.status);
-				console.log('Status text: ' + llResponse.statusText);
-				const llResponseText = await llResponse.text();
-				console.log('Response text: ' + llResponseText);
+      /// Exchange short-lived token for long-lived token
+      const llResponse = await fetch(
+        `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${APP_SECRET}&access_token=${slData.access_token}`,
+        {
+          method: 'GET',
+        }
+      );
 
-				// res.status(500);
-				return;
-			}
+      if (!llResponse.ok) {
+        console.log(
+          "There's been a fetch error. Status code: " + llResponse.status
+        );
+        console.log('Status text: ' + llResponse.statusText);
+        const llResponseText = await llResponse.text();
+        console.log('Response text: ' + llResponseText);
 
-			const llData = await llResponse.json();
-			// console.log(`Long-lived token from Electron: ${llData.access_token}`);
+        // res.status(500);
+        return;
+      }
 
-			/// Store long-lived token in the file system
-			const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';
-			fs.writeFileSync(tokenFilePath, llData.access_token);
+      const llData = await llResponse.json();
+      // console.log(`Long-lived token from Electron: ${llData.access_token}`);
 
-			/// Redirect to React auth page, sending the long-lived token along
-			console.log(`Tried to navigate to ${API_AUTH_PATH}, so redirecting...`);
+      /// Store long-lived token in the file system
+      const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';
+      fs.writeFileSync(tokenFilePath, llData.access_token);
 
-			const redirectUrl = new URL(PAGE_AUTH_PATH);
-			redirectUrl.searchParams.append('code', authorizationCode);
-			redirectUrl.searchParams.append('ll_token', llData.access_token);
-			// console.log(`code: ${authorizationCode}`);
-			console.log('redirectUrl: ' + redirectUrl);
+      /// Redirect to React auth page, sending the long-lived token along
+      console.log(`Tried to navigate to ${API_AUTH_PATH}, so redirecting...`);
 
-			win.loadURL(redirectUrl.href);
-		};
+      const redirectUrl = new URL(PAGE_AUTH_PATH);
+      redirectUrl.searchParams.append('code', authorizationCode);
+      redirectUrl.searchParams.append('ll_token', llData.access_token);
+      // console.log(`code: ${authorizationCode}`);
+      console.log('redirectUrl: ' + redirectUrl);
+
+      win.loadURL(redirectUrl.href);
+    };
 
 		fetchTokens(); // Asynchronous
 	}
