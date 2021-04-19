@@ -7,7 +7,9 @@ import styles from './sidebarnav.module.css';
 import Variants from '../styles/Variants.js';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
-const { H_2 } = Variants;
+const { ipcRenderer } = window.require('electron');
+
+const { H_2, BTN } = Variants;
 
 export const SideNavBar = () => {
 	const [ state, setState ] = React.useState(true);
@@ -21,24 +23,27 @@ export const SideNavBar = () => {
 	}
 
 	return (
-		<ProSidebar className={styles['sidenavbar']}>
-			<Menu iconShape={'round'} className={styles['sidenavbarMenu']}>
-				<SubMenu
-					className={styles['sidenavbarSubmenu']}
-					defaultOpen={true}
-					open={state}
-					onOpenChange={() => setState((prevState) => !prevState)}
-				>
-					{sideNavItemsArray.map(({ content, link }, index) => (
-						<MenuItem className={styles['sidenavitem']} key={index}>
-							<Typography variant={H_2}>{content}</Typography>
-							<Link to={link} />
-						</MenuItem>
-					))}
-				</SubMenu>
-			</Menu>
-		</ProSidebar>
-	);
+    <ProSidebar className={styles['sidenavbar']}>
+      <Menu iconShape={'round'} className={styles['sidenavbarMenu']}>
+        <SubMenu
+          className={styles['sidenavbarSubmenu']}
+          defaultOpen={true}
+          open={state}
+          onOpenChange={() => setState((prevState) => !prevState)}
+        >
+          {sideNavItemsArray.map(({ content, link }, index) => (
+            <MenuItem className={styles['sidenavitem']} key={index}>
+              <Typography variant={H_2}>{content}</Typography>
+              <Link to={link} />
+            </MenuItem>
+          ))}
+          <Typography variant={H_2} style={{ width: "100%", height: "100%" }}>
+            <button style={{ width: "93%", height: "100%", fontSize: "100%" }} onClick={() => ipcRenderer.send('exit')}>Exit</button>
+          </Typography>
+        </SubMenu>
+      </Menu>
+    </ProSidebar>
+  );
 };
 
 const sideNavItemsArray = [

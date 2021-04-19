@@ -44,7 +44,6 @@ const InstagramSettings = () => {
 
 	const mediaImages = postsInfo ? <div>{postsInfo.map((info) => <img src={info.media_url} alt="" />)}</div> : null;
 	const loginButton = authToken === null ? <button onClick={LogInToInstagram}>Log in.</button> : null;
-	console.log(loginButton);
 
 	return (
 		<div>

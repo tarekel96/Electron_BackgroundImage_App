@@ -98,6 +98,10 @@ ipcMain.on('save-settings', (event, args) => {
 	fs.writeFileSync(storagePath + '/settings.json', args);
 });
 
+ipcMain.on('exit', (event, args) => {
+  app.exit();
+});
+
 function redirectAuthenticate(win, event, newUrl) {
 	const API_AUTH_PATH = 'https://localhost:3000/auth/';
 	const PAGE_AUTH_PATH = urlBasis + '#/auth';
