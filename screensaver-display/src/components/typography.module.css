@@ -37,7 +37,8 @@
 	line-height: 36px;
 }
 .span {
-	font-family: var(--font-Comfortaa);
+	font-family: var(--font-Montserrat);
 	font-weight: 400;
 	font-size: 24px;
+	display: inline;
 }

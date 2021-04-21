@@ -68,3 +68,6 @@
 	margin: 0;
 	padding-left: 13px;
 }
+.sidenavbarLink {
+	white-space: initial;
+}
