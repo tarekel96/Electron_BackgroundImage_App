@@ -9,14 +9,14 @@ export const Button = ({
 	variant = 'primary',
 	className = '',
 	type = 'button',
-	onClick = null,
+	onClick = undefined,
 	style = {}
 }) => {
 	return (
 		<button
 			className={styles['btn-' + variant] + ' ' + className}
 			type={type}
-			onClick={onClick !== null && onClick}
+			onClick={onClick !== undefined ? onClick : (e) => e.preventDefault()}
 			style={style}
 		>
 			<Typography variant={BTN}>{children}</Typography>

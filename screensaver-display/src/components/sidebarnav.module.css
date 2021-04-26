@@ -53,7 +53,30 @@
 .sidenavitem {
 	height: 96px;
 	width: 100%;
+	list-style-type: none !important;
 }
+
+.sidenavitem > div {
+	padding: 0 !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	cursor: pointer !important;
+	margin: 0 auto !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.sidenavitem > div > span {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.sidenavitem > div > span > a {
+	width: 100% !important;
+	height: 100% !important;
+}
+
 .sidenavitem:hover {
 	cursor: pointer;
 	background-color: #fffefe;
@@ -70,4 +93,8 @@
 }
 .sidenavbarLink {
 	white-space: initial;
+	display: flex !important;
+	align-items: center !important;
+	width: 100% !important;
+	height: 100% !important;
 }
