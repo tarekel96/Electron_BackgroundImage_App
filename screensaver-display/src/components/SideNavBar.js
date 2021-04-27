@@ -15,8 +15,6 @@ const { H_2, BTN, SPAN } = Variants;
 export const SideNavBar = () => {
 	const [ state, setState ] = React.useState(true);
 	const location = useLocation();
-
-	console.log(location);
 	// TODO(Chris): Find a less-hacky way to avoid showing the side navbar when
 	// we want to actually display the slideshow up
 	if (location.pathname === '/') {

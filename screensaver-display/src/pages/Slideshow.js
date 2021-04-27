@@ -5,59 +5,81 @@ import styles from './slideshow.module.css';
 const { ipcRenderer } = window.require('electron');
 
 function Slideshow() {
-  const [postsInfo, setPostsInfo] = useState([]);
-  const [postIndex, setPostIndex] = useState(0);
-  const [cycleTime, setCycleTime] = useState(2000);
+	const [ postsInfo, setPostsInfo ] = useState([]);
+	const [ postIndex, setPostIndex ] = useState(0);
 
-  useEffect(() => {
-    const existingInfo = ipcRenderer.sendSync("read-posts-info");
-    if (existingInfo === null) {
-      return;
-    }
+	// settings state
+	const [ settings, setSettings ] = useState({});
+	//const [ images, setImages ] = useState([]);
+	const [ cycleTime, setCycleTime ] = useState(2000);
+	const [ imageSrc, setImageSrc ] = useState('');
+	const [ showDescription, setShowDescription ] = useState(false);
+	const [ showUserProfile, setShowUserProfile ] = useState(false);
 
-    console.log(existingInfo);
-    setPostsInfo(existingInfo);
+	// fetch settings data from settings.json
+	useEffect(
+		() => {
+			const settingsData = ipcRenderer.sendSync('read-settings-info');
+			if (settingsData === null) {
+				return;
+			}
 
-    const interval = setInterval(() => {
-      if (postIndex >= postsInfo.length - 1) {
-        setPostIndex(0);
-        // console.log("Reset postIndex to 0.");
-      } else {
-        setPostIndex(postIndex + 1);
-        // console.log("Incremented postIndex!");
-      }
+			//console.log(settingsData);
 
-      // console.log("postIndex was most recently: " + postIndex);
-    }, cycleTime);
+			setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
+			setImageSrc(settingsData.source);
+			setShowDescription(settingsData.showDescription);
+			setShowUserProfile(settingsData.showUserProfile);
+			setSettings(settingsData);
+		},
+		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile ]
+	);
 
-    return () => clearInterval(interval);
-  }, [postIndex, postsInfo.length, cycleTime]);
+	useEffect(
+		() => {
+			const existingInfo = ipcRenderer.sendSync('read-posts-info');
+			if (existingInfo === null) {
+				return;
+			}
+			console.log('IG Info');
+			console.log(existingInfo);
+			setPostsInfo(existingInfo);
+			const interval = setInterval(() => {
+				if (postIndex >= postsInfo.length - 1) {
+					setPostIndex(0);
+					// console.log("Reset postIndex to 0.");
+				}
+				else {
+					setPostIndex(postIndex + 1);
+					// console.log("Incremented postIndex!");
+				}
 
-  console.log(postsInfo);
+				// console.log("postIndex was most recently: " + postIndex);
+			}, cycleTime);
 
-  const currentImage =
-    postsInfo.length > 0 ? (
-      <img
-        src={postsInfo[postIndex].media_url}
-        className={styles.center}
-        alt=""
-      />
-    ) : (
-      // <Redirect
-      // 	to={{
-      // 		pathname: '/settings'
-      // 	}}
-      // />
-      <div>
-        <h1>
-          Oops! You don't have any images available. Try logging in with the
-          settings app.
-        </h1>
-        <Link to="/settings_instagram">Go here to log in.</Link>
-      </div>
-    );
+			return () => clearInterval(interval);
+		},
+		[ postIndex, postsInfo.length, cycleTime ]
+	);
 
-  return currentImage;
+	// console.log(postsInfo);
+
+	const currentImage =
+		postsInfo.length > 0 ? (
+			<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
+		) : (
+			// <Redirect
+			// 	to={{
+			// 		pathname: '/settings'
+			// 	}}
+			// />
+			<div>
+				<h1>Oops! You don't have any images available. Try logging in with the settings app.</h1>
+				<Link to="/settings_instagram">Go here to log in.</Link>
+			</div>
+		);
+
+	return currentImage;
 }
 
 export default Slideshow;

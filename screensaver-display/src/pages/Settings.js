@@ -64,6 +64,8 @@ const Settings = () => {
 				onSubmit={(e) => {
 					e.preventDefault();
 					const JSON_Data = JSON.stringify(formValues);
+					// console.log('Submitted form');
+					// console.log(JSON_Data);
 					ipcRenderer.send('save-settings', JSON_Data);
 				}}
 			>
@@ -212,9 +214,10 @@ const Settings = () => {
 						</div>
 					</React.Fragment>
 				)}
-				<Button type="submit" variant="secondary">
+				{/* <Button type="submit" variant="secondary">
 					Submit
-				</Button>
+				</Button> */}
+				<input type="submit" />
 			</form>
 			<div>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>

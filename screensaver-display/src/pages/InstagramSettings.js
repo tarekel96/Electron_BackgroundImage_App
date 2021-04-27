@@ -31,11 +31,13 @@ const InstagramSettings = () => {
 						console.log('Response text: ' + responseText);
 					}
 					const userInfoJson = await userInfo.json();
+					setPostsInfo(userInfoJson.data);
+					ipcRenderer.send('save-posts-info', userInfoJson.data);
 
-					const latestPosts = userInfoJson.data.filter((info) => info.media_type === 'IMAGE').slice(0, 5);
-					setPostsInfo(latestPosts);
+					//const latestPosts = userInfoJson.data.filter((info) => info.media_type === 'IMAGE').slice(0, 5);
+					// setPostsInfo(latestPosts);
 
-					ipcRenderer.send('save-posts-info', latestPosts);
+					// ipcRenderer.send('save-posts-info', latestPosts);
 				})();
 			}
 		},
