@@ -4,7 +4,7 @@ import { Layout } from './components/Layout.js';
 import Settings from './pages/Settings.js';
 import Slideshow from './pages/Slideshow.js';
 import InstagramSettings from './pages/InstagramSettings.js';
-import UserSearch from './pages/UserSearch';
+import UserRedditSearch from './pages/UserRedditSearch';
 import UserPosts from './pages/UserPosts';
 import Auth from './pages/Auth.js';
 import './styles/main.css';
@@ -15,7 +15,7 @@ const App = () => {
 			<Layout>
 				<Route path="/" component={Slideshow} exact />
 				<Route path="/posts" component={UserPosts} exact />
-				<Route path="/search" component={UserSearch} exact />
+				<Route path="/search" component={UserRedditSearch} exact />
 				<Route path="/settings" component={Settings} exact />
 				<Route path="/settings_home" component={Home} exact />
 				<Route path="/settings_instagram" component={InstagramSettings} exact />
