@@ -96,8 +96,8 @@ const UserPosts = () => {
 									selectedImages
 								};
 								const JSON_Data = JSON.stringify(formValues);
-								// console.log('Submitted form');
-								// console.log(JSON_Data);
+								console.log('Submitted form');
+								console.log(JSON_Data);
 								ipcRenderer.send('selected-images', JSON_Data);
 							}
 						}}

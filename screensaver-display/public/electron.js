@@ -98,15 +98,31 @@ ipcMain.on('save-settings', (event, args) => {
 	fs.writeFileSync(storagePath + '/settings.json', args);
 });
 
-ipcMain.on('selected-images', (event, args) => {
-	fs.writeFileSync(storagePath + '/selectedimages.json', args);
-});
-
 ipcMain.on('read-settings-info', (event, arg) => {
 	try {
 		const settingsPath = storagePath + '/settings.json';
 
 		event.returnValue = require(settingsPath);
+	} catch (err) {
+		event.returnValue = null;
+	}
+});
+
+ipcMain.on('selected-images', (event, args) => {
+	if (args !== undefined) {
+		const selectedImagesPath = storagePath + '/selectedimages.json';
+		fs.writeFileSync(selectedImagesPath, args);
+	}
+	else {
+		console.log('args is undefined');
+	}
+});
+
+ipcMain.on('read-selected-images', (event, arg) => {
+	try {
+		const selectedImagesPath = storagePath + '/selectedimages.json';
+
+		event.returnValue = require(selectedImagesPath);
 	} catch (err) {
 		event.returnValue = null;
 	}
