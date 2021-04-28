@@ -56,16 +56,19 @@ app.on('window-all-closed', () => {
 	}
 });
 
-ipcMain.on('download', (event, arg) => {
-	const { url } = arg;
+// NOTE(Chris): This 'download' channel is no longer used to download any images,
+// so it's been commented out.
 
-	console.log('Downloading an image!');
+// ipcMain.on('download', (event, arg) => {
+// 	const { url } = arg;
 
-	const file = fs.createWriteStream('image.jpg');
-	https.get(url, (dlResponse) => {
-		dlResponse.pipe(file);
-	});
-});
+// 	console.log('Downloading an image!');
+
+// 	const file = fs.createWriteStream('image.jpg');
+// 	https.get(url, (dlResponse) => {
+// 		dlResponse.pipe(file);
+// 	});
+// });
 
 ipcMain.on('ig-bd-read-token', (event, arg) => {
 	const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';

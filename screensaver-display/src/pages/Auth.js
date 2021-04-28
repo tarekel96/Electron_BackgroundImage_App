@@ -32,13 +32,6 @@ const Auth = () => {
         const responseText = await userInfo.text();
         console.log("Response text: " + responseText);
       }
-      const userInfoJson = await userInfo.json();
-
-      const latestPost = userInfoJson.data[0];
-      console.log(latestPost.media_url);
-      ipcRenderer.send("download", {
-        url: latestPost.media_url,
-      });
     };
 
     downloadLastImage();
