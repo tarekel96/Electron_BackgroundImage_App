@@ -1,6 +1,7 @@
 // dependencies
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Images from './PostImages';
+import { getSubreddits } from '../api-components/redditApiInterface.js';
 
 // UI dependencies
 import { Button } from '../ui-components/Button.js';
@@ -12,9 +13,7 @@ import './styles/RedditSearchbar.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const UserRedditSearch = () => {
-	const [ selectedImg, setSelectedImg ] = useState(Images[0]);
-	const [ query, setQuery ] = useState('');
-	const [ subreddits, setSubreddits] = useState([]);
+	
 	
 	return (
 		<div className={styles['container']}>
@@ -23,6 +22,10 @@ const UserRedditSearch = () => {
 				<Button type="enable" variant="small">
 					Reddit Mode
 				</Button>
+
+				<SubredditSearchbar/>
+
+
 
 
 			</div>
@@ -70,5 +73,54 @@ const Results = (props) => {
     );
 
 };
+
+const SubredditSearchbar = (props) => {
+    const [ search, setSearch ] = useState('');
+    const [ query, setQuery ] = useState([]);
+    const [ subreddits, setSubreddits] = useState([]);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+
+
+        setQuery(getSubreddits(search, 5) || []);
+
+        console.log("query:",query);
+
+		setSearch('');
+		return;
+	}
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <input
+                    className='searchbar'
+                    type='text'
+                    id='search'
+                    name='search'
+                    placeholder='r/'
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    />
+                <ul>
+                    {query.map((option) => {
+                        console.log('creating button');
+                        return (
+                            <button 
+                                type='button'
+                                className='search-result'
+                                value='example'
+                                >Example
+                            </button>
+                        );
+                    })}
+                    
+                </ul>
+            </div>
+        </form>
+    )
+}
 
 export default UserRedditSearch;
