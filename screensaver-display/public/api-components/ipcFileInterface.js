@@ -30,6 +30,8 @@ ipcMain.on('ig-bd-read-token', (event, arg) => {
  the slideshow without the user having to open the settings app and re-import their
  photos from instagram
 */
+// RESPONSE(Chris): These two channels are likely unnecessary, now that we're using
+// the selected-images and read-selected-images channels
 ipcMain.on('save-posts-info', (event, arg) => {
 	const latestPosts = arg;
 	const postsInfoPath = storagePath + '/IGBasicPostsInfo.json';
