@@ -15,8 +15,8 @@ if (!fs.existsSync(storagePath)) {
 }
 
 // interfaces
-require( '../api-components/ipcFileInterface.js' );  							// file access from React through main Electron window
-const authentication = require('../api-components/redirectAuthenticate.js'); 	// Instagram authentication moved here
+require( './api-components/ipcFileInterface.js' );  							// file access from React through main Electron window
+const authentication = require('./api-components/redirectAuthenticate.js'); 	// Instagram authentication moved here
 
 // Bool to check --settings parameter
 const shouldShowTempSettings = process.argv.includes('--settings');
