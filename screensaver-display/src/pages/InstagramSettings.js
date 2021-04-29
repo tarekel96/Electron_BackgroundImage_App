@@ -45,7 +45,7 @@ const InstagramSettings = () => {
 
 	return (
 		<div>
-			<h1>Settings (For Now)</h1>
+			<h1>Instagram Settings</h1>
 			{loginButton}
 			{previewButton}
 			<p style={{ wordWrap: 'break-word' }}>

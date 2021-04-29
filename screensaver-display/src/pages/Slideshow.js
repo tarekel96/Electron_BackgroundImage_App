@@ -62,7 +62,10 @@ function Slideshow() {
 		) : (
 			<div>
 				<h1>Oops! You don't have any images available. Try logging in with the settings app.</h1>
-				<Link to="/settings_instagram">Go here to log in.</Link>
+				{/* <Link to="/settings_instagram">Go here to log in.</Link> */}
+        <div>
+          <button onClick={() => ipcRenderer.send('exit')}>Exit</button>
+        </div>
 			</div>
 		);
 
