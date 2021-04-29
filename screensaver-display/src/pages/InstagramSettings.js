@@ -41,11 +41,13 @@ const InstagramSettings = () => {
 
 	const mediaImages = postsInfo ? <div>{postsInfo.map((info) => <img src={info.media_url} alt="" />)}</div> : null;
 	const loginButton = authToken === null ? <button onClick={LogInToInstagram}>Log in.</button> : null;
+	const previewButton = authToken === null ? null : <button onClick={() => {ipcRenderer.send('preview-screensaver')}}>Preview</button>
 
 	return (
 		<div>
 			<h1>Settings (For Now)</h1>
 			{loginButton}
+			{previewButton}
 			<p style={{ wordWrap: 'break-word' }}>
 				{authToken === null ? 'Instagram token: Not logged in' : `Instagram token: ${authToken}`}
 			</p>

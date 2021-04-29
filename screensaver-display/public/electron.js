@@ -3,10 +3,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
-const FormData = require('form-data');
-const fetch = require('node-fetch').default;
 const fs = require('fs');
-const https = require('https');
 
 // settings files storage path
 const storagePath = app.getPath('appData') + '/shared-screensaver';
@@ -15,7 +12,7 @@ if (!fs.existsSync(storagePath)) {
 }
 
 // interfaces
-require( './api-components/ipcFileInterface.js' );  							// file access from React through main Electron window
+require('./api-components/ipcFileInterface.js'); // file access from React through main Electron window
 const authentication = require('./api-components/redirectAuthenticate.js'); 	// Instagram authentication moved here
 
 // Bool to check --settings parameter

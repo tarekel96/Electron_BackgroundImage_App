@@ -1,6 +1,6 @@
 const { app, ipcMain } = require('electron');
-const path = require('path');
-const fetch = require('node-fetch').default;
+const isDev = require('electron-is-dev');
+const { exec } = require('child_process');
 const fs = require('fs');
 
 // settings files storage path
@@ -84,4 +84,12 @@ ipcMain.on('read-selected-images', (event, arg) => {
 	} catch (err) {
 		event.returnValue = null;
 	}
+});
+
+ipcMain.on('preview-screensaver', (event, args) => {
+  if (isDev) {
+    exec("yarn electron .");
+  } else {
+    exec(`${app.getPath('exe')}`);
+  }
 });
