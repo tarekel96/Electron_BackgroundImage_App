@@ -33,11 +33,6 @@ const InstagramSettings = () => {
 					const userInfoJson = await userInfo.json();
 					setPostsInfo(userInfoJson.data);
 					ipcRenderer.send('save-posts-info', userInfoJson.data);
-
-					//const latestPosts = userInfoJson.data.filter((info) => info.media_type === 'IMAGE').slice(0, 5);
-					// setPostsInfo(latestPosts);
-
-					// ipcRenderer.send('save-posts-info', latestPosts);
 				})();
 			}
 		},
@@ -64,7 +59,6 @@ function LogInToInstagram() {
 		'https://api.instagram.com/oauth/authorize?client_id=765093417767855&redirect_uri=https://localhost:3000/auth/&scope=user_profile,user_media&response_type=code';
 
 	window.location = authURL;
-	// shell.openExternal(authURL);
 }
 
 export default InstagramSettings;

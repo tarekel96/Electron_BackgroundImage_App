@@ -1,6 +1,9 @@
+// dependencies
 import { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import styles from './slideshow.module.css';
+
+// styles
+import styles from './styles/slideshow.module.css';
 
 const { ipcRenderer } = window.require('electron');
 

@@ -1,12 +1,17 @@
+// dependencies
 import React from 'react';
-import 'react-pro-sidebar/dist/css/styles.css';
-// import DEFAULT_IMAGE from '../styles/SideNavProfile.jpg';
 import { Link, useLocation } from 'react-router-dom';
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+
+// UI dependencies
 import { Typography } from './Typography.js';
 import { Button } from './Button.js';
-import styles from './sidebarnav.module.css';
+
+
+// styles
+import 'react-pro-sidebar/dist/css/styles.css';
+import styles from './styles/sidenavbar.module.css';
 import Variants from '../styles/Variants.js';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 const { ipcRenderer } = window.require('electron');
 

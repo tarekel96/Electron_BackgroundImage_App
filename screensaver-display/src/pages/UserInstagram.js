@@ -1,13 +1,33 @@
+/*
+	For editing later:
+
+This component uses the `posts.module.css` and `userposts.module.css` files for styling.
+
+The Reddit component currently uses its own stylesheet, because I could not understand the interactions
+between those stylesheets and other javascript files. When updating the design for this page please change
+the stylesheet files for this component. userredditsearch.module.css has good styling that prevents images
+floating during window resizing.
+
+*/
+
+
+// dependencies
 import React, { useState, useEffect } from 'react';
 import ky from 'ky';
-import styles from './posts.module.css';
-import userPostStyles from './userposts.module.css';
+
+// UI dependencies
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { Button } from '../components/Button.js';
+import { Button } from '../ui-components/Button.js';
+
+// styles
+import styles from './styles/posts.module.css';
+import userPostStyles from './styles/userposts.module.css';
+
+// access to electron window
 const { ipcRenderer, shell } = window.require('electron');
 
-const UserPosts = () => {
+const UserInstagram = () => {
 	const [ postsInfo, setPostsInfo ] = useState(null);
 	const [ authToken, setAuthToken ] = useState(null);
 
@@ -147,4 +167,4 @@ const SelectedImages = ({ selectedImages }) => {
 	);
 };
 
-export default UserPosts;
+export default UserInstagram;

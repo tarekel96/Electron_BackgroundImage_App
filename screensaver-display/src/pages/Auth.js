@@ -1,8 +1,11 @@
-// This page should probably never be navigated to, except by redirect from the Instagram authorization request
-
+// dependencies
 import { useEffect, useState } from "react";
 import ky from "ky";
 import { Redirect } from "react-router";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// This page should probably never be navigated to, except by redirect from the Instagram authorization request //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const { ipcRenderer } = window.require("electron");
 
