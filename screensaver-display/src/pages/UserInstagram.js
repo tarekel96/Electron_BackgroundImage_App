@@ -71,6 +71,10 @@ const UserInstagram = () => {
     }
   }, [authToken, postsInfo]);
 
+	// NOTE(Chris): Why is this is a function rather than a variable?
+	// Putting things into a function allows us to avoid evaluating this whole
+	// Element tree until we need to, which in turn allows us to avoid evaluating
+	// possible null values.
   const createImageSelection = () => {
     return (
       <div className={styles['UserPosts']}>
