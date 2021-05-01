@@ -47,7 +47,7 @@ const Auth = () => {
   }, [redirect, llToken]);
 
   if (redirect) {
-    return <Redirect exact to="/settings_instagram" />;
+    return <Redirect exact to="/posts" />;
   } else {
     return (
       <div>

@@ -61,7 +61,7 @@ function Slideshow() {
 			<img src={postsInfo[postIndex]} className={styles.center} alt="" />
 		) : (
 			<div>
-				<h1>Oops! You don't have any images available. Try logging in with the settings app.</h1>
+				<h1>Oops! You don't have any images available. Try logging in with the settings app and selecting some images.</h1>
 				{/* <Link to="/settings_instagram">Go here to log in.</Link> */}
         <div>
           <button onClick={() => ipcRenderer.send('exit')}>Exit</button>

@@ -79,9 +79,5 @@ const sideNavItemsArray = [
 	{
 		content: 'Settings',
 		link: '/settings'
-	},
-	{
-		content: 'Instagram-Specific Settings',
-		link: '/settings_instagram'
 	}
 ];
