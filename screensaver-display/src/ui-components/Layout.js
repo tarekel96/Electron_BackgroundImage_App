@@ -1,6 +1,11 @@
+// dependencies
 import React from 'react';
+
+// UI dependencies
 import { SideNavBar } from './SideNavBar.js';
-import styles from './layout.module.css';
+
+// styles
+import styles from './styles/layout.module.css';
 
 export const Layout = ({ children }) => {
 	return (

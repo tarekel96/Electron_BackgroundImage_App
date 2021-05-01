@@ -14,8 +14,6 @@
 	background-color: #fffefe;
 }
 
-/* TODO(Chris): Find another way to fullscreen the slideshow images besides
-   modifying height. */
 div#root {
 	height: 100%;
 }

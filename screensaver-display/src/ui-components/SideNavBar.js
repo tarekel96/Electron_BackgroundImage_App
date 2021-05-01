@@ -1,12 +1,17 @@
+// dependencies
 import React from 'react';
-import 'react-pro-sidebar/dist/css/styles.css';
-// import DEFAULT_IMAGE from '../styles/SideNavProfile.jpg';
 import { Link, useLocation } from 'react-router-dom';
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+
+// UI dependencies
 import { Typography } from './Typography.js';
 import { Button } from './Button.js';
-import styles from './sidebarnav.module.css';
+
+
+// styles
+import 'react-pro-sidebar/dist/css/styles.css';
+import styles from './styles/sidenavbar.module.css';
 import Variants from '../styles/Variants.js';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -15,8 +20,6 @@ const { H_2, BTN, SPAN } = Variants;
 export const SideNavBar = () => {
 	const [ state, setState ] = React.useState(true);
 	const location = useLocation();
-
-	console.log(location);
 	// TODO(Chris): Find a less-hacky way to avoid showing the side navbar when
 	// we want to actually display the slideshow up
 	if (location.pathname === '/') {
@@ -76,9 +79,5 @@ const sideNavItemsArray = [
 	{
 		content: 'Settings',
 		link: '/settings'
-	},
-	{
-		content: 'Instagram-Specific Settings',
-		link: '/settings_instagram'
 	}
 ];

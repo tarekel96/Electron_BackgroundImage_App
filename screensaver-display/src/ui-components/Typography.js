@@ -1,6 +1,12 @@
+// dependencies
 import React from 'react';
-import styles from './typography.module.css';
+
+// UI dependencies
 import Variants from '../styles/Variants.js';
+
+// styles
+import styles from './styles/typography.module.css';
+
 const { PARAGRAPH, SPAN, ANCHOR, BTN, H_1, H_2, H_3, H_4, H_5, H_6 } = Variants;
 
 export const Typography = ({ children, variant, href = undefined, className = '' }) => {

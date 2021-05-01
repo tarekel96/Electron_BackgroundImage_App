@@ -1,7 +1,12 @@
+// dependencies
 import React from 'react';
-import { Typography } from '../components/Typography.js';
-import styles from './button.module.css';
+
+// UI dependencies
+import { Typography } from './Typography.js';
 import Variants from '../styles/Variants.js';
+
+// styles
+import styles from './styles/button.module.css';
 const { BTN } = Variants;
 
 export const Button = ({
