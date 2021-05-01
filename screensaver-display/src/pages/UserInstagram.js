@@ -23,7 +23,7 @@ import styles from './styles/posts.module.css';
 import userPostStyles from './styles/userposts.module.css';
 
 // access to electron window
-const { ipcRenderer, shell } = window.require('electron');
+const { ipcRenderer } = window.require('electron');
 
 const UserInstagram = () => {
   const [postsInfo, setPostsInfo] = useState(null);
@@ -63,15 +63,12 @@ const UserInstagram = () => {
         const userInfoJson = await userInfo.json();
         setPostsInfo(userInfoJson.data);
         console.log(userInfoJson);
-        // TODO(Chris): Try removing this line (and the corresponding channel) to verify if it's
-        // actually pointless
-        ipcRenderer.send('save-posts-info', userInfoJson.data);
       })();
     }
   }, [authToken, postsInfo]);
 
   // NOTE(Chris): Why is this is a function rather than a variable?
-  // Putting things into a function allows us to avoid evaluating this whole
+  // ANSWER:(Chris): Putting things into a function allows us to avoid evaluating this whole
   // Element tree until we need to, which in turn allows us to avoid evaluating
   // possible null values.
   const createImageSelection = () => {
