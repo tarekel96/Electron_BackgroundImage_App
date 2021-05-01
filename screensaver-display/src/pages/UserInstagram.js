@@ -17,7 +17,6 @@ import ky from 'ky';
 // UI dependencies
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { Button } from '../ui-components/Button.js';
 
 // styles
 import styles from './styles/posts.module.css';
