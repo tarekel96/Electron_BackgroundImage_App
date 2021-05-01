@@ -18,8 +18,6 @@ const APP_SECRET = 'a7a0947d0367a41024f825989bf65049';
 
 const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
 
-
-
 function redirectAuthenticate(win, event, newUrl) {
 	const API_AUTH_PATH = 'https://localhost:3000/auth/';
 	const PAGE_AUTH_PATH = urlBasis + '#/auth';
@@ -27,7 +25,7 @@ function redirectAuthenticate(win, event, newUrl) {
 	// console.log("redirect newUrL: " + newUrl);
 
 	if (newUrl.startsWith(API_AUTH_PATH)) {
-		win.loadURL('https://en.wikipedia.org/wiki/Main_Page'); // Load this while we asynchronously exchange for the short-lived user token
+		win.loadURL(urlBasis + '#/loading'); // Load this while we asynchronously exchange for the short-lived user token
 
 		const fetchTokens = async () => {
 			// console.log(`newUrl: ${newUrl}`);

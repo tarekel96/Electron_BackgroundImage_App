@@ -3,6 +3,8 @@ const isDev = require('electron-is-dev');
 const { exec } = require('child_process');
 const fs = require('fs');
 
+const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
+
 // settings files storage path
 const storagePath = app.getPath('appData') + '/shared-screensaver';
 if (!fs.existsSync(storagePath)) {
@@ -20,35 +22,6 @@ ipcMain.on('ig-bd-read-token', (event, arg) => {
 		event.returnValue = null;
 	}
 });
-
-/*
- 	Comment from Ayden:
-
- What do these do? Seems like very similar functionality to saving selected images.
- We do not want to save the posts that load in the settings app to display in the
- slideshow, because the point is to have this dynamic so that new images load into
- the slideshow without the user having to open the settings app and re-import their
- photos from instagram
-*/
-// RESPONSE(Chris): These two channels are likely unnecessary, now that we're using
-// the selected-images and read-selected-images channels
-ipcMain.on('save-posts-info', (event, arg) => {
-	const latestPosts = arg;
-	const postsInfoPath = storagePath + '/IGBasicPostsInfo.json';
-
-	fs.writeFileSync(postsInfoPath, JSON.stringify(latestPosts));
-});
-
-ipcMain.on('read-posts-info', (event, arg) => {
-	try {
-		const postsInfoPath = storagePath + '/IGBasicPostsInfo.json';
-
-		event.returnValue = require(postsInfoPath);
-	} catch (err) {
-		event.returnValue = null;
-	}
-});
-
 
 // Used to save settings from the UserSettings tab
 ipcMain.on('save-settings', (event, args) => {
@@ -94,4 +67,9 @@ ipcMain.on('preview-screensaver', (event, args) => {
   } else {
     exec(`${app.getPath('exe')}`);
   }
+});
+
+// Obtains the url basis for use in double-redirects in React
+ipcMain.on('get-url-basis', (event, args) => {
+	event.returnValue = urlBasis;
 });
