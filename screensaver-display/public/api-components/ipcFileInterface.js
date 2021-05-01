@@ -3,6 +3,8 @@ const isDev = require('electron-is-dev');
 const { exec } = require('child_process');
 const fs = require('fs');
 
+const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
+
 // settings files storage path
 const storagePath = app.getPath('appData') + '/shared-screensaver';
 if (!fs.existsSync(storagePath)) {
@@ -94,4 +96,9 @@ ipcMain.on('preview-screensaver', (event, args) => {
   } else {
     exec(`${app.getPath('exe')}`);
   }
+});
+
+// Obtains the url basis for use in double-redirects in React
+ipcMain.on('get-url-basis', (event, args) => {
+	event.returnValue = urlBasis;
 });

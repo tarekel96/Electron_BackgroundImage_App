@@ -70,10 +70,10 @@ const UserInstagram = () => {
     }
   }, [authToken, postsInfo]);
 
-	// NOTE(Chris): Why is this is a function rather than a variable?
-	// Putting things into a function allows us to avoid evaluating this whole
-	// Element tree until we need to, which in turn allows us to avoid evaluating
-	// possible null values.
+  // NOTE(Chris): Why is this is a function rather than a variable?
+  // Putting things into a function allows us to avoid evaluating this whole
+  // Element tree until we need to, which in turn allows us to avoid evaluating
+  // possible null values.
   const createImageSelection = () => {
     return (
       <div className={styles['UserPosts']}>
@@ -205,6 +205,8 @@ function LogInToInstagram() {
   const authURL =
     'https://api.instagram.com/oauth/authorize?client_id=765093417767855&redirect_uri=https://localhost:3000/auth/&scope=user_profile,user_media&response_type=code';
 
+  const urlBasis = ipcRenderer.sendSync('get-url-basis');
+  window.location = urlBasis + '#/loading';
   window.location = authURL;
 }
 
