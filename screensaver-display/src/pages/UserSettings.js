@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '../ui-components/Button.js';
 import styles from './styles/usersettings.module.css';
 import Variants from '../styles/Variants.js';
 import { Typography } from '../ui-components/Typography.js';
+import Modal from '../ui-components/Modal.js';
 const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
 const UserSettings = () => {
+	/* Modal State */
+	const [ show, setShow ] = useState(false);
 	// form data - stored in React state
 	/* Cycle Speed */
 	const [ cycleTime, setCycleTime ] = React.useState(0);
@@ -59,6 +62,22 @@ const UserSettings = () => {
 	};
 	return (
 		<section className={styles['settingsSection']}>
+			{show && (
+				<div
+					style={{
+					display: 'flex',
+					justifyContent: 'center',
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
+					transform: 'translate(-50%, -50%)'
+				}}
+				className={styles['modalContainer']}>
+				<Modal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+					<p>Your settings have been updated</p>
+				</Modal>
+				</div>
+			)}
 			<form
 				className={styles['settingsForm']}
 				onSubmit={(e) => {
@@ -214,10 +233,12 @@ const UserSettings = () => {
 						</div>
 					</React.Fragment>
 				)}
+				<Button type="submit" variant="secondary" onClick={() => setShow(() => true)}>
+					Submit
+				</Button>
 				{/* <Button type="submit" variant="secondary">
 					Submit
 				</Button> */}
-				<input type="submit" />
 			</form>
 			<div>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>

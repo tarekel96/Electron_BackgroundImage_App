@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import styles from './modal.module.css';
+import styles from './styles/modal.module.css';
 
 const Modal = (props) => {
 	const closeOnEscapeKeyDown = (e) => {
@@ -26,7 +26,7 @@ const Modal = (props) => {
 					</div>
 					<div className={styles['modal-body']}>{props.children}</div>
 					<div className={styles['modal-footer']}>
-						<button onClick={props.onClose} className="button">
+						<button onClick={props.onClose} className='button'>
 							Close
 						</button>
 					</div>

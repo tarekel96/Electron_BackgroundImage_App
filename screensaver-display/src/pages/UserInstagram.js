@@ -22,10 +22,15 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import styles from './styles/posts.module.css';
 import userPostStyles from './styles/userposts.module.css';
 
+import Modal from '../ui-components/Modal.js';
+
 // access to electron window
 const { ipcRenderer } = window.require('electron');
 
 const UserInstagram = () => {
+  /* Modal State */
+	const [ show, setShow ] = useState(false);
+  
   const [postsInfo, setPostsInfo] = useState(null);
   const [authToken, setAuthToken] = useState(null);
 
@@ -74,6 +79,22 @@ const UserInstagram = () => {
   const createImageSelection = () => {
     return (
       <div className={styles['UserPosts']}>
+        {show && (
+				<div
+					style={{
+					display: 'flex',
+					justifyContent: 'center',
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
+					transform: 'translate(-50%, -50%)'
+				}}
+				className={styles['modalContainer']}>
+				<Modal title="Photos Submitted" onClose={() => setShow(false)} show={show}>
+					<p>The selected photos have been submitted.</p>
+				</Modal>
+				</div>
+			)}
         <div className={styles['container']}>
           <div className={styles['imgContainer']}>
             {postsInfo.map(({ media_url }, index) => (
@@ -121,7 +142,7 @@ const UserInstagram = () => {
               }
             }}
           >
-            <input type="submit" />
+            <input type="submit" onClick={() => setShow(() => true)}/>
             {errMessage && <ErrMessage />}
           </form>
         </div>
