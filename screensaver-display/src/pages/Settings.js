@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { Button } from '../components/Button.js';
 import styles from './settings.module.css';
 import Variants from '../styles/Variants.js';
@@ -8,7 +8,7 @@ const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
 const Settings = () => {
-	const [show, setShow] = useState(false);
+	const [ show, setShow ] = useState(false);
 	// form data - stored in React state
 	/* Cycle Speed */
 	const [ cycleTime, setCycleTime ] = React.useState(0);
@@ -61,9 +61,23 @@ const Settings = () => {
 	};
 	return (
 		<section className={styles['settingsSection']}>
-			<SettingsModal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
-        		<p>Modal Body</p>
-      		</SettingsModal>
+			{show && (
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						position: 'absolute',
+						left: '50%',
+						top: '50%',
+						transform: 'translate(-50%, -50%)'
+					}}
+					className={styles['modalContainer']}
+				>
+					<SettingsModal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+						<p>Modal Body</p>
+					</SettingsModal>
+				</div>
+			)}
 			<form
 				className={styles['settingsForm']}
 				onSubmit={(e) => {
@@ -217,7 +231,9 @@ const Settings = () => {
 						</div>
 					</React.Fragment>
 				)}
-				<Button type="submit" variant="secondary" onClick={() => setShow(true)}>Submit</Button>
+				<Button type="submit" variant="secondary" onClick={() => setShow(() => true)}>
+					Submit
+				</Button>
 			</form>
 			<div>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
