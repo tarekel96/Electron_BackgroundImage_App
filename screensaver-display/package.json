@@ -5,7 +5,10 @@
   "author": "Chapman SE320 Screensaver Team",
   "main": "public/electron.js",
   "build": {
-    "appId": "screensaver,display"
+    "appId": "screensaver,display",
+    "linux": {
+      "target": "dir"
+    }
   },
   "homepage": "./",
   "dependencies": {

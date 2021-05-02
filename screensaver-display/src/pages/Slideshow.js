@@ -1,63 +1,75 @@
+// dependencies
 import { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import styles from './slideshow.module.css';
+
+// styles
+import styles from './styles/slideshow.module.css';
 
 const { ipcRenderer } = window.require('electron');
 
 function Slideshow() {
-  const [postsInfo, setPostsInfo] = useState([]);
-  const [postIndex, setPostIndex] = useState(0);
-  const [cycleTime, setCycleTime] = useState(2000);
+	const [ postsInfo, setPostsInfo ] = useState([]);
+	const [ postIndex, setPostIndex ] = useState(0);
 
-  useEffect(() => {
-    const existingInfo = ipcRenderer.sendSync("read-posts-info");
-    if (existingInfo === null) {
-      return;
-    }
+	// settings state
+	const [ cycleTime, setCycleTime ] = useState(2000);
+	const [ imageSrc, setImageSrc ] = useState('');
+	const [ showDescription, setShowDescription ] = useState(false);
+	const [ showUserProfile, setShowUserProfile ] = useState(false);
 
-    console.log(existingInfo);
-    setPostsInfo(existingInfo);
+	// fetch settings data from settings.json
+	useEffect(
+		() => {
+			const selectedImages = ipcRenderer.sendSync('read-selected-images');
+			if (selectedImages === null) {
+				return;
+			}
+			else {
+				console.log(selectedImages);
+			}
 
-    const interval = setInterval(() => {
-      if (postIndex >= postsInfo.length - 1) {
-        setPostIndex(0);
-        // console.log("Reset postIndex to 0.");
-      } else {
-        setPostIndex(postIndex + 1);
-        // console.log("Incremented postIndex!");
-      }
+			setPostsInfo(selectedImages.selectedImages);
 
-      // console.log("postIndex was most recently: " + postIndex);
-    }, cycleTime);
+			const settingsData = ipcRenderer.sendSync('read-settings-info');
+			if (settingsData === null) {
+				return;
+			}
 
-    return () => clearInterval(interval);
-  }, [postIndex, postsInfo.length, cycleTime]);
+			// assign settings
+			setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
+			setImageSrc(settingsData.source);
+			setShowDescription(settingsData.showDescription);
+			setShowUserProfile(settingsData.showUserProfile);
 
-  console.log(postsInfo);
+			// slideshow transition logic
+			const interval = setInterval(() => {
+				if (postIndex >= postsInfo.length - 1) {
+					setPostIndex(0);
+				}
+				else {
+					setPostIndex(postIndex + 1);
+				}
+			}, cycleTime);
 
-  const currentImage =
-    postsInfo.length > 0 ? (
-      <img
-        src={postsInfo[postIndex].media_url}
-        className={styles.center}
-        alt=""
-      />
-    ) : (
-      // <Redirect
-      // 	to={{
-      // 		pathname: '/settings'
-      // 	}}
-      // />
-      <div>
-        <h1>
-          Oops! You don't have any images available. Try logging in with the
-          settings app.
-        </h1>
-        <Link to="/settings_instagram">Go here to log in.</Link>
-      </div>
-    );
+			return () => clearInterval(interval);
+		},
+		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile ]
+	);
 
-  return currentImage;
+	const currentImage =
+		postsInfo.length > 0 ? (
+			<img src={postsInfo[postIndex]} className={styles.center} alt="" />
+		) : (
+			<div>
+				<h1>Oops! You don't have any images available. Try logging in with the settings app and selecting some images.</h1>
+				{/* <Link to="/settings_instagram">Go here to log in.</Link> */}
+        <div>
+          <button onClick={() => ipcRenderer.send('exit')}>Exit</button>
+        </div>
+			</div>
+		);
+
+	return currentImage;
 }
 
 export default Slideshow;

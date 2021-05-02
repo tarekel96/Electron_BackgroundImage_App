@@ -10,15 +10,19 @@
 	display: flex;
 }
 
-img {
+/* img {
 	display: block;
 	cursor: pointer;
-}
+	width: 200px !important;
+	height: 200px !important;
+	border-radius: 6px;
+	box-shadow: 3px 3px 5px 6px #ccc;
+} */
 
 .container {
 	margin: auto;
 	width: 100%;
-	max-width: 550px;
+	max-width: 700px;
 }
 
 .container .selected {
@@ -31,13 +35,16 @@ img {
 .container .imgContainer {
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
 	padding: 40px 0 0 0;
 }
 
 .container .imgContainer img {
-	width: 100px;
-	height: 100px;
-	margin: 5px 0;
+	display: block;
+	cursor: pointer;
+	width: 200px !important;
+	height: 200px !important;
+	border-radius: 6px;
+	box-shadow: 3px 3px 5px 6px #ccc;
+	margin: 0.5rem 1rem;
 }
