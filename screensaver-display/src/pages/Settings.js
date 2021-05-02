@@ -61,6 +61,9 @@ const Settings = () => {
 	};
 	return (
 		<section className={styles['settingsSection']}>
+			<SettingsModal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+        		<p>Modal Body</p>
+      		</SettingsModal>
 			<form
 				className={styles['settingsForm']}
 				onSubmit={(e) => {
@@ -215,9 +218,6 @@ const Settings = () => {
 					</React.Fragment>
 				)}
 				<Button type="submit" variant="secondary" onClick={() => setShow(true)}>Submit</Button>
-      			<SettingsModal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
-        			<p>Modal Body</p>
-      			</SettingsModal>
 			</form>
 			<div>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
