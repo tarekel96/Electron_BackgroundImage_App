@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Button } from '../components/Button.js';
 import styles from './settings.module.css';
 import Variants from '../styles/Variants.js';
 import { Typography } from '../components/Typography.js';
+import SettingsModal from '../components/SettingsModal.js';
 const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
 const Settings = () => {
+	const [show, setShow] = useState(false);
 	// form data - stored in React state
 	/* Cycle Speed */
 	const [ cycleTime, setCycleTime ] = React.useState(0);
@@ -212,9 +214,10 @@ const Settings = () => {
 						</div>
 					</React.Fragment>
 				)}
-				<Button type="submit" variant="secondary">
-					Submit
-				</Button>
+				<Button type="submit" variant="secondary" onClick={() => setShow(true)}>Submit</Button>
+      			<SettingsModal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+        			<p>Modal Body</p>
+      			</SettingsModal>
 			</form>
 			<div>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
