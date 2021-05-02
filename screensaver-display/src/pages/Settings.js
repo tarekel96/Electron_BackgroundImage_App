@@ -3,7 +3,7 @@ import { Button } from '../components/Button.js';
 import styles from './settings.module.css';
 import Variants from '../styles/Variants.js';
 import { Typography } from '../components/Typography.js';
-import SettingsModal from '../components/SettingsModal.js';
+import Modal from '../components/Modal.js';
 const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
@@ -73,9 +73,9 @@ const Settings = () => {
 					}}
 					className={styles['modalContainer']}
 				>
-					<SettingsModal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
-						<p>Modal Body</p>
-					</SettingsModal>
+					<Modal title="Form Sumbitted" onClose={() => setShow(false)} show={show}>
+						<p>Your Settings Have Been Updated</p>
+					</Modal>
 				</div>
 			)}
 			<form
