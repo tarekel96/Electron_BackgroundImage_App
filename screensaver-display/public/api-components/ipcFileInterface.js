@@ -2,6 +2,7 @@ const { app, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const { exec } = require('child_process');
 const fs = require('fs');
+const path = require('path');
 
 const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
 

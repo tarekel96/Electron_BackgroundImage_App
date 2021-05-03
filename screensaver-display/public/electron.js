@@ -30,6 +30,7 @@ function createWindow() {
 		minHeight: 600,
 		// frame: false,
 		fullscreen: !shouldShowTempSettings,
+		icon: 'icon.png',
 		webPreferences: {
 			nodeIntegration: true,
 
