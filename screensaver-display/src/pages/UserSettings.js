@@ -224,9 +224,9 @@ const UserSettings = () => {
 						</div>
 					</Fragment>
 				)}
-				<input type="submit" />
+				<input className={styles['submitSettingsBtn']} type="submit" />
 			</form>
-			<div>
+			<div className={styles['logoutContainer']}>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
 			</div>
 		</section>

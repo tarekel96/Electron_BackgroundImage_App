@@ -15,12 +15,12 @@ import React, { useState, useEffect } from 'react';
 import ky from 'ky';
 
 // UI dependencies
+import { Button } from '../ui-components/Button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // styles
 import styles from './styles/posts.module.css';
-import userPostStyles from './styles/userposts.module.css';
 
 // access to electron window
 const { ipcRenderer } = window.require('electron');
@@ -76,9 +76,11 @@ const UserInstagram = () => {
 		return (
 			<div className={styles['UserPosts']}>
 				<div className={styles['container']}>
+					<h1 className={styles['title']}>Your InstaGram Posts</h1>
 					<div className={styles['imgContainer']}>
 						{postsInfo.map(({ media_url, caption }, index) => (
 							<LazyLoadImage
+								className={styles['igThumbnail']}
 								style={{
 									border: selectedImages.find((imgObj) => imgObj.media_url === media_url)
 										? '4px solid green'
@@ -126,7 +128,9 @@ const UserInstagram = () => {
 							}
 						}}
 					>
-						<input type="submit" />
+						<div className={styles['submitButtonContainer']}>
+							<input type="submit" className={styles['submitButton']} />
+						</div>
 						{errMessage && <ErrMessage />}
 					</form>
 				</div>
@@ -136,21 +140,19 @@ const UserInstagram = () => {
 
 	return (
 		<div>
-			<div>
-				<h1>Posts</h1>
+			<div className={styles['previewContainer']}>
+				{/* <h1>Your InstaGram Posts</h1> */}
 				{authToken === null ? <button onClick={LogInToInstagram}>Log in.</button> : null}
 				{authToken === null ? null : (
-					<button
+					<Button
+						className={styles['previewButton']}
 						onClick={() => {
 							ipcRenderer.send('preview-screensaver');
 						}}
 					>
 						Preview
-					</button>
+					</Button>
 				)}
-				<p style={{ wordWrap: 'break-word' }}>
-					{authToken === null ? 'Instagram token: Not logged in' : `Instagram token: ${authToken}`}
-				</p>
 			</div>
 			{postsInfo === null ? (
 				<div className={styles['container']}>No images loaded yet</div>
@@ -165,35 +167,8 @@ const ErrMessage = () => {
 	return (
 		<React.Fragment>
 			<br />
-			<h4 className={userPostStyles['errMsg']}>ERROR: No images have been selected.</h4>
+			<h4 className={styles['errMsg']}>ERROR: No images have been selected.</h4>
 		</React.Fragment>
-	);
-};
-
-const SelectedImages = ({ selectedImages }) => {
-	if (selectedImages === []) {
-		return <h2>No Images Selected Yet</h2>;
-	}
-	// else {
-	// 	if (selectedImages.length === 0) {
-	// 		return <h2>No Images Selected Yet</h2>;
-	// 	}
-	// }
-	return (
-		<section>
-			<h2>Selected Images: </h2>
-			<div>
-				{selectedImages.map((img, index) => (
-					<LazyLoadImage
-						// style={{ border: selectedImg === media_url ? '4px solid green' : '' }}
-						key={index}
-						src={img}
-						alt="IG post"
-						effect="blur"
-					/>
-				))}
-			</div>
-		</section>
 	);
 };
 
