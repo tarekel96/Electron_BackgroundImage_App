@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button } from '../ui-components/Button.js';
 import styles from './styles/usersettings.module.css';
 import Variants from '../styles/Variants.js';
@@ -9,26 +9,27 @@ const { SPAN, H_4 } = Variants;
 const UserSettings = () => {
 	// form data - stored in React state
 	/* Cycle Speed */
-	const [ cycleTime, setCycleTime ] = React.useState(0);
-	const [ cycleErrMsg, toggleCycleErr ] = React.useState(false);
+	const [ cycleTime, setCycleTime ] = useState(3);
+	const [ cycleErrMsg, toggleCycleErr ] = useState(false);
+	const [ cycleAltMsg, setCycleAltMsg ] = useState(false);
 	/* Source Selection - Instagram or Reddit */
-	const [ source, setSource ] = React.useState('');
+	const [ source, setSource ] = useState('');
 	const SOURCE_TYPES = [ 'instagram', 'reddit', 'local' ];
 	/* Transition Type - Fade or None */
-	const [ transitionType, setTransitionType ] = React.useState('');
+	const [ transitionType, setTransitionType ] = useState('');
 	const TRANSITION_TYPES = [ 'fade', 'no-transition' ];
 	/* Image Type - jpg, jpeg, png, or gif */
-	const [ imageType, setImageType ] = React.useState('');
+	const [ imageType, setImageType ] = useState('');
 	const IMAGE_TYPES = [ 'jpg', 'jpeg', 'png', 'gif' ];
 	/* Show Description Text Checkbox */
-	const [ showDescription, setShowDescription ] = React.useState(false);
+	const [ showDescription, setShowDescription ] = useState(false);
 	const descriptionValue = 'show-description';
 	/* Show Username/Profile Picture Checkbox */
-	const [ showUserProfile, setShowUserProfile ] = React.useState(false);
+	const [ showUserProfile, setShowUserProfile ] = useState(false);
 	const showUserProfileValue = 'show-user-profile';
 	/* Upload Local Image */
-	const [ previewSrc, setPreviewSrc ] = React.useState('');
-	const [ localImageFile, setLocalImageFile ] = React.useState('');
+	const [ previewSrc, setPreviewSrc ] = useState('');
+	const [ localImageFile, setLocalImageFile ] = useState('');
 	const handlePreview = (e) => {
 		e.preventDefault();
 
@@ -79,17 +80,26 @@ const UserSettings = () => {
 						placeholder={0}
 						onChange={(e) => {
 							if (isNaN(Number(e.target.value))) {
+								setCycleAltMsg(() => false);
 								toggleCycleErr(() => true);
 								return;
 							}
 							else {
-								toggleCycleErr(() => false);
-								setCycleTime(e.target.value);
+								if (e.target.value < 3) {
+									setCycleAltMsg(() => true);
+									toggleCycleErr(() => true);
+									return;
+								}
+								else {
+									setCycleAltMsg(() => false);
+									toggleCycleErr(() => false);
+									setCycleTime(e.target.value);
+								}
 							}
 						}}
 					/>
 				</div>
-				{cycleErrMsg && <CycleSpeedErrMessage />}
+				{cycleErrMsg && <CycleSpeedErrMessage altMsg={cycleAltMsg} />}
 				<div>
 					<label>
 						<Typography variant={SPAN}>Generate Screensavers Through</Typography>
@@ -194,7 +204,7 @@ const UserSettings = () => {
 					<input type="file" name="select-image" accept="image/*" onChange={handlePreview} />
 				</div>
 				{previewSrc !== '' && (
-					<React.Fragment>
+					<Fragment>
 						<br />
 						<div className={styles['exitPreviewBtnContainer']}>
 							<button
@@ -212,11 +222,8 @@ const UserSettings = () => {
 							</div>
 							<img src={previewSrc} alt={'Preview'} className={styles['previewImg']} />
 						</div>
-					</React.Fragment>
+					</Fragment>
 				)}
-				{/* <Button type="submit" variant="secondary">
-					Submit
-				</Button> */}
 				<input type="submit" />
 			</form>
 			<div>
@@ -228,13 +235,24 @@ const UserSettings = () => {
 
 export default UserSettings;
 
-const CycleSpeedErrMessage = () => {
+const CycleSpeedErrMessage = ({ altMsg = true }) => {
 	return (
-		<React.Fragment>
-			<br />
-			<h4 className={styles['cycleErrMsg']}>
-				ERROR: An invalid input was entered for cycle speed. Please enter a integer value.
-			</h4>
-		</React.Fragment>
+		<Fragment>
+			{altMsg === true ? (
+				<Fragment>
+					<br />
+					<h4 className={styles['cycleErrMsg']}>
+						ERROR: An invalid input was entered for cycle speed. Cycle speed cannot be less than 3 seconds.
+					</h4>
+				</Fragment>
+			) : (
+				<Fragment>
+					<br />
+					<h4 className={styles['cycleErrMsg']}>
+						ERROR: An invalid input was entered for cycle speed. Please enter a integer value.
+					</h4>
+				</Fragment>
+			)}
+		</Fragment>
 	);
 };
