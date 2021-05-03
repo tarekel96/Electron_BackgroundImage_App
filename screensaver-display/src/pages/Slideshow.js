@@ -34,6 +34,9 @@ function Slideshow() {
 			if (settingsData === null) {
 				return;
 			}
+			else {
+				console.log(settingsData);
+			}
 
 			// assign settings
 			setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
@@ -58,14 +61,22 @@ function Slideshow() {
 
 	const currentImage =
 		postsInfo.length > 0 ? (
-			<img src={postsInfo[postIndex]} className={styles.center} alt="" />
+			<section className={styles['slideShowContainer']}>
+				{postsInfo[postIndex].caption !== 'none' && (
+					<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
+				)}
+				<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
+			</section>
 		) : (
 			<div>
-				<h1>Oops! You don't have any images available. Try logging in with the settings app and selecting some images.</h1>
+				<h1>
+					Oops! You don't have any images available. Try logging in with the settings app and selecting some
+					images.
+				</h1>
 				{/* <Link to="/settings_instagram">Go here to log in.</Link> */}
-        <div>
-          <button onClick={() => ipcRenderer.send('exit')}>Exit</button>
-        </div>
+				<div>
+					<button onClick={() => ipcRenderer.send('exit')}>Exit</button>
+				</div>
 			</div>
 		);
 

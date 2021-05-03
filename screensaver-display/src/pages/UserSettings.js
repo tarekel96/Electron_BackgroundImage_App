@@ -77,7 +77,7 @@ const UserSettings = () => {
 					<input
 						name="input-cycle-time"
 						type="text"
-						placeholder={0}
+						placeholder={3}
 						onChange={(e) => {
 							if (isNaN(Number(e.target.value))) {
 								setCycleAltMsg(() => false);
