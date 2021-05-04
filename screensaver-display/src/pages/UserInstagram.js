@@ -11,7 +11,7 @@ floating during window resizing.
 */
 
 // dependencies
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import ky from 'ky';
 
 // UI dependencies
@@ -25,7 +25,7 @@ import styles from './styles/posts.module.css';
 // access to electron window
 const { ipcRenderer } = window.require('electron');
 
-const UserInstagram = () => {
+const UserInstagram = ({ appMode, setAppMode }) => {
 	const [ postsInfo, setPostsInfo ] = useState(null);
 	const [ authToken, setAuthToken ] = useState(null);
 
@@ -144,14 +144,24 @@ const UserInstagram = () => {
 				{/* <h1>Your InstaGram Posts</h1> */}
 				{authToken === null ? <button onClick={LogInToInstagram}>Log in.</button> : null}
 				{authToken === null ? null : (
-					<Button
-						className={styles['previewButton']}
-						onClick={() => {
-							ipcRenderer.send('preview-screensaver');
-						}}
-					>
-						Preview
-					</Button>
+					<Fragment>
+						<Button
+							className={styles['previewButton']}
+							onClick={() => {
+								ipcRenderer.send('preview-screensaver');
+							}}
+						>
+							Preview
+						</Button>
+						<Button
+							className={styles['igModeButton']}
+							onClick={() => {
+								setAppMode(() => 'ig');
+							}}
+						>
+							IG Mode
+						</Button>
+					</Fragment>
 				)}
 			</div>
 			{postsInfo === null ? (

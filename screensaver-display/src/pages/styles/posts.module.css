@@ -17,10 +17,17 @@
 .previewContainer {
 	margin-left: 1.5rem;
 	height: 100px;
-	text-align: center;
+	display: flex;
+	justify-content: space-around;
 }
 
 .previewButton {
+	width: 150px;
+	font-size: 24px;
+	height: 40px;
+}
+
+.igModeButton {
 	width: 150px;
 	font-size: 24px;
 	height: 40px;

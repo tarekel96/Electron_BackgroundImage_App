@@ -1,5 +1,5 @@
 // dependencies
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
 // routing dependencies
@@ -9,7 +9,7 @@ import UserRedditSearch from './pages/UserRedditSearch';
 import UserSettings from './pages/UserSettings.js';
 import Auth from './pages/Auth.js';
 import Slideshow from './pages/Slideshow.js';
-import Loading from './pages/Loading.js'
+import Loading from './pages/Loading.js';
 
 // UI dependencies
 import { Layout } from './ui-components/Layout.js';
@@ -18,12 +18,21 @@ import { Layout } from './ui-components/Layout.js';
 import './styles/main.css';
 
 const App = () => {
+	const [ appMode, setAppMode ] = useState('ig');
 	return (
 		<Router>
-			<Layout>
+			<Layout appMode={appMode}>
 				<Route path="/" component={Slideshow} exact />
-				<Route path="/posts" component={UserInstagram} exact />
-				<Route path="/search" component={UserRedditSearch} exact />
+				<Route
+					path="/posts"
+					component={() => <UserInstagram appMode={appMode} setAppMode={setAppMode} />}
+					exact
+				/>
+				<Route
+					path="/search"
+					component={() => <UserRedditSearch appMode={appMode} setAppMode={setAppMode} />}
+					exact
+				/>
 				<Route path="/settings" component={UserSettings} exact />
 				<Route path="/settings_home" component={UserHome} exact />
 				<Route path="/auth" component={Auth} />
