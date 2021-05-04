@@ -1,5 +1,5 @@
 // dependencies
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
 // styles
@@ -7,7 +7,7 @@ import styles from './styles/slideshow.module.css';
 
 const { ipcRenderer } = window.require('electron');
 
-function Slideshow() {
+function Slideshow({ appMode, setAppMode }) {
 	const [ postsInfo, setPostsInfo ] = useState([]);
 	const [ postIndex, setPostIndex ] = useState(0);
 
@@ -38,6 +38,14 @@ function Slideshow() {
 				console.log(settingsData);
 			}
 
+			// update appMode settings to change background color before displaying slide show
+			if (settingsData.source === 'ig' && appMode !== 'ig') {
+				setAppMode('ig');
+			}
+			else if (settingsData.source === 'reddit' && appMode !== 'reddit') {
+				setAppMode('reddit');
+			}
+
 			// assign settings
 			setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
 			setImageSrc(settingsData.source);
@@ -56,7 +64,7 @@ function Slideshow() {
 
 			return () => clearInterval(interval);
 		},
-		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile ]
+		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile, appMode, setAppMode ]
 	);
 
 	const currentImage =

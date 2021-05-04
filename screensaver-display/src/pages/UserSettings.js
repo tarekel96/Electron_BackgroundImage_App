@@ -6,7 +6,7 @@ import { Typography } from '../ui-components/Typography.js';
 const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
-const UserSettings = () => {
+const UserSettings = ({ appMode, setAppMode }) => {
 	// form data - stored in React state
 	/* Cycle Speed */
 	const [ cycleTime, setCycleTime ] = useState(3);
@@ -14,7 +14,7 @@ const UserSettings = () => {
 	const [ cycleAltMsg, setCycleAltMsg ] = useState(false);
 	/* Source Selection - Instagram or Reddit */
 	const [ source, setSource ] = useState('');
-	const SOURCE_TYPES = [ 'instagram', 'reddit', 'local' ];
+	const SOURCE_TYPES = [ 'ig', 'reddit', 'local' ];
 	/* Transition Type - Fade or None */
 	const [ transitionType, setTransitionType ] = useState('');
 	const TRANSITION_TYPES = [ 'fade', 'no-transition' ];
@@ -65,8 +65,8 @@ const UserSettings = () => {
 				onSubmit={(e) => {
 					e.preventDefault();
 					const JSON_Data = JSON.stringify(formValues);
-					// console.log('Submitted form');
-					// console.log(JSON_Data);
+					console.log('Submitted form');
+					console.log(JSON_Data);
 					ipcRenderer.send('save-settings', JSON_Data);
 				}}
 			>
@@ -116,7 +116,7 @@ const UserSettings = () => {
 							}
 						}}
 					>
-						<option value="instagram">Instagram</option>
+						<option value="ig">Instagram</option>
 						<option value="reddit">Reddit</option>
 						<option value="local">Local (file on own computer)</option>
 					</select>
