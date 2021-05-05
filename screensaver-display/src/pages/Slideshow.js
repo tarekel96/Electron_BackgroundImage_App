@@ -1,5 +1,5 @@
 // dependencies
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
 // styles
@@ -7,7 +7,7 @@ import styles from './styles/slideshow.module.css';
 
 const { ipcRenderer } = window.require('electron');
 
-function Slideshow() {
+function Slideshow({ appMode, setAppMode }) {
 	const [ postsInfo, setPostsInfo ] = useState([]);
 	const [ postIndex, setPostIndex ] = useState(0);
 
@@ -34,6 +34,17 @@ function Slideshow() {
 			if (settingsData === null) {
 				return;
 			}
+			else {
+				console.log(settingsData);
+			}
+
+			// update appMode settings to change background color before displaying slide show
+			if (settingsData.source === 'ig' && appMode !== 'ig') {
+				setAppMode('ig');
+			}
+			else if (settingsData.source === 'reddit' && appMode !== 'reddit') {
+				setAppMode('reddit');
+			}
 
 			// assign settings
 			setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
@@ -53,19 +64,27 @@ function Slideshow() {
 
 			return () => clearInterval(interval);
 		},
-		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile ]
+		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile, appMode, setAppMode ]
 	);
 
 	const currentImage =
 		postsInfo.length > 0 ? (
-			<img src={postsInfo[postIndex]} className={styles.center} alt="" />
+			<section className={styles['slideShowContainer']}>
+				{postsInfo[postIndex].caption !== 'none' && (
+					<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
+				)}
+				<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
+			</section>
 		) : (
 			<div>
-				<h1>Oops! You don't have any images available. Try logging in with the settings app and selecting some images.</h1>
+				<h1>
+					Oops! You don't have any images available. Try logging in with the settings app and selecting some
+					images.
+				</h1>
 				{/* <Link to="/settings_instagram">Go here to log in.</Link> */}
-        <div>
-          <button onClick={() => ipcRenderer.send('exit')}>Exit</button>
-        </div>
+				<div>
+					<button onClick={() => ipcRenderer.send('exit')}>Exit</button>
+				</div>
 			</div>
 		);
 

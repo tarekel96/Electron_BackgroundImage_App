@@ -1,3 +1,5 @@
+@import url("../../styles/main.css");
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -6,36 +8,61 @@
 
 .UserPosts {
 	width: 100%;
-	min-height: 100vh;
+	/* min-height: 100vh; */
+	max-width: 1000px;
 	display: flex;
+	align-items: center;
 }
 
-/* img {
-	display: block;
-	cursor: pointer;
-	width: 200px !important;
-	height: 200px !important;
-	border-radius: 6px;
-	box-shadow: 3px 3px 5px 6px #ccc;
-} */
+.previewContainer {
+	margin-left: 1.5rem;
+	height: 100px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.previewButton {
+	width: 150px;
+	font-size: 24px;
+	height: 40px;
+}
+
+.igModeButton {
+	width: 150px;
+	font-size: 24px;
+	height: 40px;
+}
 
 .container {
-	margin: auto;
+	margin: 0 auto 1rem 1rem;
 	width: 100%;
+	height: 100%;
 	max-width: 700px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.title {
+	align-self: center;
 }
 
 .container .selected {
-	width: 500px;
+	width: 100%;
 	height: 500px;
-	margin: 0 auto;
 	border: 4px solid green;
 }
 
+.igThumbnail:hover {
+	transform: scale(1.15);
+	margin: 0 8px;
+}
+
 .container .imgContainer {
-	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-flow: row wrap;
+	align-content: flex-start;
 	padding: 40px 0 0 0;
 }
 
@@ -47,4 +74,32 @@
 	border-radius: 6px;
 	box-shadow: 3px 3px 5px 6px #ccc;
 	margin: 0.5rem 1rem;
+}
+
+.errMsg {
+	font-family: var(--font-Montserrat);
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 36px;
+	color: red;
+}
+
+.submitButtonContainer {
+	width: 100%;
+}
+
+.submitButton {
+	width: 150px;
+	font-size: 24px;
+	height: 40px;
+	color: var(--color-white);
+	background-color: var(--color-blue);
+	border-radius: 4px;
+	border-color: transparent;
+}
+.submitButton:hover {
+	cursor: pointer;
+	background-color: var(--color-white);
+	color: var(--color-blue);
+	border-color: var(--color-blue);
 }

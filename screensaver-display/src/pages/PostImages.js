@@ -1,5 +1,6 @@
-import DEFAULT_IMAGE from '../styles/ExampleImage2.jpg';
-export default [
+// import DEFAULT_IMAGE from '../styles/ExampleImage2.jpg';
+import React from 'react';
+const Images = [
 	'https://cdn.theatlantic.com/thumbor/UzusgaYRRauBU4xOap3pRZEG0OU=/418x89:1997x1668/1080x1080/media/img/mt/2019/07/GettyImages_138965532/original.jpg',
 	'https://media1.popsugar-assets.com/files/thumbor/PLn7cxba21v9f3Rx4N6NkbMMda0/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/03/21/663/n/24155406/e516c6d05c93a5e9b2e9e3.06141664_/i/Heartbreaking-Post-About-How-Quickly-Dogs-Age.jpg',
 	'https://media.nature.com/lw800/magazine-assets/d41586-020-01430-5/d41586-020-01430-5_17977552.jpg',
@@ -11,3 +12,4 @@ export default [
 	'https://i.pinimg.com/originals/85/6f/74/856f748e10062922ff56991ce872bc3f.jpg',
 	'http://cdn.shopify.com/s/files/1/0069/9737/7124/articles/BOSS2.jpg?v=1614372949'
 ];
+export default Images;
