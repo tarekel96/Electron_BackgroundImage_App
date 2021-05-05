@@ -6,6 +6,12 @@
   "main": "public/electron.js",
   "build": {
     "appId": "screensaver,display",
+    "files": [
+      "build"
+    ],
+    "win": {
+      "icon": "build/icon.png"
+    },
     "linux": {
       "target": "dir"
     }
