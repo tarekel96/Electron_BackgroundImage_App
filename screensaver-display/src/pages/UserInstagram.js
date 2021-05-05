@@ -22,10 +22,15 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 // styles
 import styles from './styles/posts.module.css';
 
+import Modal from '../ui-components/Modal.js';
+
 // access to electron window
 const { ipcRenderer } = window.require('electron');
 
 const UserInstagram = ({ appMode, setAppMode }) => {
+	/* Modal State */
+	const [ show, setShow ] = useState(false);
+
 	const [ postsInfo, setPostsInfo ] = useState(null);
 	const [ authToken, setAuthToken ] = useState(null);
 
@@ -75,6 +80,23 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 	const createImageSelection = () => {
 		return (
 			<div className={styles['UserPosts']}>
+				{show && (
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							position: 'absolute',
+							left: '50%',
+							top: '50%',
+							transform: 'translate(-50%, -50%)'
+						}}
+						className={styles['modalContainer']}
+					>
+						<Modal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+							<p>Your settings have been updated</p>
+						</Modal>
+					</div>
+				)}
 				<div className={styles['container']}>
 					<h1 className={styles['title']}>Your InstaGram Posts</h1>
 					<div className={styles['imgContainer']}>
@@ -125,11 +147,16 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 								console.log('Submitted form');
 								console.log(JSON_Data);
 								ipcRenderer.send('selected-images', JSON_Data);
+								setShow(true);
 							}
 						}}
 					>
 						<div className={styles['submitButtonContainer']}>
-							<input type="submit" className={styles['submitButton']} />
+							<input
+								type="submit"
+								className={styles['submitButton']}
+								onClick={() => setShow(() => true)}
+							/>
 						</div>
 						{errMessage && <ErrMessage />}
 					</form>

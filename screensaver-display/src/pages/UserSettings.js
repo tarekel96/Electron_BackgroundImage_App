@@ -3,10 +3,13 @@ import { Button } from '../ui-components/Button.js';
 import styles from './styles/usersettings.module.css';
 import Variants from '../styles/Variants.js';
 import { Typography } from '../ui-components/Typography.js';
+import Modal from '../ui-components/Modal.js';
 const { ipcRenderer } = window.require('electron'); // research window
 const { SPAN, H_4 } = Variants;
 
 const UserSettings = ({ appMode, setAppMode }) => {
+	/* Modal State */
+	const [ show, setShow ] = useState(false);
 	// form data - stored in React state
 	/* Cycle Speed */
 	const [ cycleTime, setCycleTime ] = useState(3);
@@ -60,6 +63,23 @@ const UserSettings = ({ appMode, setAppMode }) => {
 	};
 	return (
 		<section className={styles['settingsSection']}>
+			{show && (
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						position: 'absolute',
+						left: '50%',
+						top: '50%',
+						transform: 'translate(-50%, -50%)'
+					}}
+					className={styles['modalContainer']}
+				>
+					<Modal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+						<p>Your settings have been updated</p>
+					</Modal>
+				</div>
+			)}
 			<form
 				className={styles['settingsForm']}
 				onSubmit={(e) => {
@@ -224,7 +244,12 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						</div>
 					</Fragment>
 				)}
-				<input className={styles['submitSettingsBtn']} type="submit" />
+				<Button type="submit" variant="secondary" onClick={() => setShow(() => true)}>
+					Submit
+				</Button>
+				{/* <Button type="submit" variant="secondary">
+					Submit
+				</Button> */}
 			</form>
 			<div className={styles['logoutContainer']}>
 				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
@@ -232,7 +257,6 @@ const UserSettings = ({ appMode, setAppMode }) => {
 		</section>
 	);
 };
-
 export default UserSettings;
 
 const CycleSpeedErrMessage = ({ altMsg = true }) => {

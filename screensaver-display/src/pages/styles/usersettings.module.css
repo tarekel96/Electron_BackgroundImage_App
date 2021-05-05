@@ -3,6 +3,10 @@
 .settingsSection {
 	margin: 4% 0 0 4%;
 }
+.modalContainer {
+	display: flex;
+	justify-content: center;
+}
 .settingsForm {
 	display: flex;
 	flex-direction: column;
