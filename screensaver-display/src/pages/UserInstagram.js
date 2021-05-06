@@ -92,7 +92,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 						}}
 						className={styles['modalContainer']}
 					>
-						<Modal title="Settings Sumbitted" onClose={() => setShow(false)} show={show}>
+						<Modal title="Settings Submitted" onClose={() => setShow(false)} show={show}>
 							<p>Your settings have been updated</p>
 						</Modal>
 					</div>
