@@ -1,3 +1,5 @@
+@import '../../styles/main.css';
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -19,15 +21,6 @@
 }
 
 
-
-.searchContainer {
-	width: 350px;
-	margin-right: 20px;
-	border-right: 1px solid #bbb;
-	box-shadow: 3px 0 10px #ccc;
-	background-color: #eee;
-}
-
 .imgContainer {
 	width: 100%;
 	height: 100%;
@@ -39,10 +32,89 @@
 }
 
 .imgContainer img {
-	cursor: pointer;
 	width: 200px !important;
 	height: 200px !important;
+	object-fit: cover;
 	border-radius: 6px;
-	box-shadow: 3px 3px 5px 6px #ccc;
+	/*box-shadow: 3px 3px 5px 6px rgba(0,0,0,.5);*/
 	margin: 0.5rem 1rem;
+}
+
+.searchContainer {
+	position: relative;
+	width: 450px;
+	margin-right: 20px;
+	border-right: 1px solid #bbb;
+	box-shadow: 3px 0 10px #ccc;
+	background-color: #eee;
+}
+
+
+/* Search Bar */
+
+
+.searchBar {
+	width: 98%;
+	height: 30px;
+	margin: 1%;
+	margin-bottom: 0px;
+	font-size: 20px;
+}
+
+.searchResultList {
+	border-radius: 5px;
+	background-color: #fff;
+	width: 98%;
+	margin: 1%;
+	margin-top: 0px;
+}
+
+.searchResult {
+	width: 98%;
+	height: 30px;
+	margin: 2px 1%;
+	padding: 2px 5px;
+	font-size: 16px;
+	font-weight: 600;
+	text-align: left;
+	border: 0px;
+	border-radius: 20px;
+	background-color: #fff;
+}
+
+.searchResult:hover {
+	background-color: #ccc;
+}
+
+
+/* Selected Subreddit List */
+
+.subredditListContainer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin: 5px;
+	text-align: center;
+}
+
+.subredditListContainer>button {
+	cursor: pointer;
+	display: inline-block;
+	border: 0px;
+	border-radius: 15px;
+	background-color: var(--color-blue);
+	color: #fff;
+	font-weight: 600;
+	font-size: 16px;
+	letter-spacing: 1px;
+	padding: 4px 8px;
+	margin: 3px;
+}
+
+.subredditListContainer>button:hover {
+	background-color: rgb(177, 0, 0);
+	padding: 5px 9px;
+	margin: 2px;
+	transition: background-color 0.3s, padding 0.3s, margin 0.3s;
+
 }

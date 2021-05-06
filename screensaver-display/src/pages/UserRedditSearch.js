@@ -1,7 +1,8 @@
 // dependencies
 import React, { useState, useEffect, Fragment } from 'react';
-import Images from './PostImages';
-import { getSubreddits } from '../api-components/redditApiInterface.js';
+//import Images from './PostImages';
+import { getSubreddits } from './api-components/redditApiInterface.js';
+import { getRedditImages } from './api-components/redditApiInterface.js';
 
 // UI dependencies
 import { Button } from '../ui-components/Button.js';
@@ -13,72 +14,93 @@ import './styles/RedditSearchbar.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const UserRedditSearch = ({ appMode, setAppMode }) => {
+
+	const [ subreddits, setSubreddits ] = useState([]);
+	const [images, setImages ] = useState([]);
+
+	const ToggleSubreddit = (e) => {
+		e.preventDefault();
+		
+		const newSubreddit = e.target.value;
+		if (!subreddits.includes(newSubreddit)) {
+			setSubreddits([...subreddits, newSubreddit]);
+		} else {
+			setSubreddits(subreddits.filter(item => item !== newSubreddit));
+		}
+	};
+
+	useEffect( async () => {
+		if (subreddits.length){
+			const imageFeed = await getRedditImages(subreddits);
+			setImages(imageFeed || []);
+			console.log('Set images:',imageFeed);
+		} else {
+			console.log('Search Length not long enough for API pull');
+		}
+	}, [subreddits])
+
 	return (
 		<div className={styles['container']}>
 			<div className={styles['searchContainer']}>
 				<Button
 					type="enable"
 					variant="small"
-					onClick={() => {
-						setAppMode(() => 'reddit');
-					}}
+					onClick={() => {setAppMode(() => 'reddit');}}
 				>
 					Reddit Mode
 				</Button>
 
-				<SubredditSearchbar />
+				<SubredditSearchbar subreddits={subreddits} setSubreddits={setSubreddits} ToggleSubreddit={ToggleSubreddit}/>
+				
 			</div>
 			<div className={styles['imgContainer']}>
-				{Images.map((img, index) => <LazyLoadImage key={index} src={img} alt="dog" effect="blur" />)}
+				{images.map((post, index) => 
+					<LazyLoadImage 
+						key={index} 
+						src={post.data.url} 
+						onError={(e)=> {
+							e.target.style.display="none";
+							}
+						} 
+						effect="blur"
+					/>
+				)}
 			</div>
 		</div>
 	);
 };
 
-const Results = (props) => {
-	const returnList = () => {
-		const defaultIcon =
-			'https://styles.redditmedia.com/t5_6/styles/communityIcon_a8uzjit9bwr21.png?width=256&s=d28ea66f16da5a6c2ccae0d069cc4d42322d69a9';
-		return props.posts.map((post, index) => {
-			return (
-				<div className="result" key={index}>
-					<div className="subredditThumbnail">
-						<img src={post.data.header_img || defaultIcon} alt={`r/${post.data.display_name}`} />
-					</div>
-					<p className="subredditTitle">r/{post.data.display_name}</p>
-				</div>
-			);
-		});
-	};
 
-	return (
-		<Fragment>
-			<div className="resultsBox">{returnList()}</div>
-		</Fragment>
-	);
-};
-
-const SubredditSearchbar = (props) => {
+const SubredditSearchbar = ({subreddits, setSubreddits, ToggleSubreddit}) => {
 	const [ search, setSearch ] = useState('');
 	const [ query, setQuery ] = useState([]);
-	const [ subreddits, setSubreddits ] = useState([]);
-
-	const handleSubmit = (e) => {
+	
+	// Development logs
+	// useEffect( () => {
+	// 	console.log('subreddit-list changed:',subreddits);
+	// }, [subreddits]);
+	
+	useEffect( () => {
+		console.log('search query changed:',query);
+	}, [query]);
+	//
+	
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		setQuery(getSubreddits(search, 5) || []);
-
-		console.log('query:', query);
-
+		
+		const searchQuery = await getSubreddits(search, 10);
+		setQuery(searchQuery || []);
 		setSearch('');
-		return;
 	};
+	
+	
+	
 
 	return (
 		<form onSubmit={handleSubmit}>
 			<div>
 				<input
-					className="searchbar"
+					className={styles['searchBar']}
 					type="text"
 					id="search"
 					name="search"
@@ -86,19 +108,50 @@ const SubredditSearchbar = (props) => {
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 				/>
-				<ul>
-					{query.map((option) => {
-						console.log('creating button');
+				<ul className={styles['searchResultList']}>
+					{query.map((option, index) => {
+						const subredditTag = option.data.display_name;
+						const selected = subreddits.includes(subredditTag);
 						return (
-							<button type="button" className="search-result" value="example">
-								Example
+							<button 
+								type="button" 
+								className={styles['searchResult']} 
+								value={subredditTag} 
+								key={index}
+								style={selected ? {backgroundColor: "lightgreen"} : {}}
+								onClick={ToggleSubreddit}>
+							r/{subredditTag}
+								
 							</button>
 						);
 					})}
 				</ul>
 			</div>
+
+			<div className={styles["subredditListContainer"]}>
+			{subreddits.map((subreddit, index) => {
+				return (
+					<button
+						type="button" 
+						value={subreddit} 
+						key={index}
+						onClick={ToggleSubreddit}
+					>
+					{subreddit}
+					</button>
+				)
+			})}
+		</div>
 		</form>
 	);
 };
+
+// const SubredditList = ({subreddits, setSubreddits}) => {
+	
+
+// 	return (
+		
+// 	);
+// };
 
 export default UserRedditSearch;
