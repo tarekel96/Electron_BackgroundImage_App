@@ -192,7 +192,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 				)}
 			</div>
 			{postsInfo === null ? (
-				<div className={styles['container']}>No images loaded yet</div>
+				<div className={styles['container']}>No images loaded yet.</div>
 			) : (
 				createImageSelection()
 			)}
