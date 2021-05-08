@@ -1,4 +1,7 @@
 // import DEFAULT_IMAGE from '../styles/ExampleImage2.jpg';
+
+// placeholder images until APIs are finished
+
 import React from 'react';
 const Images = [
 	'https://cdn.theatlantic.com/thumbor/UzusgaYRRauBU4xOap3pRZEG0OU=/418x89:1997x1668/1080x1080/media/img/mt/2019/07/GettyImages_138965532/original.jpg',
