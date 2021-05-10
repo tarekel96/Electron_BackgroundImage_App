@@ -2,7 +2,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 //import Images from './PostImages';
 import { getSubreddits } from './api-components/redditApiInterface.js';
-import { getRedditImages } from './api-components/redditApiInterface.js';
+import { getRedditQuery } from './api-components/redditApiInterface.js';
 
 // UI dependencies
 import { Button } from '../ui-components/Button.js';
@@ -12,6 +12,9 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import styles from './styles/userredditsearch.module.css';
 import './styles/RedditSearchbar.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+
+// access to electron window
+const { ipcRenderer } = window.require('electron');
 
 const UserRedditSearch = ({ appMode, setAppMode }) => {
 
@@ -31,12 +34,13 @@ const UserRedditSearch = ({ appMode, setAppMode }) => {
 
 	useEffect( async () => {
 		if (subreddits.length){
-			const imageFeed = await getRedditImages(subreddits);
+			const imageFeed = await getRedditQuery(subreddits, '');
 			setImages(imageFeed || []);
 			console.log('Set images:',imageFeed);
 		} else {
 			console.log('Search Length not long enough for API pull');
 		}
+		ipcRenderer.send('save-subreddits', (JSON.stringify(subreddits)));
 	}, [subreddits])
 
 	return (
