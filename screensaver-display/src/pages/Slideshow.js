@@ -12,46 +12,49 @@ function Slideshow({ appMode, setAppMode }) {
 	const [ postIndex, setPostIndex ] = useState(0);
 
 	// settings state
-	const [ cycleTime, setCycleTime ] = useState(2000);
+	const [ cycleTime, setCycleTime ] = useState(3);
 	const [ imageSrc, setImageSrc ] = useState('');
 	const [ showDescription, setShowDescription ] = useState(false);
 	const [ showUserProfile, setShowUserProfile ] = useState(false);
 
+	// useEffect as componentDidMount()
+	useEffect(() => {
+		const selectedImages = ipcRenderer.sendSync('read-selected-images');
+		if (selectedImages === null) {
+			return;
+		}
+		else {
+			console.log(selectedImages);
+		}
+
+		setPostsInfo(selectedImages.selectedImages);
+
+		const settingsData = ipcRenderer.sendSync('read-settings-info');
+		if (settingsData === null) {
+			return;
+		}
+		else {
+			console.log(settingsData);
+		}
+
+		// update appMode settings to change background color before displaying slide show
+		if (settingsData.source === 'ig' && appMode !== 'ig') {
+			setAppMode('ig');
+		}
+		else if (settingsData.source === 'reddit' && appMode !== 'reddit') {
+			setAppMode('reddit');
+		}
+
+		// assign settings
+		setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
+		setImageSrc(settingsData.source);
+		setShowDescription(settingsData.showDescription);
+		setShowUserProfile(settingsData.showUserProfile);
+	}, []);
+
 	// fetch settings data from settings.json
 	useEffect(
 		() => {
-			const selectedImages = ipcRenderer.sendSync('read-selected-images');
-			if (selectedImages === null) {
-				return;
-			}
-			else {
-				console.log(selectedImages);
-			}
-
-			setPostsInfo(selectedImages.selectedImages);
-
-			const settingsData = ipcRenderer.sendSync('read-settings-info');
-			if (settingsData === null) {
-				return;
-			}
-			else {
-				console.log(settingsData);
-			}
-
-			// update appMode settings to change background color before displaying slide show
-			if (settingsData.source === 'ig' && appMode !== 'ig') {
-				setAppMode('ig');
-			}
-			else if (settingsData.source === 'reddit' && appMode !== 'reddit') {
-				setAppMode('reddit');
-			}
-
-			// assign settings
-			setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
-			setImageSrc(settingsData.source);
-			setShowDescription(settingsData.showDescription);
-			setShowUserProfile(settingsData.showUserProfile);
-
 			// slideshow transition logic
 			const interval = setInterval(() => {
 				if (postIndex >= postsInfo.length - 1) {

@@ -1,4 +1,3 @@
-
 // dependencies
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
@@ -13,14 +12,13 @@ if (!fs.existsSync(storagePath)) {
 
 // interfaces
 require('./api-components/ipcFileInterface.js'); // file access from React through main Electron window
-const authentication = require('./api-components/redirectAuthenticate.js'); 	// Instagram authentication moved here
+const authentication = require('./api-components/redirectAuthenticate.js'); // Instagram authentication moved here
 
 // Bool to check --settings parameter
 const shouldShowTempSettings = process.argv.includes('--settings');
 
 // Where does Electron listen? Development mode: local host, Build: index.html
 const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
-
 
 function createWindow() {
 	const win = new BrowserWindow({
@@ -45,7 +43,7 @@ function createWindow() {
 
 	// For Development: Run from localhost (background react server)
 	// For Builds: Run from index.html file in build/
-	win.loadURL(shouldShowTempSettings ? urlBasis + '#/settings_home' : urlBasis);
+	win.loadURL(shouldShowTempSettings ? urlBasis + '#/settings' : urlBasis);
 
 	ipcMain.on('reload-page', (event, args) => {
 		win.reload();

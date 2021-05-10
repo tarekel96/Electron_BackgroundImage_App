@@ -55,7 +55,7 @@ const App = () => {
 					component={() => <UserSettings appMode={appMode} setAppMode={setAppMode} />}
 					exact
 				/>
-				<Route path="/settings_home" component={UserHome} exact />
+				{/* <Route path="/settings_home" component={UserHome} exact /> */}
 				<Route path="/loading" component={Loading} />
 			</Layout>
 		</Router>
