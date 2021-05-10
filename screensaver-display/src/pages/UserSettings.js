@@ -267,9 +267,6 @@ const UserSettings = ({ appMode, setAppMode }) => {
 					Submit
 				</Button> */}
 			</form>
-			<div className={styles['logoutContainer']}>
-				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
-			</div>
 		</section>
 	);
 };

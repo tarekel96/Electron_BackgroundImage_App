@@ -75,3 +75,19 @@ ipcMain.on('preview-screensaver', (event, args) => {
 ipcMain.on('get-url-basis', (event, args) => {
 	event.returnValue = urlBasis;
 });
+
+ipcMain.on('delete-ig-files', (event, args) => {
+	function deleteIfExists(path) {
+		if (fs.existsSync(path)) {
+			fs.rmSync(path);
+			console.log(`Deleted ${path}!`);
+		} else {
+			console.log(`Did not delete ${path}, as it does not exist.`);
+		}
+	}
+
+	deleteIfExists(storagePath + '/IGBasicDisplayLongLivedToken');
+	deleteIfExists(storagePath + '/selectedimages.json');
+
+	event.returnValue = null;
+});

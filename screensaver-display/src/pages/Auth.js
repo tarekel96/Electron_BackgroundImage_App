@@ -51,7 +51,7 @@ const Auth = () => {
   } else {
     return (
       <div>
-        <h1>Hello, authentication!</h1>
+        <h1>Login Successful!</h1>
         <p>Your authorization code is: {authorizationCode}</p>
       </div>
     );
