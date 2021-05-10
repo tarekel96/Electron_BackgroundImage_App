@@ -16,7 +16,10 @@ if (!fs.existsSync(storagePath)) {
 // APP SECRET
 const APP_SECRET = 'a7a0947d0367a41024f825989bf65049';
 
-const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
+// NOTE(Chris): This is constructed slightly differently from the urlBasis in
+// electron.js, since this file (redirectAuthenticate.js) is in a different
+// directory than electron.js
+const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../index.html')}`;
 
 function redirectAuthenticate(win, event, newUrl) {
 	const API_AUTH_PATH = 'https://localhost:3000/auth/';
@@ -108,13 +111,8 @@ function redirectAuthenticate(win, event, newUrl) {
 			/// Redirect to React auth page, sending the long-lived token along
 			console.log(`Tried to navigate to ${API_AUTH_PATH}, so redirecting...`);
 
-			const redirectUrl = new URL(PAGE_AUTH_PATH);
-			redirectUrl.searchParams.append('code', authorizationCode);
-			redirectUrl.searchParams.append('ll_token', llData.access_token);
-			// console.log(`code: ${authorizationCode}`);
-			console.log('redirectUrl: ' + redirectUrl);
-
-			win.loadURL(redirectUrl.href);
+			console.log('PAGE_AUTH_PATH: ' + PAGE_AUTH_PATH);
+			win.loadURL(PAGE_AUTH_PATH);
 		};
 
 		fetchTokens(); // Asynchronous
