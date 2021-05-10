@@ -95,8 +95,8 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 						}}
 						className={styles['modalContainer']}
 					>
-						<Modal title="Settings Submitted" onClose={() => setShow(false)} show={show}>
-							<p>Your settings have been updated.</p>
+						<Modal title="Images Updated" onClose={() => setShow(false)} show={show}>
+							<p>Your selected posts have been updated.</p>
 						</Modal>
 					</div>
 				)}
@@ -177,7 +177,9 @@ const UserInstagram = ({ appMode, setAppMode }) => {
       <div className={styles['previewContainer']}>
         {/* <h1>Your InstaGram Posts</h1> */}
         {authToken === null ? (
-          <button onClick={LogInToInstagram}>Log in.</button>
+          <Button className={styles['igModeButton']} onClick={LogInToInstagram}>
+            Log in.
+          </Button>
         ) : null}
         {authToken === null ? null : (
           <Fragment>
@@ -197,10 +199,13 @@ const UserInstagram = ({ appMode, setAppMode }) => {
             >
               IG Mode
             </Button>
-            <Button className={styles['igModeButton']} onClick={() => {
-							ipcRenderer.sendSync('delete-ig-files');
-							ipcRenderer.send('reload-page');
-						}}>
+            <Button
+              className={styles['igModeButton']}
+              onClick={() => {
+                ipcRenderer.sendSync('delete-ig-files');
+                ipcRenderer.send('reload-page');
+              }}
+            >
               IG Logout
             </Button>
           </Fragment>
