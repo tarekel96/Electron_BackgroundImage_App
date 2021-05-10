@@ -64,10 +64,6 @@ export const SideNavBar = () => {
 
 const sideNavItemsArray = [
 	{
-		content: 'Home',
-		link: '/settings_home'
-	},
-	{
 		content: 'IG Posts',
 		link: '/posts'
 	},
