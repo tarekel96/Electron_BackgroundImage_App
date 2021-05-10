@@ -20,7 +20,7 @@ const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirnam
 
 function redirectAuthenticate(win, event, newUrl) {
 	const API_AUTH_PATH = 'https://localhost:3000/auth/';
-	const PAGE_AUTH_PATH = urlBasis + '#/auth';
+	const PAGE_AUTH_PATH = urlBasis + '#/posts';
 
 	// console.log("redirect newUrL: " + newUrl);
 

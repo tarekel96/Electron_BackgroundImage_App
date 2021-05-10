@@ -75,7 +75,17 @@ const UserSettings = ({ appMode, setAppMode }) => {
 					}}
 					className={styles['modalContainer']}
 				>
-					<Modal title="Settings Submitted" onClose={() => setShow(false)} show={show}>
+					<Modal
+						title="Settings Submitted"
+						onClose={() => {
+							setShow(false);
+							// update UI background color if user selected a settings diff than prev state's
+							if (appMode !== source) {
+								setAppMode(source);
+							}
+						}}
+						show={show}
+					>
 						<p>Your settings have been updated.</p>
 					</Modal>
 				</div>
@@ -128,6 +138,8 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						name="select-source"
 						onChange={(e) => {
 							if (SOURCE_TYPES.includes(e.target.value)) {
+								console.log('setting source....');
+								console.log(e.target.value);
 								setSource(e.target.value);
 							}
 							else {
@@ -149,6 +161,8 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						name="select-transition-type"
 						onChange={(e) => {
 							if (TRANSITION_TYPES.includes(e.target.value)) {
+								console.log('setting transition type....');
+								console.log(e.target.value);
 								setTransitionType(e.target.value);
 							}
 							else {
@@ -168,6 +182,8 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						name="select-image-type"
 						onChange={(e) => {
 							if (IMAGE_TYPES.includes(e.target.value)) {
+								console.log('setting image type....');
+								console.log(e.target.value);
 								setImageType(e.target.value);
 							}
 							else {
@@ -251,9 +267,6 @@ const UserSettings = ({ appMode, setAppMode }) => {
 					Submit
 				</Button> */}
 			</form>
-			<div className={styles['logoutContainer']}>
-				<Button className={styles['instagramLogout']}>Instagram Logout</Button>
-			</div>
 		</section>
 	);
 };

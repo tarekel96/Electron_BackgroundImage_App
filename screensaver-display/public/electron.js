@@ -46,6 +46,10 @@ function createWindow() {
 	// For Development: Run from localhost (background react server)
 	// For Builds: Run from index.html file in build/
 	win.loadURL(shouldShowTempSettings ? urlBasis + '#/settings_home' : urlBasis);
+
+	ipcMain.on('reload-page', (event, args) => {
+		win.reload();
+	});
 }
 
 app.whenReady().then(() => {

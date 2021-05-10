@@ -7,7 +7,6 @@ import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Typography } from './Typography.js';
 import { Button } from './Button.js';
 
-
 // styles
 import 'react-pro-sidebar/dist/css/styles.css';
 import styles from './styles/sidenavbar.module.css';
@@ -69,11 +68,11 @@ const sideNavItemsArray = [
 		link: '/settings_home'
 	},
 	{
-		content: 'My Posts',
+		content: 'IG Posts',
 		link: '/posts'
 	},
 	{
-		content: 'Search',
+		content: 'Reddit Search',
 		link: '/search'
 	},
 	{

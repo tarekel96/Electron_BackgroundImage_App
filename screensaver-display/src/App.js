@@ -8,7 +8,6 @@ import UserHome from './pages/UserHome.js';
 import UserInstagram from './pages/UserInstagram';
 import UserRedditSearch from './pages/UserRedditSearch';
 import UserSettings from './pages/UserSettings.js';
-import Auth from './pages/Auth.js';
 import Loading from './pages/Loading.js';
 
 // UI dependencies
@@ -57,7 +56,6 @@ const App = () => {
 					exact
 				/>
 				<Route path="/settings_home" component={UserHome} exact />
-				<Route path="/auth" component={Auth} />
 				<Route path="/loading" component={Loading} />
 			</Layout>
 		</Router>
