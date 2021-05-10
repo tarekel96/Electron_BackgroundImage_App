@@ -91,3 +91,23 @@ ipcMain.on('delete-ig-files', (event, args) => {
 
 	event.returnValue = null;
 });
+
+ipcMain.on('save-subreddits', (event, args) => {
+	if (args !== undefined) {
+		const selectedImagesPath = storagePath + '/subreddits.json';
+		fs.writeFileSync(selectedImagesPath, args);
+	}
+	else {
+		console.log('args is undefined');
+	}
+});
+
+ipcMain.on('read-subreddits', (event, arg) => {
+	try {
+		const selectedImagesPath = storagePath + '/subreddits.json';
+
+		event.returnValue = require(selectedImagesPath);
+	} catch (err) {
+		event.returnValue = null;
+	}
+});
