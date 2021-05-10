@@ -177,7 +177,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
       <div className={styles['previewContainer']}>
         {/* <h1>Your InstaGram Posts</h1> */}
         {authToken === null ? (
-          <Button className={styles['igModeButton']} onClick={LogInToInstagram}>
+          <Button className={styles['genericButton']} onClick={LogInToInstagram}>
             Log in.
           </Button>
         ) : null}
@@ -200,7 +200,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
               IG Mode
             </Button>
             <Button
-              className={styles['igModeButton']}
+              className={styles['genericButton']}
               onClick={() => {
                 ipcRenderer.sendSync('delete-ig-files');
                 ipcRenderer.send('reload-page');

@@ -33,6 +33,13 @@
 	height: 40px;
 }
 
+/* Copied over from .igModeButton, for use with other buttons */
+.genericButton {
+	width: 150px;
+	font-size: 24px;
+	height: 40px;
+}
+
 .container {
 	margin: 0 auto 1rem 1rem;
 	width: 100%;
