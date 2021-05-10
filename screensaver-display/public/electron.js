@@ -43,7 +43,7 @@ function createWindow() {
 
 	// For Development: Run from localhost (background react server)
 	// For Builds: Run from index.html file in build/
-	win.loadURL(shouldShowTempSettings ? urlBasis + '#/settings' : urlBasis);
+	win.loadURL(shouldShowTempSettings ? urlBasis + '#/posts' : urlBasis);
 
 	ipcMain.on('reload-page', (event, args) => {
 		win.reload();
