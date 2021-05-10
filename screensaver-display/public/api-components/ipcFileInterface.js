@@ -64,10 +64,10 @@ ipcMain.on('read-selected-images', (event, arg) => {
 
 ipcMain.on('preview-screensaver', (event, args) => {
 	if (isDev) {
-		exec('yarn electron .');
+		exec('yarn electron . --preview');
 	}
 	else {
-		exec(`${app.getPath('exe')}`);
+		exec(`${app.getPath('exe')} --preview`);
 	}
 });
 

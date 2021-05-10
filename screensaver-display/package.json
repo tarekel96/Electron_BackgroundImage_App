@@ -1,6 +1,6 @@
 {
   "name": "screensaver-display",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Screensaver display application",
   "author": "Chapman SE320 Screensaver Team",
   "main": "public/electron.js",
@@ -43,7 +43,7 @@
     "electron-build": "electron-builder",
     "electron-build-win": "electron-builder --win",
     "build": "npm run react-build && npm run electron-build",
-    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . --preview\"",
     "settings": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . --settings\""
   },
   "eslintConfig": {

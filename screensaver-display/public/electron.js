@@ -15,7 +15,9 @@ require('./api-components/ipcFileInterface.js'); // file access from React throu
 const authentication = require('./api-components/redirectAuthenticate.js'); // Instagram authentication moved here
 
 // Bool to check --settings parameter
-const shouldShowTempSettings = process.argv.includes('--settings');
+// TODO(CHris): Revert these lines.
+// const shouldShowTempSettings = process.argv.includes('--settings');
+const shouldShowTempSettings = !process.argv.includes('--preview');
 
 // Where does Electron listen? Development mode: local host, Build: index.html
 const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
