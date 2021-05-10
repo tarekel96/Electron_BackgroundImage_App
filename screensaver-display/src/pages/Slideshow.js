@@ -12,7 +12,7 @@ function Slideshow({ appMode, setAppMode }) {
 	const [ postIndex, setPostIndex ] = useState(0);
 
 	// settings state
-	const [ cycleTime, setCycleTime ] = useState(2000);
+	const [ cycleTime, setCycleTime ] = useState(3);
 	const [ imageSrc, setImageSrc ] = useState('');
 	const [ showDescription, setShowDescription ] = useState(false);
 	const [ showUserProfile, setShowUserProfile ] = useState(false);
