@@ -16,13 +16,13 @@ const UserSettings = ({ appMode, setAppMode }) => {
 	const [ cycleErrMsg, toggleCycleErr ] = useState(false);
 	const [ cycleAltMsg, setCycleAltMsg ] = useState(false);
 	/* Source Selection - Instagram or Reddit */
-	const [ source, setSource ] = useState('');
+	const [ source, setSource ] = useState('ig');
 	const SOURCE_TYPES = [ 'ig', 'reddit', 'local' ];
 	/* Transition Type - Fade or None */
-	const [ transitionType, setTransitionType ] = useState('');
+	const [ transitionType, setTransitionType ] = useState('fade');
 	const TRANSITION_TYPES = [ 'fade', 'no-transition' ];
 	/* Image Type - jpg, jpeg, png, or gif */
-	const [ imageType, setImageType ] = useState('');
+	const [ imageType, setImageType ] = useState('jpg');
 	const IMAGE_TYPES = [ 'jpg', 'jpeg', 'png', 'gif' ];
 	/* Show Description Text Checkbox */
 	const [ showDescription, setShowDescription ] = useState(false);
@@ -80,8 +80,11 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						onClose={() => {
 							setShow(false);
 							// update UI background color if user selected a settings diff than prev state's
-							if (appMode !== source) {
-								setAppMode(source);
+							if (appMode !== source && source === 'ig') {
+								setAppMode('ig');
+							}
+							else if (appMode !== source && source === 'reddit') {
+								setAppMode('reddit');
 							}
 						}}
 						show={show}
