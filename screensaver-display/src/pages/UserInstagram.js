@@ -17,6 +17,7 @@ import ky from 'ky';
 // UI dependencies
 import { Button } from '../ui-components/Button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Loading from './Loading';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // styles
@@ -31,47 +32,49 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 	/* Modal State */
 	const [ show, setShow ] = useState(false);
 
-	const [ postsInfo, setPostsInfo ] = useState(null);
+	const [ postsInfo, setPostsInfo ] = useState([]);
 	const [ authToken, setAuthToken ] = useState(null);
 
 	// state that stores images selected by user
 	const [ selectedImages, setSelectedImages ] = useState([]);
 	const [ errMessage, toggleErrMessage ] = useState(false);
 
-	useEffect(
-		() => {
-			console.log('Post Info');
-			console.log(postsInfo);
+	useEffect(() => {
+		let isMounted = true;
+		console.log('Post Info');
+		console.log(postsInfo);
 
-			if (authToken === null) {
-				const existingToken = ipcRenderer.sendSync('ig-bd-read-token');
-				if (existingToken === null) {
-					return;
-				}
-
-				setAuthToken(existingToken);
-
-				(async () => {
-					const userInfo = await ky.get('https://graph.instagram.com/me/media', {
-						searchParams: {
-							fields: 'id,caption,media_url,media_type,permalink',
-							access_token: existingToken
-						}
-					});
-					if (!userInfo.ok) {
-						console.log("There's been a fetch error. Status code: " + userInfo.status);
-						console.log('Status text: ' + userInfo.statusText);
-						const responseText = await userInfo.text();
-						console.log('Response text: ' + responseText);
-					}
-					const userInfoJson = await userInfo.json();
-					setPostsInfo(userInfoJson.data);
-					console.log(userInfoJson);
-				})();
+		if (authToken === null) {
+			const existingToken = ipcRenderer.sendSync('ig-bd-read-token');
+			if (existingToken === null) {
+				return;
 			}
-		},
-		[ authToken, postsInfo ]
-	);
+
+			if (isMounted) setAuthToken(existingToken);
+
+			(async () => {
+				const userInfo = await ky.get('https://graph.instagram.com/me/media', {
+					searchParams: {
+						fields: 'id,caption,media_url,media_type,permalink',
+						access_token: existingToken
+					}
+				});
+				if (!userInfo.ok) {
+					console.log("There's been a fetch error. Status code: " + userInfo.status);
+					console.log('Status text: ' + userInfo.statusText);
+					const responseText = await userInfo.text();
+					console.log('Response text: ' + responseText);
+				}
+				const userInfoJson = await userInfo.json();
+				if (isMounted) setPostsInfo(userInfoJson.data);
+				console.log(userInfoJson);
+			})();
+		}
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 
 	// NOTE(Chris): Why is this is a function rather than a variable?
 	// ANSWER:(Chris): Putting things into a function allows us to avoid evaluating this whole
@@ -165,6 +168,10 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 		);
 	};
 
+	if (authToken !== null && postsInfo.length === 0) {
+		return <Loading />;
+	}
+
 	return (
 		<div>
 			<div className={styles['previewContainer']}>
@@ -191,7 +198,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 					</Fragment>
 				)}
 			</div>
-			{postsInfo === null ? (
+			{postsInfo.length === 0 ? (
 				<div className={styles['container']}>No images loaded yet.</div>
 			) : (
 				createImageSelection()
