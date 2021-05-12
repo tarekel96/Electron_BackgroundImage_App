@@ -18,6 +18,27 @@ const { H_2, BTN, SPAN } = Variants;
 
 export const SideNavBar = () => {
 	const [ state, setState ] = React.useState(true);
+	const [ activeIndex, setActiveIndex ] = React.useState('navItem_1');
+	const [ navItems, setNavItems ] = React.useState([
+		{
+			content: 'IG Posts',
+			link: '/posts',
+			active: true,
+			id: 'navItem_1'
+		},
+		{
+			content: 'Reddit Search',
+			link: '/search',
+			active: false,
+			id: 'navItem_2'
+		},
+		{
+			content: 'Settings',
+			link: '/settings',
+			active: false,
+			id: 'navItem_3'
+		}
+	]);
 	const location = useLocation();
 	// TODO(Chris): Find a less-hacky way to avoid showing the side navbar when
 	// we want to actually display the slideshow up
@@ -39,15 +60,19 @@ export const SideNavBar = () => {
 					open={state}
 					onOpenChange={() => setState((prevState) => !prevState)}
 				>
-					{sideNavItemsArray.map(({ content, link }, index) => (
-						<MenuItem className={styles['sidenavitem']} key={index}>
-							<Link to={link}>
-								<Typography variant={H_2} className={styles['sidenavbarLink']}>
-									{content}
-								</Typography>
-							</Link>
-						</MenuItem>
-					))}
+					{navItems !== undefined &&
+						navItems.map(({ content, link, active, id }) => (
+							<MenuItem
+								className={activeIndex === id ? styles['activeItem'] : styles['sidenavitem']}
+								key={id}
+							>
+								<Link replace to={link}>
+									<Typography variant={H_2} className={styles['sidenavbarLink']}>
+										{content}
+									</Typography>
+								</Link>
+							</MenuItem>
+						))}
 					<Typography variant={SPAN} style={{ width: '100%', height: '100%' }}>
 						<Button
 							style={{ width: '93%', height: '100%', fontSize: '100%' }}
@@ -61,18 +86,3 @@ export const SideNavBar = () => {
 		</ProSidebar>
 	);
 };
-
-const sideNavItemsArray = [
-	{
-		content: 'IG Posts',
-		link: '/posts'
-	},
-	{
-		content: 'Reddit Search',
-		link: '/search'
-	},
-	{
-		content: 'Settings',
-		link: '/settings'
-	}
-];

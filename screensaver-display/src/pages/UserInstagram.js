@@ -173,51 +173,51 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 	}
 
 	return (
-    <div>
-      <div className={styles['previewContainer']}>
-        {/* <h1>Your InstaGram Posts</h1> */}
-        {authToken === null ? (
-          <Button className={styles['genericButton']} onClick={LogInToInstagram}>
-            Log in.
-          </Button>
-        ) : null}
-        {authToken === null ? null : (
-          <Fragment>
-            <Button
-              className={styles['previewButton']}
-              onClick={() => {
-                ipcRenderer.send('preview-screensaver');
-              }}
-            >
-              Preview
-            </Button>
-            <Button
-              className={styles['igModeButton']}
-              onClick={() => {
-                setAppMode(() => 'ig');
-              }}
-            >
-              IG Mode
-            </Button>
-            <Button
-              className={styles['genericButton']}
-              onClick={() => {
-                ipcRenderer.sendSync('delete-ig-files');
-                ipcRenderer.send('reload-page');
-              }}
-            >
-              IG Logout
-            </Button>
-          </Fragment>
-        )}
-      </div>
-      {postsInfo.length === 0 ? (
-        <div className={styles['container']}>No images loaded yet.</div>
-      ) : (
-        createImageSelection()
-      )}
-    </div>
-  );
+		<div style={{ width: '100%' }}>
+			<div className={styles['previewContainer']}>
+				{/* <h1>Your InstaGram Posts</h1> */}
+				{authToken === null ? (
+					<Button className={styles['genericButton']} onClick={LogInToInstagram}>
+						Log in.
+					</Button>
+				) : null}
+				{authToken === null ? null : (
+					<Fragment>
+						<Button
+							className={styles['previewButton']}
+							onClick={() => {
+								ipcRenderer.send('preview-screensaver');
+							}}
+						>
+							Preview
+						</Button>
+						<Button
+							className={styles['igModeButton']}
+							onClick={() => {
+								setAppMode(() => 'ig');
+							}}
+						>
+							IG Mode
+						</Button>
+						<Button
+							className={styles['genericButton']}
+							onClick={() => {
+								ipcRenderer.sendSync('delete-ig-files');
+								ipcRenderer.send('reload-page');
+							}}
+						>
+							IG Logout
+						</Button>
+					</Fragment>
+				)}
+			</div>
+			{postsInfo.length === 0 ? (
+				<div className={styles['container']}>No images loaded yet.</div>
+			) : (
+				createImageSelection()
+			)}
+		</div>
+	);
 };
 
 const ErrMessage = () => {

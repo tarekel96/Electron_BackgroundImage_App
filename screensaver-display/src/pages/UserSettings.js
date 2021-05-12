@@ -12,7 +12,7 @@ const UserSettings = ({ appMode, setAppMode }) => {
 	const [ show, setShow ] = useState(false);
 	// form data - stored in React state
 	/* Cycle Speed */
-	const [ cycleTime, setCycleTime ] = useState(3);
+	const [ cycleTime, setCycleTime ] = useState(3 * 1000);
 	const [ cycleErrMsg, toggleCycleErr ] = useState(false);
 	const [ cycleAltMsg, setCycleAltMsg ] = useState(false);
 	/* Source Selection - Instagram or Reddit */

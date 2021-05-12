@@ -57,6 +57,13 @@
 	list-style-type: none !important;
 }
 
+.activeItem {
+	background-color: white;
+	color: black;
+	width: 90%;
+	border-radius: 6px;
+}
+
 .sidenavitem > div {
 	padding: 0 !important;
 	display: flex !important;
