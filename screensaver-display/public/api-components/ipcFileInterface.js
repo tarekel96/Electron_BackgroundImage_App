@@ -1,6 +1,6 @@
 const { app, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const { exec } = require('child_process');
+const { exec, fork } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -64,9 +64,11 @@ ipcMain.on('read-selected-images', (event, arg) => {
 
 ipcMain.on('preview-screensaver', (event, args) => {
 	if (isDev) {
+		console.log('In dev mode, so running yarn command to start preview.');
 		exec('yarn electron . --preview');
 	}
 	else {
+		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
 		exec(`${app.getPath('exe')} --preview`);
 	}
 });

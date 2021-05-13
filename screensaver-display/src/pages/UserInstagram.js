@@ -186,6 +186,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 						<Button
 							className={styles['previewButton']}
 							onClick={() => {
+								console.log("Preview button clicked!");
 								ipcRenderer.send('preview-screensaver');
 							}}
 						>
