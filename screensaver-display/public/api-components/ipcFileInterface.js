@@ -1,6 +1,6 @@
 const { app, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const { exec, fork } = require('child_process');
+const { exec, execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -69,7 +69,7 @@ ipcMain.on('preview-screensaver', (event, args) => {
 	}
 	else {
 		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
-		exec(`${app.getPath('exe')} --preview`);
+		execFile(app.getPath('exe'), ["--preview"]);
 	}
 });
 

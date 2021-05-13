@@ -10,7 +10,8 @@
       "build"
     ],
     "win": {
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "target": "dir"
     },
     "linux": {
       "target": "dir"
