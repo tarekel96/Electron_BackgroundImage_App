@@ -32,6 +32,7 @@ function createWindow() {
 		fullscreen: !shouldShowTempSettings,
 		icon: 'icon.png',
 		webPreferences: {
+			devTools: isDev,
 			nodeIntegration: true,
 
 			// This allows us to access window.require("electron"), but according to
