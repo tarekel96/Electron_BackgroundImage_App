@@ -1,7 +1,7 @@
 {
-  "name": "screensaver-display",
-  "version": "0.4.0",
-  "description": "Screensaver display application",
+  "name": "screen-hero",
+  "version": "0.5.0",
+  "description": "Saving your screen.",
   "author": "Chapman SE320 Screensaver Team",
   "main": "public/electron.js",
   "build": {
