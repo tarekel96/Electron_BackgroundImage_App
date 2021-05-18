@@ -153,7 +153,7 @@ const UserSettings = ({ appMode, setAppMode }) => {
 					>
 						<option value="ig">Instagram</option>
 						<option value="reddit">Reddit</option>
-						<option value="local">Local (file on own computer)</option>
+						<option value="local">Local</option>
 					</select>
 				</div>
 				<div>

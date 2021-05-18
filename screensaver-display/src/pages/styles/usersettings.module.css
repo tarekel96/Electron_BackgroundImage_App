@@ -1,86 +1,104 @@
 @import url('../../styles/main.css');
 
 .settingsSection {
-	margin: 4% 0 0 4%;
+  margin: 4% 0 0 4%;
 }
 .modalContainer {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .settingsForm {
-	display: flex;
-	flex-direction: column;
-	width: 600px;
-	background: rgb(170, 170, 170);
-	padding: 1.5rem;
-	border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  background: rgb(170, 170, 170);
+  padding: 1.5rem;
+  border-radius: 8px;
 }
 @media only screen and (max-width: 900px) {
-	.settingsForm {
-		min-width: 500px;
-	}
+  .settingsForm {
+    min-width: 500px;
+  }
 }
 .settingsForm > div {
-	display: flex;
-	margin: 0.25rem 0;
-	align-items: center;
-	justify-content: space-between;
+  display: flex;
+  margin: 0.25rem 0;
+  align-items: center;
+  justify-content: space-between;
 }
 .logoutContainer {
-	display: flex;
-	justify-content: end;
+  display: flex;
+  justify-content: end;
 }
 .submitSettingsBtn,
 .instagramLogout {
-	padding: 8px auto;
-	width: 200px;
-	font-size: 24px;
-	height: 40px;
-	margin: 34px auto;
-	color: var(--color-white);
-	background-color: var(--color-blue);
-	border-radius: 4px;
-	border-color: transparent;
+  padding: 8px auto;
+  width: 200px;
+  font-size: 24px;
+  height: 40px;
+  margin: 34px auto;
+  color: var(--color-white);
+  background-color: var(--color-blue);
+  border-radius: 4px;
+  border-color: transparent;
 }
 .submitSettingsBtn:hover {
-	cursor: pointer;
-	background-color: var(--color-white);
-	color: var(--color-blue);
-	border-color: var(--color-blue);
+  cursor: pointer;
+  background-color: var(--color-white);
+  color: var(--color-blue);
+  border-color: var(--color-blue);
 }
 .cycleErrMsg {
-	font-family: var(--font-Montserrat);
-	font-weight: 700;
-	font-size: 24px;
-	line-height: 36px;
-	color: red;
+  font-family: var(--font-Montserrat);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: red;
 }
 .exitPreviewBtnContainer {
-	display: flex;
-	flex-direction: row !important;
-	justify-content: flex-end !important;
-	width: 100%;
-	margin: 0.25rem 0;
+  display: flex;
+  flex-direction: row !important;
+  justify-content: flex-end !important;
+  width: 100%;
+  margin: 0.25rem 0;
 }
 .exitPreviewBtn {
-	/* position: relative; */
-	width: 32px;
-	height: 32px;
+  /* position: relative; */
+  width: 32px;
+  height: 32px;
 }
 .previewImg {
-	max-width: 800px;
-	max-height: 800px;
+  max-width: 800px;
+  max-height: 800px;
+}
+input[type='checkbox'] {
+  transform: scale(2);
+  -ms-transform: scale(2);
+  -webkit-transform: scale(2);
+  padding: 10px;
+}
+select {
+  font-family: Montserrat;
+  font-size: 20px;
+  width: flex;
+  height: flex;
+}
+input {
+  font-family: Montserrat;
+  font-size: 20px;
+  width: flex;
+  height: flex;
 }
 @media screen and (min-width: 1200px) {
-	.settingsSection {
-		margin: 5% auto;
-	}
+  .settingsSection {
+    margin: 5% auto;
+  }
 }
 @media screen and (max-width: 900px) {
-	.settingsForm {
-		width: 300px;
-	}
-	.settingsForm > div {
-		margin: .75rem 0;
-	}
+  .settingsForm {
+    width: 300px;
+  }
+  .settingsForm > div {
+    margin: 0.75rem 0;
+  }
 }
