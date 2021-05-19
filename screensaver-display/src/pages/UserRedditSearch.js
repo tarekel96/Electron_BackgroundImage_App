@@ -1,8 +1,5 @@
 // dependencies
 import React, { useState, useEffect, Fragment } from 'react';
-//import Images from './PostImages';
-import { getSubreddits } from './api-components/redditApiInterface.js';
-import { getRedditQuery } from './api-components/redditApiInterface.js';
 
 // UI dependencies
 import { Button } from '../ui-components/Button.js';
@@ -19,8 +16,9 @@ const { ipcRenderer } = window.require('electron');
 const UserRedditSearch = ({ appMode, setAppMode }) => {
 
 	const [ subreddits, setSubreddits ] = useState([]);
-	const [images, setImages ] = useState([]);
+	const [ images, setImages ] = useState([]);
 
+	// Toggle a specific subreddit
 	const ToggleSubreddit = (e) => {
 		e.preventDefault();
 		
@@ -32,12 +30,16 @@ const UserRedditSearch = ({ appMode, setAppMode }) => {
 		}
 	};
 
+	// gather preview images when list of subreddits changes
 	useEffect( async () => {
 		if (subreddits.length){
-			const imageFeed = await getRedditQuery(subreddits, '');
+			//const imageFeed = await getRedditQuery(subreddits, '');
+			// use .send for an async call. .sendSync executes immediately
+			const imageFeed = await ipcRenderer.invoke('get-reddit-images', subreddits, 20);
 			setImages(imageFeed || []);
 			console.log('Set images:',imageFeed);
 		} else {
+			setImages([]);
 			console.log('Search Length not long enough for API pull');
 		}
 		ipcRenderer.send('save-subreddits', (JSON.stringify(subreddits)));
@@ -92,7 +94,7 @@ const SubredditSearchbar = ({subreddits, setSubreddits, ToggleSubreddit}) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		
-		const searchQuery = await getSubreddits(search, 10);
+		const searchQuery = await ipcRenderer.invoke('get-subreddits',search, 10);
 		setQuery(searchQuery || []);
 		setSearch('');
 	};
@@ -149,13 +151,5 @@ const SubredditSearchbar = ({subreddits, setSubreddits, ToggleSubreddit}) => {
 		</form>
 	);
 };
-
-// const SubredditList = ({subreddits, setSubreddits}) => {
-	
-
-// 	return (
-		
-// 	);
-// };
 
 export default UserRedditSearch;

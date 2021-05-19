@@ -12,6 +12,7 @@ if (!fs.existsSync(storagePath)) {
 
 // interfaces
 require('./api-components/ipcFileInterface.js'); // file access from React through main Electron window
+require('./api-components/redditAPI.js'); // RedditAPI functions that need to run from main process
 const authentication = require('./api-components/redirectAuthenticate.js'); // Instagram authentication moved here
 
 // Bool to check --settings parameter
@@ -66,6 +67,17 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit();
+	}
+});
+
+ipcMain.on('preview-screensaver', (event, args) => {
+	if (isDev) {
+		console.log('In dev mode, so running yarn command to start preview.');
+		exec('yarn electron . --preview');
+	}
+	else {
+		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
+		execFile(app.getPath('exe'), ["--preview"]);
 	}
 });
 

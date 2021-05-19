@@ -62,17 +62,6 @@ ipcMain.on('read-selected-images', (event, arg) => {
 	}
 });
 
-ipcMain.on('preview-screensaver', (event, args) => {
-	if (isDev) {
-		console.log('In dev mode, so running yarn command to start preview.');
-		exec('yarn electron . --preview');
-	}
-	else {
-		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
-		execFile(app.getPath('exe'), ["--preview"]);
-	}
-});
-
 // Obtains the url basis for use in double-redirects in React
 ipcMain.on('get-url-basis', (event, args) => {
 	event.returnValue = urlBasis;
