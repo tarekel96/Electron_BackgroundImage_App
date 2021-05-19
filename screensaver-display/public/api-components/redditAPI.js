@@ -1,7 +1,7 @@
-const { app, ipcMain } = require('electron');
-const isDev = require('electron-is-dev');
-const fs = require('fs');
-const path = require('path');
+// handle to ipc
+const { ipcMain } = require('electron');
+
+// access to fetch since it isn't included in the main process
 const fetch = require('node-fetch').default;
 
 
@@ -41,17 +41,12 @@ ipcMain.handle('get-subreddits', async (event, query, limit) => {
 
 async function getRedditPosts(query, pageref) {
 
-
-    // if (!Array.isArray(query)){
-    //     console.error("RedditAPI: Query passed is not an array:", query);
-    //     return [];
-    // }
-
     const url = 
         'https://www.reddit.com/r/'
         + `${query.join("+")}`
         + '.json'
         + (pageref ? (`?after=t3_${pageref}`) : "");
+    // Ex: https://www.reddit.com/r/pics+photography+dankmemes.json/?after=t3_xntdr7
     
     try {
         const result = await fetch(url)
