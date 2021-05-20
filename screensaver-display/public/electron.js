@@ -46,6 +46,8 @@ function createWindow() {
 
 	win.webContents.on('will-navigate', authentication.bind(null, win));
 
+	win.removeMenu();
+
 	// For Development: Run from localhost (background react server)
 	// For Builds: Run from index.html file in build/
 	win.loadURL(shouldShowTempSettings ? urlBasis + '#/posts' : urlBasis);
