@@ -183,7 +183,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 				) : null}
 				{authToken === null ? null : (
 					<Fragment>
-						<Button
+						{/* 						<Button
 							className={styles['previewButton']}
 							onClick={() => {
 								console.log('Preview button clicked!');
@@ -199,7 +199,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 							}}
 						>
 							IG Mode
-						</Button>
+						</Button> */}
 						<Button
 							className={styles['genericButton']}
 							onClick={() => {
