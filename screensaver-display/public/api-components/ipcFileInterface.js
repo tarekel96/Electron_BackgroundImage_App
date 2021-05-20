@@ -43,7 +43,7 @@ ipcMain.on('read-settings-info', (event, arg) => {
 		fs.writeFileSync(settingsPath, defaultSettings);
 		const result = require(settingsPath);
 
-		console.log(result);
+		// console.log(result);
 		event.returnValue = result;
 	}
 });
@@ -102,11 +102,13 @@ ipcMain.on('save-subreddits', (event, args) => {
 });
 
 ipcMain.on('read-subreddits', (event) => {
-	try {
-		const selectedImagesPath = storagePath + '/subreddits.json';
+	const selectedImagesPath = storagePath + '/subreddits.json';
 
+	try {
 		event.returnValue = require(selectedImagesPath);
 	} catch (err) {
-		event.returnValue = null;
+		fs.writeFileSync(selectedImagesPath, "[]");
+
+		event.returnValue = require(selectedImagesPath);
 	}
 });
