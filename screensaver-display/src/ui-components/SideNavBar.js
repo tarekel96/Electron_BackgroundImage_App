@@ -52,7 +52,25 @@ export const SideNavBar = () => {
 				<SubMenu className={styles['sidenavbarSubmenu']} defaultOpen={true} open={state}>
 					{navItems !== undefined &&
 						navItems.map(({ content, link, active, id }) => (
-							<MenuItem className={styles['sidenavitem']} key={id}>
+							<MenuItem
+								className={active === true ? styles['activeItem'] : styles['sidenavitem']}
+								key={id}
+								onClick={() => {
+									let copyNavItems = [ ...navItems ];
+									let modNavItems = [];
+									for (let i = 0; i < navItems.length; ++i) {
+										if (copyNavItems[i].id !== id) {
+											copyNavItems[i].active = false;
+											modNavItems.push(copyNavItems[i]);
+										}
+										else {
+											copyNavItems[i].active = true;
+											modNavItems.push(copyNavItems[i]);
+										}
+									}
+									setNavItems(() => modNavItems);
+								}}
+							>
 								<Link replace to={link}>
 									<Typography variant={H_2} className={styles['sidenavbarLink']}>
 										{content}
