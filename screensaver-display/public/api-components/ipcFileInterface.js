@@ -29,13 +29,22 @@ ipcMain.on('save-settings', (event, args) => {
 });
 
 // Used to read settings when displaying the screensaver
+// WARNING(Chris): This will _write_ a default settings.json to the file system
+// if none already exists
 ipcMain.on('read-settings-info', (event, arg) => {
-	try {
-		const settingsPath = storagePath + '/settings.json';
+	const settingsPath = storagePath + '/settings.json';
 
+	try {
 		event.returnValue = require(settingsPath);
 	} catch (err) {
-		event.returnValue = null;
+		const defaultSettings =
+      '{"cycleTime":3000,"source":"ig","transitionType":"fade","imageType":"jpg","showDescription":false,"showUserProfile":false,"localImageFile":""}';
+
+		fs.writeFileSync(settingsPath, defaultSettings);
+		const result = require(settingsPath);
+
+		console.log(result);
+		event.returnValue = result;
 	}
 });
 
