@@ -19,11 +19,8 @@ function Slideshow({ appMode, setAppMode }) {
 	const [ showDescription, setShowDescription ] = useState(false);
 	const [ showUserProfile, setShowUserProfile ] = useState(false);
 
-
-
 	// Runs once when page loads
 	useEffect(() => {
-
 		// load settings
 		const settingsData = ipcRenderer.sendSync('read-settings-info');
 		if (settingsData === null) {
@@ -38,31 +35,27 @@ function Slideshow({ appMode, setAppMode }) {
 		setShowDescription(settingsData.showDescription);
 		setShowUserProfile(settingsData.showUserProfile);
 
-
-
 		// load post data
 
 		let mostRecentState = true; // used to cancel RedditAPI fetch if a new fetch is triggered
 
-		if (settingsData.source === "reddit"){
+		if (settingsData.source === 'reddit') {
 			setAppMode('reddit');
-			ipcRenderer.invoke('get-reddit-images', ipcRenderer.sendSync('read-subreddits'), 20)
-			.then(redditPosts => {
+			ipcRenderer.invoke('get-reddit-images', ipcRenderer.sendSync('read-subreddits'), 20).then((redditPosts) => {
 				const images = redditPosts.map((post) => {
 					return {
 						media_url: post.data.url,
 						caption: post.data.title
 					};
-					
-				})
+				});
 				console.log(images);
 				if (mostRecentState) setPostsInfo(images);
-
 			});
-
-
-		} else { // default to instagram
-			if (settingsData.source !== "ig") console.log("Source not 'reddit' or 'ig', Defaulting to Instagram:", settingsData.source);
+		}
+		else {
+			// default to instagram
+			if (settingsData.source !== 'ig')
+				console.log("Source not 'reddit' or 'ig', Defaulting to Instagram:", settingsData.source);
 			setAppMode('ig');
 
 			const selectedImages = ipcRenderer.sendSync('read-selected-images');
@@ -74,16 +67,12 @@ function Slideshow({ appMode, setAppMode }) {
 			}
 
 			setPostsInfo(selectedImages.selectedImages);
-
 		}
 
 		return () => {
 			mostRecentState = false;
-		}
-
+		};
 	}, []);
-
-
 
 	// Interval to transition slideshow
 	useEffect(
@@ -99,10 +88,8 @@ function Slideshow({ appMode, setAppMode }) {
 
 			return () => clearInterval(interval);
 		},
-		[ postIndex, cycleTime]
+		[ postIndex, cycleTime ]
 	);
-
-
 
 	const currentImage =
 		postsInfo.length > 0 ? (
@@ -111,11 +98,12 @@ function Slideshow({ appMode, setAppMode }) {
 					<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
 				)}
 				<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
-				<LazyLoadImage 
-						src={postsInfo[postIndex].media_url} 
-						className={styles.center} alt="[HTML] FAILED TO LOAD IMAGE"
-						effect="blur"
-					/>
+				<LazyLoadImage
+					src={postsInfo[postIndex].media_url}
+					className={styles.center}
+					alt="[HTML] FAILED TO LOAD IMAGE"
+					effect="blur"
+				/>
 			</section>
 		) : (
 			<div>
@@ -134,4 +122,3 @@ function Slideshow({ appMode, setAppMode }) {
 }
 
 export default Slideshow;
-
