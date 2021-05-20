@@ -98,12 +98,6 @@ function Slideshow({ appMode, setAppMode }) {
 					<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
 				)}
 				<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
-				<LazyLoadImage
-					src={postsInfo[postIndex].media_url}
-					className={styles.center}
-					alt="[HTML] FAILED TO LOAD IMAGE"
-					effect="blur"
-				/>
 			</section>
 		) : (
 			<div>
