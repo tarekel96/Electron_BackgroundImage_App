@@ -11,16 +11,11 @@ if (!fs.existsSync(storagePath)) {
 	fs.mkdirSync(storagePath);
 }
 
-// Used to read the login token for Instagram
-ipcMain.on('ig-bd-read-token', (event, arg) => {
-	const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';
 
-	try {
-		event.returnValue = fs.readFileSync(tokenFilePath, 'utf8');
-	} catch (err) {
-		event.returnValue = null;
-	}
-});
+
+//
+// Settings Files
+//
 
 // Used to save settings from the UserSettings tab
 ipcMain.on('save-settings', (event, args) => {
@@ -70,9 +65,26 @@ ipcMain.on('read-selected-images', (event, arg) => {
 	}
 });
 
+
+
+//
+// Instagram API
+//
+
 // Obtains the url basis for use in double-redirects in React
 ipcMain.on('get-url-basis', (event, args) => {
 	event.returnValue = urlBasis;
+});
+
+// Used to read the login token for Instagram
+ipcMain.on('ig-bd-read-token', (event, arg) => {
+	const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';
+
+	try {
+		event.returnValue = fs.readFileSync(tokenFilePath, 'utf8');
+	} catch (err) {
+		event.returnValue = null;
+	}
 });
 
 ipcMain.on('delete-ig-files', (event, args) => {
@@ -91,6 +103,12 @@ ipcMain.on('delete-ig-files', (event, args) => {
 	event.returnValue = null;
 });
 
+
+//
+// RedditAPI
+//
+
+//saves subreddit data
 ipcMain.on('save-subreddits', (event, args) => {
 	if (args !== undefined) {
 		const selectedImagesPath = storagePath + '/subreddits.json';
@@ -101,6 +119,7 @@ ipcMain.on('save-subreddits', (event, args) => {
 	}
 });
 
+// reads subreddit data
 ipcMain.on('read-subreddits', (event) => {
 	const selectedImagesPath = storagePath + '/subreddits.json';
 
