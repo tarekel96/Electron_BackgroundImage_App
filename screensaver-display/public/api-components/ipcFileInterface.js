@@ -92,6 +92,7 @@ ipcMain.on('delete-ig-files', (event, args) => {
 });
 
 ipcMain.on('save-subreddits', (event, args) => {
+	console.log('Saving subreddits: ' + args);
 	if (args !== undefined) {
 		const selectedImagesPath = storagePath + '/subreddits.json';
 		fs.writeFileSync(selectedImagesPath, args);
@@ -105,10 +106,16 @@ ipcMain.on('read-subreddits', (event) => {
 	const selectedImagesPath = storagePath + '/subreddits.json';
 
 	try {
-		event.returnValue = require(selectedImagesPath);
+		const rawFile = fs.readFileSync(selectedImagesPath);
+		console.log('raw subreddits.json: ' + rawFile);
+		const result = JSON.parse(rawFile);
+		// const result = require(selectedImagesPath);
+		console.log('selected subreddits successfully read in: ' + result);
+
+		event.returnValue = result;
 	} catch (err) {
 		fs.writeFileSync(selectedImagesPath, "[]");
 
-		event.returnValue = require(selectedImagesPath);
+		event.returnValue = [];
 	}
 });

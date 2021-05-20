@@ -36,19 +36,25 @@ const UserRedditSearch = ({ appMode, setAppMode }) => {
 	};
 
 	// gather preview images when list of subreddits changes
-	useEffect( async () => {
-		if (subreddits.length){
-			//const imageFeed = await getRedditQuery(subreddits, '');
-			// use .send for an async call. .sendSync executes immediately
-			const imageFeed = await ipcRenderer.invoke('get-reddit-images', subreddits, 20);
-			setImages(imageFeed || []);
-			console.log('Set images:',imageFeed);
-		} else {
-			setImages([]);
-			console.log('Search Length not long enough for API pull');
-		}
-		ipcRenderer.send('save-subreddits', (JSON.stringify(subreddits)));
-	}, [subreddits])
+	useEffect(() => {
+    if (subreddits.length) {
+      async function setRedditImages() {
+        const imageFeed = await ipcRenderer.invoke(
+          'get-reddit-images',
+          subreddits,
+          20
+        );
+        setImages(imageFeed || []);
+        console.log('Set images:', imageFeed);
+      }
+      setRedditImages();
+    } else {
+      setImages([]);
+      console.log('Search Length not long enough for API pull');
+    }
+
+    ipcRenderer.send('save-subreddits', JSON.stringify(subreddits));
+  }, [subreddits]);
 
 	return (
 		<div className={styles['container']}>
