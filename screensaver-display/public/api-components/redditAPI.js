@@ -104,6 +104,7 @@ ipcMain.handle('get-reddit-images', async (event, query, count) => {
             lastPostID = results[results.length - 1].data.id;
             console.log('RedditAPI: Last Post ID:',lastPostID);
         }
+        console.log(`RedditAPI: Sending back ${count} images from ${query}`);
         return results.slice(0,count);
     } catch (err) {
         console.error("RedditAPI: Error in 'get-reddit-images'",err);

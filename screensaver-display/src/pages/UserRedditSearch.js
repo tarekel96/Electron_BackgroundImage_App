@@ -18,6 +18,11 @@ const UserRedditSearch = ({ appMode, setAppMode }) => {
 	const [ subreddits, setSubreddits ] = useState([]);
 	const [ images, setImages ] = useState([]);
 
+	// initialize subreddits from save file
+	useEffect(() => {
+		setSubreddits(ipcRenderer.sendSync('read-subreddits'));
+	}, []);
+
 	// Toggle a specific subreddit
 	const ToggleSubreddit = (e) => {
 		e.preventDefault();

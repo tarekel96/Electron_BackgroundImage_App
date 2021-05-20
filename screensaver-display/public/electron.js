@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
+const { exec, execFile } = require('child_process');
 
 // settings files storage path
 const storagePath = app.getPath('appData') + '/shared-screensaver';

@@ -1,9 +1,11 @@
 // dependencies
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 // styles
 import styles from './styles/slideshow.module.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -11,24 +13,18 @@ function Slideshow({ appMode, setAppMode }) {
 	const [ postsInfo, setPostsInfo ] = useState([]);
 	const [ postIndex, setPostIndex ] = useState(0);
 
-	// settings state
+	// settings states
 	const [ cycleTime, setCycleTime ] = useState(3);
-	const [ imageSrc, setImageSrc ] = useState('');
+	// const [ imageSrc, setImageSrc ] = useState(''); // Removed
 	const [ showDescription, setShowDescription ] = useState(false);
 	const [ showUserProfile, setShowUserProfile ] = useState(false);
 
-	// useEffect as componentDidMount()
+
+
+	// Runs once when page loads
 	useEffect(() => {
-		const selectedImages = ipcRenderer.sendSync('read-selected-images');
-		if (selectedImages === null) {
-			return;
-		}
-		else {
-			console.log(selectedImages);
-		}
 
-		setPostsInfo(selectedImages.selectedImages);
-
+		// load settings
 		const settingsData = ipcRenderer.sendSync('read-settings-info');
 		if (settingsData === null) {
 			return;
@@ -37,25 +33,61 @@ function Slideshow({ appMode, setAppMode }) {
 			console.log(settingsData);
 		}
 
-		// update appMode settings to change background color before displaying slide show
-		if (settingsData.source === 'ig' && appMode !== 'ig') {
-			setAppMode('ig');
-		}
-		else if (settingsData.source === 'reddit' && appMode !== 'reddit') {
-			setAppMode('reddit');
-		}
-
 		// assign settings
 		setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
-		setImageSrc(settingsData.source);
 		setShowDescription(settingsData.showDescription);
 		setShowUserProfile(settingsData.showUserProfile);
+
+
+
+		// load post data
+
+		let mostRecentState = true; // used to cancel RedditAPI fetch if a new fetch is triggered
+
+		if (settingsData.source === "reddit"){
+			setAppMode('reddit');
+			ipcRenderer.invoke('get-reddit-images', ipcRenderer.sendSync('read-subreddits'), 20)
+			.then(redditPosts => {
+				const images = redditPosts.map((post) => {
+					return {
+						media_url: post.data.url,
+						caption: post.data.title
+					};
+					
+				})
+				console.log(images);
+				if (mostRecentState) setPostsInfo(images);
+
+			});
+
+
+		} else { // default to instagram
+			if (settingsData.source !== "ig") console.log("Source not 'reddit' or 'ig', Defaulting to Instagram:", settingsData.source);
+			setAppMode('ig');
+
+			const selectedImages = ipcRenderer.sendSync('read-selected-images');
+			if (selectedImages === null) {
+				return;
+			}
+			else {
+				console.log(selectedImages);
+			}
+
+			setPostsInfo(selectedImages.selectedImages);
+
+		}
+
+		return () => {
+			mostRecentState = false;
+		}
+
 	}, []);
 
-	// fetch settings data from settings.json
+
+
+	// Interval to transition slideshow
 	useEffect(
 		() => {
-			// slideshow transition logic
 			const interval = setInterval(() => {
 				if (postIndex >= postsInfo.length - 1) {
 					setPostIndex(0);
@@ -67,8 +99,10 @@ function Slideshow({ appMode, setAppMode }) {
 
 			return () => clearInterval(interval);
 		},
-		[ postIndex, postsInfo.length, cycleTime, imageSrc, showDescription, showUserProfile, appMode, setAppMode ]
+		[ postIndex, cycleTime]
 	);
+
+
 
 	const currentImage =
 		postsInfo.length > 0 ? (
@@ -77,6 +111,11 @@ function Slideshow({ appMode, setAppMode }) {
 					<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
 				)}
 				<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
+				<LazyLoadImage 
+						src={postsInfo[postIndex].media_url} 
+						className={styles.center} alt="[HTML] FAILED TO LOAD IMAGE"
+						effect="blur"
+					/>
 			</section>
 		) : (
 			<div>
@@ -95,3 +134,4 @@ function Slideshow({ appMode, setAppMode }) {
 }
 
 export default Slideshow;
+

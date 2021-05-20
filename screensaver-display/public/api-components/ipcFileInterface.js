@@ -1,6 +1,5 @@
 const { app, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const { exec, execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -93,7 +92,7 @@ ipcMain.on('save-subreddits', (event, args) => {
 	}
 });
 
-ipcMain.on('read-subreddits', (event, arg) => {
+ipcMain.on('read-subreddits', (event) => {
 	try {
 		const selectedImagesPath = storagePath + '/subreddits.json';
 
