@@ -160,7 +160,6 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 								className={styles['submitButton']}
 								onClick={() => setShow(() => true)}
 							/>
-							<Loading />
 						</div>
 						{errMessage && <ErrMessage />}
 					</form>
