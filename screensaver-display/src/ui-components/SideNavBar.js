@@ -46,26 +46,13 @@ export const SideNavBar = () => {
 		return null;
 	}
 
-	// <MenuItem icon={<FaGem />}>
-	//   Dashboard
-	//   <Link to="/" />
-	// </MenuItem>;
-
 	return (
 		<ProSidebar className={styles['sidenavbar']}>
 			<Menu iconShape={'round'} className={styles['sidenavbarMenu']}>
-				<SubMenu
-					className={styles['sidenavbarSubmenu']}
-					defaultOpen={true}
-					open={state}
-					onOpenChange={() => setState((prevState) => !prevState)}
-				>
+				<SubMenu className={styles['sidenavbarSubmenu']} defaultOpen={true} open={state}>
 					{navItems !== undefined &&
 						navItems.map(({ content, link, active, id }) => (
-							<MenuItem
-								className={activeIndex === id ? styles['activeItem'] : styles['sidenavitem']}
-								key={id}
-							>
+							<MenuItem className={styles['sidenavitem']} key={id}>
 								<Link replace to={link}>
 									<Typography variant={H_2} className={styles['sidenavbarLink']}>
 										{content}

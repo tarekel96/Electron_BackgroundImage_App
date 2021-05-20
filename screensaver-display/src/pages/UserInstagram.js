@@ -160,6 +160,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 								className={styles['submitButton']}
 								onClick={() => setShow(() => true)}
 							/>
+							<Loading />
 						</div>
 						{errMessage && <ErrMessage />}
 					</form>
@@ -186,7 +187,7 @@ const UserInstagram = ({ appMode, setAppMode }) => {
 						<Button
 							className={styles['previewButton']}
 							onClick={() => {
-								console.log("Preview button clicked!");
+								console.log('Preview button clicked!');
 								ipcRenderer.send('preview-screensaver');
 							}}
 						>

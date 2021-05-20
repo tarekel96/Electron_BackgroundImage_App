@@ -21,11 +21,14 @@
 /* Arrow Icon Div Container */
 .sidenavbarSubmenu > div {
 	margin-top: 1rem;
+	cursor: default !important;
 }
 /* Arrow Icon */
 .sidenavbarSubmenu > div > span > span {
 	height: 18px;
 	width: 18px;
+	display: none !important;
+	cursor: default;
 }
 /* Sidebar Items Container */
 .sidenavbarMenu > ul > li > div > div {
