@@ -58,15 +58,28 @@
 	height: 96px;
 	width: 100%;
 	list-style-type: none !important;
+	margin: 0.25rem auto;
 }
-.activeItem {
+.sidenavitem:hover {
 	background-color: white;
 	color: black;
-	width: 90%;
+	width: 100%;
 	border-radius: 6px;
 	height: 96px;
 	display: flex;
 	align-items: center;
+	margin: 0.25rem auto;
+}
+
+.activeItem {
+	background-color: white;
+	color: black;
+	width: 100%;
+	border-radius: 6px;
+	height: 96px;
+	display: flex;
+	align-items: center;
+	margin: 0.25rem auto;
 }
 
 .sidenavitem > div {
