@@ -31,7 +31,7 @@ function Slideshow({ appMode, setAppMode }) {
 		}
 
 		// assign settings
-		setCycleTime(settingsData.cycleTime * 1000); // multiple by 1000 bc milliseconds
+		setCycleTime(settingsData.cycleTime); // settings file accounts for milliseconds
 		setShowDescription(settingsData.showDescription);
 		setShowUserProfile(settingsData.showUserProfile);
 
@@ -75,8 +75,7 @@ function Slideshow({ appMode, setAppMode }) {
 	}, []);
 
 	// Interval to transition slideshow
-	useEffect(
-		() => {
+	useEffect(() => {
 			const interval = setInterval(() => {
 				if (postIndex >= postsInfo.length - 1) {
 					setPostIndex(0);
@@ -84,11 +83,12 @@ function Slideshow({ appMode, setAppMode }) {
 				else {
 					setPostIndex(postIndex + 1);
 				}
+				console.log(`Interval changed to slide ${postIndex+1}/${postsInfo.length}`);
 			}, cycleTime);
 
 			return () => clearInterval(interval);
 		},
-		[ postIndex, cycleTime ]
+		[ postIndex, cycleTime, postsInfo ]
 	);
 
 	const currentImage =
