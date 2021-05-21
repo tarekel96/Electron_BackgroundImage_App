@@ -18,8 +18,8 @@ const authentication = require('./api-components/redirectAuthenticate.js'); // I
 
 // Bool to check --settings parameter
 // TODO(CHris): Revert these lines.
-// const shouldShowTempSettings = process.argv.includes('--settings');
-const shouldShowTempSettings = !process.argv.includes('--preview');
+const shouldShowTempSettings = process.argv.includes('--settings');
+//const shouldShowTempSettings = !process.argv.includes('--preview');
 
 // Where does Electron listen? Development mode: local host, Build: index.html
 const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
@@ -76,11 +76,11 @@ app.on('window-all-closed', () => {
 ipcMain.on('preview-screensaver', (event, args) => {
 	if (isDev) {
 		console.log('In dev mode, so running yarn command to start preview.');
-		exec('yarn electron . --preview');
+		exec('yarn electron . ');
 	}
 	else {
 		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
-		execFile(app.getPath('exe'), ["--preview"]);
+		execFile(app.getPath('exe'));
 	}
 });
 
