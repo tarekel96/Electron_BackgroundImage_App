@@ -64,8 +64,7 @@ async function getRedditPosts(query, pageref) {
                 data = data.data.children.filter(post => ((
                     post.data.url.includes('imgur') ||
                     post.data.url.includes('.png') ||
-                    post.data.url.includes('.jpg') ||
-                    post.data.url.includes('.gif')) &&
+                    post.data.url.includes('.jpg') ) &&
                     !post.data.over_18)
                     );
                     return data;

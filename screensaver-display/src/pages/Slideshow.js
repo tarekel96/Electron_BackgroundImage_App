@@ -94,8 +94,10 @@ function Slideshow({ appMode, setAppMode }) {
 	const currentImage =
 		postsInfo.length > 0 ? (
 			<section className={styles['slideShowContainer']}>
-				{postsInfo[postIndex].caption !== 'none' && (
-					<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
+				{(postsInfo[postIndex].caption !== 'none' && showDescription) && (
+					<div className={styles['captionBox']}>
+						<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
+					</div>
 				)}
 				<img src={postsInfo[postIndex].media_url} className={styles.center} alt="" />
 			</section>
