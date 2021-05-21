@@ -46,7 +46,7 @@ function createWindow() {
 
 	win.webContents.on('will-navigate', authentication.bind(null, win));
 
-	//win.removeMenu();
+	if (isDev) win.removeMenu();
 
 	// For Development: Run from localhost (background react server)
 	// For Builds: Run from index.html file in build/

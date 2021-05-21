@@ -93,7 +93,7 @@ function Slideshow({ appMode, setAppMode }) {
 
 	const currentImage =
 		postsInfo.length > 0 ? (
-			<section className={styles['slideShowContainer']}>
+			<section className={styles['slideShowContainer']} onmousemove={ipcRenderer.send('exit')}>
 				{(postsInfo[postIndex].caption !== 'none' && showDescription) && (
 					<div className={styles['captionBox']}>
 						<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
