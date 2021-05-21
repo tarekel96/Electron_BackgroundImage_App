@@ -156,7 +156,7 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						<option value="local">Local (file on own computer)</option>
 					</select>
 				</div>
-				<div>
+				{/* <div>
 					<label>
 						<Typography variant={SPAN}>Transition Type</Typography>
 					</label>
@@ -199,7 +199,7 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						<option value="png">.png</option>
 						<option value="png">.gif</option>
 					</select>
-				</div>
+				</div> */}
 				<div>
 					<label>
 						<Typography variant={SPAN}>Show Description Text</Typography>
@@ -218,7 +218,7 @@ const UserSettings = ({ appMode, setAppMode }) => {
 						}}
 					/>
 				</div>
-				<div>
+				{/* 				<div>
 					<label>
 						<Typography variant={SPAN}>Show Username/Profile Picture</Typography>
 					</label>
@@ -235,8 +235,8 @@ const UserSettings = ({ appMode, setAppMode }) => {
 							}
 						}}
 					/>
-				</div>
-				<div>
+				</div> */}
+				{/* <div>
 					<label htmlFor="select-image">
 						<Typography variant={SPAN}>Select image:</Typography>
 					</label>
@@ -262,8 +262,13 @@ const UserSettings = ({ appMode, setAppMode }) => {
 							<img src={previewSrc} alt={'Preview'} className={styles['previewImg']} />
 						</div>
 					</Fragment>
-				)}
-				<Button type="submit" variant="secondary" onClick={() => setShow(() => true)}>
+				)} */}
+				<Button
+					style={{ width: '50%', height: '100%', fontSize: '100%' }}
+					type="submit"
+					variant="secondary"
+					onClick={() => setShow(() => true)}
+				>
 					Submit
 				</Button>
 				{/* <Button type="submit" variant="secondary">

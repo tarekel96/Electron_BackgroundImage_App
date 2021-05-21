@@ -50,6 +50,15 @@ export const SideNavBar = () => {
 		<ProSidebar className={styles['sidenavbar']}>
 			<Menu iconShape={'round'} className={styles['sidenavbarMenu']}>
 				<SubMenu className={styles['sidenavbarSubmenu']} defaultOpen={true} open={state}>
+					<Button
+						style={{ width: '93%', height: '100%', fontSize: '100%' }}
+						onClick={() => {
+							console.log('Preview button clicked!');
+							ipcRenderer.send('preview-screensaver');
+						}}
+					>
+						Preview
+					</Button>
 					{navItems !== undefined &&
 						navItems.map(({ content, link, active, id }) => (
 							<MenuItem
