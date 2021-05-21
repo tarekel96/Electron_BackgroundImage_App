@@ -18,6 +18,7 @@ function Slideshow({ appMode, setAppMode }) {
 	// const [ imageSrc, setImageSrc ] = useState(''); // Removed
 	const [ showDescription, setShowDescription ] = useState(false);
 	const [ showUserProfile, setShowUserProfile ] = useState(false);
+	const [ keysToExit, setKeysToExit ] = useState(4);
 
 	// Runs once when page loads
 	useEffect(() => {
@@ -91,9 +92,16 @@ function Slideshow({ appMode, setAppMode }) {
 		[ postIndex, cycleTime, postsInfo ]
 	);
 
+	const handleKeyPress = (e) => {
+		e.preventDefault();
+		setKeysToExit(keysToExit-1);
+		console.log("Keys to close:",keysToExit);
+		if (!keysToExit) ipcRenderer.send('exit');
+	};
+
 	const currentImage =
 		postsInfo.length > 0 ? (
-			<section className={styles['slideShowContainer']} onmousemove={ipcRenderer.send('exit')}>
+			<section className={styles['slideShowContainer']} onKeyPress={handleKeyPress} tabIndex="0">
 				{(postsInfo[postIndex].caption !== 'none' && showDescription) && (
 					<div className={styles['captionBox']}>
 						<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
