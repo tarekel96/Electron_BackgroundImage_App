@@ -1,8 +1,10 @@
 # Electron_BackgroundImage_App
 
 ## About the Application
-- This is a desktop screensaver application that is intended to be cross-platform for Mac and Windows. The application allows users to integrate their Instagram account with the application so they can use their IG posts as screensaver. The application also has a reddit search feature which allows users to search for different subreddit forums to pool images from and use as their screensaver. The application was built using Electron.js, React.js, and Node.js (please refer to below for more details).
-- 
+- This is a desktop screensaver application that is intended to be cross-platform for Mac and Windows. The application allows users to integrate their Instagram account with the application so they can use their IG posts as screensaver. 
+- The application has a reddit search feature which allows users to search for different subreddit forums to pool images from and use as their screensaver. 
+- The application was built using Electron.js, React.js, and Node.js (please refer to below for more details).
+
 ## Steps to Get Started:
         - 1) Install the latest version of npm globally on your computer: 
                 https://docs.npmjs.com/cli/v6/commands/npm-install
