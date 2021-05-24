@@ -76,7 +76,8 @@ function Slideshow({ appMode, setAppMode }) {
 	}, []);
 
 	// Interval to transition slideshow
-	useEffect(() => {
+	useEffect(
+		() => {
 			const interval = setInterval(() => {
 				if (postIndex >= postsInfo.length - 1) {
 					setPostIndex(0);
@@ -84,7 +85,7 @@ function Slideshow({ appMode, setAppMode }) {
 				else {
 					setPostIndex(postIndex + 1);
 				}
-				console.log(`Interval changed to slide ${postIndex+1}/${postsInfo.length}`);
+				console.log(`Interval changed to slide ${postIndex + 1}/${postsInfo.length}`);
 			}, cycleTime);
 
 			return () => clearInterval(interval);
@@ -94,15 +95,16 @@ function Slideshow({ appMode, setAppMode }) {
 
 	const handleKeyPress = (e) => {
 		e.preventDefault();
-		setKeysToExit(keysToExit-1);
-		console.log("Keys to close:",keysToExit);
+		setKeysToExit(keysToExit - 1);
+		console.log('Keys to close:', keysToExit);
 		if (!keysToExit) ipcRenderer.send('exit');
 	};
 
 	const currentImage =
 		postsInfo.length > 0 ? (
 			<section className={styles['slideShowContainer']} onKeyPress={handleKeyPress} tabIndex="0">
-				{(postsInfo[postIndex].caption !== 'none' && showDescription) && (
+				{postsInfo[postIndex].caption !== 'none' &&
+				showDescription && (
 					<div className={styles['captionBox']}>
 						<p className={styles['postCaption']}>{postsInfo[postIndex].caption}</p>
 					</div>
@@ -115,10 +117,22 @@ function Slideshow({ appMode, setAppMode }) {
 					Oops! You don't have any images available. Try logging in with the settings app and selecting some
 					images.
 				</h1>
-				{/* <Link to="/settings_instagram">Go here to log in.</Link> */}
-				<div>
-					<button onClick={() => ipcRenderer.send('exit')}>Exit</button>
+				<div
+					style={{
+						textAlign: 'center',
+						display: 'flex',
+						width: '100%',
+						height: '50%',
+						justifyContent: 'center',
+						alignItems: 'center',
+						fontSize: 32
+					}}
+				>
+					<Link to="/settings_instagram">Go here to log in.</Link>
 				</div>
+				{/* 				<div>
+					<button onClick={() => ipcRenderer.send('exit')}>Exit</button>
+				</div> */}
 			</div>
 		);
 
