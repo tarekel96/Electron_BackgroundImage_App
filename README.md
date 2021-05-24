@@ -37,7 +37,7 @@
         - Click on Preview (side-navbar) to see the screensaver in action
 
 - Diagram of Instagram integrations works: https://docs.google.com/drawings/d/10-ui9ZFTACxW4K2ZB38rnLoBY7ggXDEfqicSWN3sO4s/edit?usp=sharing
-*Note: Application does not replace native OS Screensaver Application automatically.
+- *Note: Application does not replace native OS Screensaver Application automatically.
 Manual Windows integration is currently possible via right-clicking the .scr executable file and clicking “Install.”
 Automatic Windows integration is planned for the future.
 
