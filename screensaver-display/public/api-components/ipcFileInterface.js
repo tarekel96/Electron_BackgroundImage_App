@@ -1,6 +1,5 @@
 const { app, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const { exec, execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -12,16 +11,11 @@ if (!fs.existsSync(storagePath)) {
 	fs.mkdirSync(storagePath);
 }
 
-// Used to read the login token for Instagram
-ipcMain.on('ig-bd-read-token', (event, arg) => {
-	const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';
 
-	try {
-		event.returnValue = fs.readFileSync(tokenFilePath, 'utf8');
-	} catch (err) {
-		event.returnValue = null;
-	}
-});
+
+//
+// Settings Files
+//
 
 // Used to save settings from the UserSettings tab
 ipcMain.on('save-settings', (event, args) => {
@@ -30,13 +24,22 @@ ipcMain.on('save-settings', (event, args) => {
 });
 
 // Used to read settings when displaying the screensaver
+// WARNING(Chris): This will _write_ a default settings.json to the file system
+// if none already exists
 ipcMain.on('read-settings-info', (event, arg) => {
-	try {
-		const settingsPath = storagePath + '/settings.json';
+	const settingsPath = storagePath + '/settings.json';
 
+	try {
 		event.returnValue = require(settingsPath);
 	} catch (err) {
-		event.returnValue = null;
+		const defaultSettings =
+      '{"cycleTime":3000,"source":"ig","transitionType":"fade","imageType":"jpg","showDescription":false,"showUserProfile":false,"localImageFile":""}';
+
+		fs.writeFileSync(settingsPath, defaultSettings);
+		const result = require(settingsPath);
+
+		// console.log(result);
+		event.returnValue = result;
 	}
 });
 
@@ -62,20 +65,26 @@ ipcMain.on('read-selected-images', (event, arg) => {
 	}
 });
 
-ipcMain.on('preview-screensaver', (event, args) => {
-	if (isDev) {
-		console.log('In dev mode, so running yarn command to start preview.');
-		exec('yarn electron . --preview');
-	}
-	else {
-		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
-		execFile(app.getPath('exe'), ["--preview"]);
-	}
-});
+
+
+//
+// Instagram API
+//
 
 // Obtains the url basis for use in double-redirects in React
 ipcMain.on('get-url-basis', (event, args) => {
 	event.returnValue = urlBasis;
+});
+
+// Used to read the login token for Instagram
+ipcMain.on('ig-bd-read-token', (event, arg) => {
+	const tokenFilePath = storagePath + '/IGBasicDisplayLongLivedToken';
+
+	try {
+		event.returnValue = fs.readFileSync(tokenFilePath, 'utf8');
+	} catch (err) {
+		event.returnValue = null;
+	}
 });
 
 ipcMain.on('delete-ig-files', (event, args) => {
@@ -94,7 +103,14 @@ ipcMain.on('delete-ig-files', (event, args) => {
 	event.returnValue = null;
 });
 
+
+//
+// RedditAPI
+//
+
+//saves subreddit data
 ipcMain.on('save-subreddits', (event, args) => {
+	console.log('Saving subreddits: ' + args);
 	if (args !== undefined) {
 		const selectedImagesPath = storagePath + '/subreddits.json';
 		fs.writeFileSync(selectedImagesPath, args);
@@ -104,12 +120,21 @@ ipcMain.on('save-subreddits', (event, args) => {
 	}
 });
 
-ipcMain.on('read-subreddits', (event, arg) => {
-	try {
-		const selectedImagesPath = storagePath + '/subreddits.json';
+// reads subreddit data
+ipcMain.on('read-subreddits', (event) => {
+	const selectedImagesPath = storagePath + '/subreddits.json';
 
-		event.returnValue = require(selectedImagesPath);
+	try {
+		const rawFile = fs.readFileSync(selectedImagesPath);
+		console.log('raw subreddits.json: ' + rawFile);
+		const result = JSON.parse(rawFile);
+		// const result = require(selectedImagesPath);
+		console.log('selected subreddits successfully read in: ' + result);
+
+		event.returnValue = result;
 	} catch (err) {
-		event.returnValue = null;
+		fs.writeFileSync(selectedImagesPath, "[]");
+
+		event.returnValue = [];
 	}
 });

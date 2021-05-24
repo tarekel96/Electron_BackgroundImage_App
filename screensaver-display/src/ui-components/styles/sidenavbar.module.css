@@ -18,14 +18,20 @@
 .sidenavbarSubmenu {
 	min-height: 80%;
 }
+.sidenavbar > div > div > nav > ul > li > div {
+	padding-right: 20px;
+}
 /* Arrow Icon Div Container */
 .sidenavbarSubmenu > div {
 	margin-top: 1rem;
+	cursor: default !important;
 }
 /* Arrow Icon */
 .sidenavbarSubmenu > div > span > span {
 	height: 18px;
 	width: 18px;
+	display: none !important;
+	cursor: default;
 }
 /* Sidebar Items Container */
 .sidenavbarMenu > ul > li > div > div {
@@ -55,13 +61,28 @@
 	height: 96px;
 	width: 100%;
 	list-style-type: none !important;
+	margin: 0.25rem auto;
+}
+.sidenavitem:hover {
+	background-color: white;
+	color: black;
+	width: 100%;
+	border-radius: 6px;
+	height: 96px;
+	display: flex;
+	align-items: center;
+	margin: 0.25rem auto;
 }
 
 .activeItem {
 	background-color: white;
 	color: black;
-	width: 90%;
+	width: 100%;
 	border-radius: 6px;
+	height: 96px;
+	display: flex;
+	align-items: center;
+	margin: 0.25rem auto;
 }
 
 .sidenavitem > div {
@@ -87,7 +108,6 @@
 
 .sidenavitem:hover {
 	cursor: pointer;
-	background-color: #fffefe;
 }
 .sidenavitemContent {
 	margin: 0;

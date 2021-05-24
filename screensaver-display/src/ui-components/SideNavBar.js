@@ -46,25 +46,39 @@ export const SideNavBar = () => {
 		return null;
 	}
 
-	// <MenuItem icon={<FaGem />}>
-	//   Dashboard
-	//   <Link to="/" />
-	// </MenuItem>;
-
 	return (
 		<ProSidebar className={styles['sidenavbar']}>
 			<Menu iconShape={'round'} className={styles['sidenavbarMenu']}>
-				<SubMenu
-					className={styles['sidenavbarSubmenu']}
-					defaultOpen={true}
-					open={state}
-					onOpenChange={() => setState((prevState) => !prevState)}
-				>
+				<SubMenu className={styles['sidenavbarSubmenu']} defaultOpen={true} open={state}>
+					<Button
+						style={{ width: '93%', height: '100%', fontSize: '100%' }}
+						onClick={() => {
+							console.log('Preview button clicked!');
+							ipcRenderer.send('preview-screensaver');
+						}}
+					>
+						Preview
+					</Button>
 					{navItems !== undefined &&
 						navItems.map(({ content, link, active, id }) => (
 							<MenuItem
-								className={activeIndex === id ? styles['activeItem'] : styles['sidenavitem']}
+								className={active === true ? styles['activeItem'] : styles['sidenavitem']}
 								key={id}
+								onClick={() => {
+									let copyNavItems = [ ...navItems ];
+									let modNavItems = [];
+									for (let i = 0; i < navItems.length; ++i) {
+										if (copyNavItems[i].id !== id) {
+											copyNavItems[i].active = false;
+											modNavItems.push(copyNavItems[i]);
+										}
+										else {
+											copyNavItems[i].active = true;
+											modNavItems.push(copyNavItems[i]);
+										}
+									}
+									setNavItems(() => modNavItems);
+								}}
 							>
 								<Link replace to={link}>
 									<Typography variant={H_2} className={styles['sidenavbarLink']}>

@@ -45,6 +45,7 @@
     "electron-build-win": "electron-builder --win",
     "build": "npm run react-build && npm run electron-build",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . --preview\"",
+    "oldstart": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "settings": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . --settings\""
   },
   "eslintConfig": {

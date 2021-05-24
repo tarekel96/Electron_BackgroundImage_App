@@ -2,6 +2,10 @@
 
 .settingsSection {
 	margin: 4% 0 0 4%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 3rem;
 }
 .modalContainer {
 	display: flex;

@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
+const { exec, execFile } = require('child_process');
 
 // settings files storage path
 const storagePath = app.getPath('appData') + '/shared-screensaver';
@@ -12,12 +13,13 @@ if (!fs.existsSync(storagePath)) {
 
 // interfaces
 require('./api-components/ipcFileInterface.js'); // file access from React through main Electron window
+require('./api-components/redditAPI.js'); // RedditAPI functions that need to run from main process
 const authentication = require('./api-components/redirectAuthenticate.js'); // Instagram authentication moved here
 
 // Bool to check --settings parameter
 // TODO(CHris): Revert these lines.
-// const shouldShowTempSettings = process.argv.includes('--settings');
-const shouldShowTempSettings = !process.argv.includes('--preview');
+const shouldShowTempSettings = process.argv.includes('--settings');
+//const shouldShowTempSettings = !process.argv.includes('--preview');
 
 // Where does Electron listen? Development mode: local host, Build: index.html
 const urlBasis = isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`;
@@ -44,6 +46,8 @@ function createWindow() {
 
 	win.webContents.on('will-navigate', authentication.bind(null, win));
 
+	if (!isDev) win.removeMenu();
+
 	// For Development: Run from localhost (background react server)
 	// For Builds: Run from index.html file in build/
 	win.loadURL(shouldShowTempSettings ? urlBasis + '#/posts' : urlBasis);
@@ -69,6 +73,18 @@ app.on('window-all-closed', () => {
 	}
 });
 
+ipcMain.on('preview-screensaver', (event, args) => {
+	if (isDev) {
+		console.log('In dev mode, so running yarn command to start preview.');
+		exec('yarn electron . ');
+	}
+	else {
+		console.log(`In production mode, so using ${app.getPath('exe')} to start a new instance.`);
+		execFile(app.getPath('exe'));
+	}
+});
+
 ipcMain.on('exit', (event, args) => {
+	console.log("Exited from ipcMain exit function");
 	app.exit();
 });
